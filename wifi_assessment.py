@@ -42,8 +42,11 @@ def log(msg, level="INFO"):
 
 def setup_output_dir():
     """Creates a timestamped output directory for the current scan session."""
+    base_out_dir = "out_wifi"
+    os.makedirs(base_out_dir, exist_ok=True)
+    
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    out_dir = f"assessment_results_{timestamp}"
+    out_dir = os.path.join(base_out_dir, f"assessment_results_{timestamp}")
     try:
         os.makedirs(out_dir, exist_ok=True)
         log(f"Created output directory: {out_dir}", "SUCCESS")
