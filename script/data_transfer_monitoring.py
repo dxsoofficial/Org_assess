@@ -29,7 +29,8 @@ def log(msg, level="INFO"):
 
 def setup_output_dir():
     """Creates a timestamped output directory for the current monitoring session."""
-    base_out_dir = "out_data_transfer"
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    base_out_dir = os.path.abspath(os.path.join(script_dir, "..", "output", "out_data_transfer"))
     os.makedirs(base_out_dir, exist_ok=True)
     
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
