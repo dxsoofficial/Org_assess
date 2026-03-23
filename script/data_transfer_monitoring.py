@@ -43,6 +43,52 @@ def setup_output_dir():
         log(f"Failed to create directory '{out_dir}': {e}", "ERROR")
         sys.exit(1)
 
+def compile_results(out_dir):
+    """Parses Suricata logs and consolidates them into a single file."""
+    log("Consolidating Suricata logs into a single report...", "INFO")
+    
+    fast_log_path = os.path.join(out_dir, "fast.log")
+    suricata_console = os.path.join(out_dir, "suricata_console_out.txt")
+    eve_json_path = os.path.join(out_dir, "eve.json")
+    suricata_log_path = os.path.join(out_dir, "suricata.log")
+    stats_log_path = os.path.join(out_dir, "stats.log")
+    
+    final_report_path = os.path.join(out_dir, "data_transfer_report.txt")
+    
+    try:
+        with open(final_report_path, "w") as report:
+            report.write("==========================================================\n")
+            report.write("          DATA TRANSFER & PROTOCOL MONITORING REPORT      \n")
+            report.write("==========================================================\n\n")
+            
+            report.write("--- Suricata System Operations ---\n")
+            if os.path.exists(suricata_console):
+                with open(suricata_console, "r") as f:
+                    report.write(f.read() + "\n")
+            else:
+                report.write("No system logs found.\n\n")
+                
+            report.write("--- Network Alerts (Protocol & Transfer Flags) ---\n")
+            if os.path.exists(fast_log_path):
+                with open(fast_log_path, "r") as f:
+                    alerts = f.readlines()
+                    if alerts:
+                        report.writelines(alerts)
+                    else:
+                        report.write("No suspicious or flagged transfers detected.\n")
+            else:
+                report.write("No alerts file generated.\n")
+            report.write("\n")
+            
+        for file in [fast_log_path, stats_log_path, eve_json_path, suricata_log_path, suricata_console]:
+            if os.path.exists(file):
+                os.remove(file)
+                
+        log("Cleaned up raw JSON and scattered log files.", "INFO")
+        
+    except Exception as e:
+        log(f"Error compiling final report: {e}", "ERROR")
+
 def run_suricata(out_dir, interface, duration_mins=5):
     """Runs Suricata for monitoring data transfers and protocol identification."""
     duration_secs = duration_mins * 60
@@ -78,6 +124,7 @@ def run_suricata(out_dir, interface, duration_mins=5):
                 process.terminate()
                 process.wait(timeout=10)
                 log("Suricata monitoring completed.", "SUCCESS")
+                compile_results(out_dir)
                 
     except FileNotFoundError:
         log("Suricata is not found in PATH. Please install it (e.g., 'sudo apt install suricata').", "ERROR")
@@ -112,10 +159,9 @@ def main():
         run_suricata(out_dir, interface, duration_mins=duration_mins)
         
         print("\n==========================================================")
-        log(f"Monitoring complete! Important log files are located in: '{os.path.abspath(out_dir)}'", "SUCCESS")
-        log(f" - eve.json: Contains highly structured JSON with protocol IDs, encrypted/unencrypted flows, and file transfers.", "INFO")
-        log(f" - fast.log: Contains simple single-line alert messages for unauthorized/flagged transfers.", "INFO")
-        log(f" - stats.log: Contains Suricata packet processing stats.", "INFO")
+        log(f"Monitoring complete!", "SUCCESS")
+        log(f"Compiled report is located at: '{os.path.abspath(os.path.join(out_dir, 'data_transfer_report.txt'))}'", "SUCCESS")
+        log(f"Raw logging files were successfully cleaned up.", "INFO")
         
     except KeyboardInterrupt:
         print("\n")
