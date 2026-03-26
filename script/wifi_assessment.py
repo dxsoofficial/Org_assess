@@ -40,10 +40,10 @@ def log(msg, level="INFO"):
     color = colors.get(level, colors["INFO"])
     print(f"{color}[{level}] {msg}{colors['RESET']}")
 
-def setup_output_dir():
+def setup_output_dir(org_name):
     """Creates a timestamped output directory for the current scan session."""
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    base_out_dir = os.path.abspath(os.path.join(script_dir, "..", "output", "out_wifi"))
+    base_out_dir = os.path.abspath(os.path.join(script_dir, "..", "output", org_name, "out_wifi"))
     os.makedirs(base_out_dir, exist_ok=True)
     
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -160,13 +160,17 @@ def main():
         time.sleep(2)
         
     try:
+        org_name = input("\nEnter the organization name in which the assessment is performed: ").strip().replace(" ", "_")
+        if not org_name:
+            org_name = "Unknown_Org"
+            
         # Request target input
         target = input("\nEnter target IP or CIDR for Nmap (e.g., 192.168.1.0/24) [default: 192.168.1.0/24]: ").strip()
         if not target:
             target = "192.168.1.0/24"
             log(f"No target provided, defaulting to {target}", "INFO")
             
-        out_dir = setup_output_dir()
+        out_dir = setup_output_dir(org_name)
         
         # Phase 1: Wi-Fi Scans
         print("\n--- Phase 1: Wi-Fi Assessment ---")

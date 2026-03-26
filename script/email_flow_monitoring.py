@@ -36,10 +36,10 @@ def log(msg, level="INFO"):
     color = colors.get(level, colors["INFO"])
     print(f"{color}[{level}] {msg}{colors['RESET']}")
 
-def setup_output_dir():
+def setup_output_dir(org_name):
     """Creates a timestamped output directory for the current scanning session."""
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    base_out_dir = os.path.abspath(os.path.join(script_dir, "..", "output", "out_email_flow"))
+    base_out_dir = os.path.abspath(os.path.join(script_dir, "..", "output", org_name, "out_email_flow"))
     os.makedirs(base_out_dir, exist_ok=True)
     
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -270,6 +270,10 @@ def main():
     is_spoofing = False
     
     try:
+        org_name = input("\nEnter the organization name in which the assessment is performed: ").strip().replace(" ", "_")
+        if not org_name:
+            org_name = "Unknown_Org"
+            
         # Interactive Setup
         interface = input("\nEnter interface for Live Email Flow monitoring (e.g., eth0) [default: eth0]: ").strip()
         if not interface:
@@ -295,7 +299,7 @@ def main():
             else:
                 log("Router/Gateway IP is absolutely required to arp spoof. Bypassing interception.", "WARN")
         
-        out_dir = setup_output_dir()
+        out_dir = setup_output_dir(org_name)
         
         print("\n--- Pillar 1: Static Email Content Analysis ---")
         run_spamassassin(out_dir, eml_file)

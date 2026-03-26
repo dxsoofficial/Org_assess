@@ -27,10 +27,10 @@ def log(msg, level="INFO"):
     color = colors.get(level, colors["INFO"])
     print(f"{color}[{level}] {msg}{colors['RESET']}")
 
-def setup_output_dir():
+def setup_output_dir(org_name):
     """Creates a timestamped output directory for the current monitoring session."""
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    base_out_dir = os.path.abspath(os.path.join(script_dir, "..", "output", "out_data_transfer"))
+    base_out_dir = os.path.abspath(os.path.join(script_dir, "..", "output", org_name, "out_data_transfer"))
     os.makedirs(base_out_dir, exist_ok=True)
     
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -191,6 +191,10 @@ def main():
     is_spoofing = False
     
     try:
+        org_name = input("\nEnter the organization name in which the assessment is performed: ").strip().replace(" ", "_")
+        if not org_name:
+            org_name = "Unknown_Org"
+            
         # Request interface input
         interface = input("\nEnter network interface to monitor (e.g., eth0, wlan0) [default: eth0]: ").strip()
         if not interface:
@@ -214,7 +218,7 @@ def main():
             else:
                 log("Router/Gateway IP is absolutely required to arp spoof. Bypassing interception.", "WARN")
         
-        out_dir = setup_output_dir()
+        out_dir = setup_output_dir(org_name)
         
         print("\n--- Phase 2: Live Monitoring ---")
         run_suricata(out_dir, interface, duration_mins=duration_mins)
