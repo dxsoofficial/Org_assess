@@ -16,6 +16,11 @@ ASSESSMENT_FOCUS = {
         "User Behavior Monitoring",
         "Historical Email Logging",
         "Real-Time Flow Alerts"
+    ],
+    "External Security Posture (nslookup/DNS)": [
+        "SPF Configuration",
+        "DMARC Enforcement",
+        "Domain Reputation & Spoofing Risk"
     ]
 }
 
@@ -61,12 +66,9 @@ def start_arp_spoofing(interface, gateway_ip, target_ip=""):
     """Starts bidirectional ARP spoofing to capture whole network/target email traffic."""
     procs = []
     try:
-        # Verify arpspoof is installed (part of dsniff)
         subprocess.run(["arpspoof", "-h"], capture_output=True)
-        
         log(f"Initiating ARP Spoofing on {interface} to intercept email traffic...", "WARN")
         
-        # We need the user to either spoof exactly one target or the entire subnet
         if target_ip:
             log(f"  --> Intercepting Target: {target_ip} <--> Gateway: {gateway_ip}", "WARN")
             p1 = subprocess.Popen(["arpspoof", "-i", interface, "-t", target_ip, gateway_ip], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
@@ -103,17 +105,13 @@ def run_tshark_email(out_dir, interface, duration_mins=5):
     pcap_out = os.path.join(out_dir, "email_traffic.pcap")
     log_out = os.path.join(out_dir, "historical_email_flows.txt")
     
-    # We filter TShark for standard mail routing ports
     mail_ports = "tcp port 25 or tcp port 465 or tcp port 587 or tcp port 143 or tcp port 993 or tcp port 110 or tcp port 995"
     
     try:
-        # -a duration stops capture cleanly after specified seconds
         subprocess.run(["tshark", "-i", interface, "-a", f"duration:{duration_secs}", "-f", mail_ports, "-w", pcap_out], 
                        capture_output=True, text=True)
         
-        # Analyze PCAP and save conversation results
         if os.path.exists(pcap_out):
-            # Extract connections (Conversations) mapping IPs to Mail servers
             analysis = subprocess.run(["tshark", "-r", pcap_out, "-q", "-z", "conv,tcp"], capture_output=True, text=True)
             with open(log_out, "w") as f:
                 f.write(f"--- FILTERED EMAIL TRAFFIC LOG: {mail_ports} ---\n\n")
@@ -145,7 +143,6 @@ def run_spamassassin(out_dir, eml_file):
             return
             
         with open(eml_file, "r") as infile, open(sa_out, "w") as outfile:
-            # -t triggers test/report generation on STDOUT
             subprocess.run(["spamassassin", "-t"], stdin=infile, stdout=outfile, stderr=subprocess.STDOUT)
             
         log(f"SpamAssassin analysis complete. Component text report generated.", "SUCCESS")
@@ -154,40 +151,107 @@ def run_spamassassin(out_dir, eml_file):
     except Exception as e:
         log(f"Error executing SpamAssassin: {e}", "ERROR")
 
+def run_external_posture_check(out_dir, domain):
+    """Pillar 3: Actively probes External DNS for SPF and DMARC Security Enforcement Posture."""
+    if not domain:
+        return
+        
+    log(f"Starting External Security Posture Assessment on domain '{domain}' via DNS...", "WARN")
+    log(f"Assessment Focus: {', '.join(ASSESSMENT_FOCUS['External Security Posture (nslookup/DNS)'])}", "WARN")
+    
+    posture_out = os.path.join(out_dir, "external_dns_posture.txt")
+    
+    try:
+        # We need this purely text-based evaluation to build the report
+        with open(posture_out, "w") as f:
+            f.write(f"--- EXTERNAL DNS SECURITY POSTURE FOR: {domain} ---\n\n")
+            
+            # --- SPF Check ---
+            f.write("[*] Verifying Primary SPF Record...\n")
+            spf_process = subprocess.run(["nslookup", "-type=txt", domain], capture_output=True, text=True)
+            # Find matching TXT blocks for SPF explicitly
+            spf_lines = [line.strip().replace('"', '') for line in spf_process.stdout.split('\n') if "v=spf1" in line.lower()]
+            
+            if spf_lines:
+                f.write(f"  FOUND RECORD: {spf_lines[0]}\n")
+                if "~all" in spf_lines[0]:
+                    f.write("  -> RATING: MODERATE (Softfail: '~all' allows delivery but marks as suspicious)\n")
+                elif "-all" in spf_lines[0]:
+                    f.write("  -> RATING: EXCELLENT (Hardfail: '-all' rejects unauthorized senders perfectly)\n")
+                elif "+all" in spf_lines[0] or "?all" in spf_lines[0]:
+                    f.write("  -> RATING: CRITICAL RISK (Permissive: explicitly allows unauthorized people to spoof this domain)\n")
+            else:
+                f.write("  -> RATING: CRITICAL RISK (No SPF Record Found! Domain can be easily spoofed across all registrars.)\n")
+            f.write("\n")
+            
+            # --- DMARC Check ---
+            f.write("[*] Verifying DMARC Enforcement Protocols...\n")
+            dmarc_domain = f"_dmarc.{domain}"
+            dmarc_process = subprocess.run(["nslookup", "-type=txt", dmarc_domain], capture_output=True, text=True)
+            dmarc_lines = [line.strip().replace('"', '') for line in dmarc_process.stdout.split('\n') if "v=DMARC1" in line.upper()]
+            
+            if dmarc_lines:
+                f.write(f"  FOUND RECORD: {dmarc_lines[0]}\n")
+                if "p=reject" in dmarc_lines[0].lower():
+                    f.write("  -> RATING: EXCELLENT (Policy is Reject: absolute highest protection against impersonation)\n")
+                elif "p=quarantine" in dmarc_lines[0].lower():
+                    f.write("  -> RATING: GOOD (Policy is Quarantine: spoofed emails go safely into spam/junk)\n")
+                elif "p=none" in dmarc_lines[0].lower():
+                    f.write("  -> RATING: WEAK (Policy is None: DMARC is essentially turned off. It is acting only as a passive monitor.)\n")
+            else:
+                f.write("  -> RATING: CRITICAL RISK (No DMARC Record Found at all! No protection against exact-domain 'From' spoofing.)\n")
+            f.write("\n")
+            
+            # --- Final DKIM Notice ---
+            f.write("-----------------------\n")
+            f.write("Note: DKIM checks require possessing the exact cryptographic 'selector' generated by the mail registrar, which cannot be blindly queried without extracting headers from an active email received via Phase 2/3.\n")
+            
+        log(f"External posture assessment successfully completed and parsed.", "SUCCESS")
+    except Exception as e:
+        log(f"Error executing External DNS checks: {e}", "ERROR")
+
 def compile_results(out_dir):
     """Parses individual tool logs and compiles them into a single report, deleting clutter."""
-    log("Consolidating final Email Flow report...", "INFO")
+    log("Consolidating final 3-Pillar Email Security report...", "INFO")
     
     final_report = os.path.join(out_dir, "email_flow_report.txt")
     pcap_log = os.path.join(out_dir, "historical_email_flows.txt")
     sa_log = os.path.join(out_dir, "spamassassin_report.txt")
+    dns_log = os.path.join(out_dir, "external_dns_posture.txt")
     
     try:
         with open(final_report, "w") as report:
             report.write("==========================================================\n")
-            report.write("               EMAIL FLOW & CONTENT REPORT                \n")
+            report.write("      FULL 3-PILLAR EMAIL SECURITY & POSTURE REPORT       \n")
             report.write("==========================================================\n\n")
             
-            report.write("--- 1. Live Email Flow Analysis (TShark) ---\n")
+            report.write("--- Pillar 1: Static Endpoint Content Analysis (SpamAssassin) ---\n")
+            if os.path.exists(sa_log):
+                with open(sa_log, "r") as f:
+                    report.write(f.read() + "\n")
+            else:
+                report.write("No static .eml file processed for Endpoint analysis.\n\n")
+
+            report.write("\n\n--- Pillar 2: Live Network Email Flow Interception (TShark) ---\n")
             if os.path.exists(pcap_log):
                 with open(pcap_log, "r") as f:
                     report.write(f.read() + "\n")
             else:
                 report.write("No live network email flows captured or analyzed.\n\n")
                 
-            report.write("\n--- 2. Static Content Analysis (SpamAssassin) ---\n")
-            if os.path.exists(sa_log):
-                with open(sa_log, "r") as f:
+            report.write("\n\n--- Pillar 3: External Domain Security Posture (DNS Logs) ---\n")
+            if os.path.exists(dns_log):
+                with open(dns_log, "r") as f:
                     report.write(f.read() + "\n")
             else:
-                report.write("No static .eml file processed.\n")
+                report.write("No external domain investigated.\n")
                 
         # Clean up text artifacts, leaving only the consolidated report and the actual raw traffic PCAP
-        for file in [pcap_log, sa_log]:
+        for file in [pcap_log, sa_log, dns_log]:
             if os.path.exists(file):
                 os.remove(file)
                 
-        log(f"Report cleanly compiled to: '{os.path.abspath(final_report)}'", "SUCCESS")
+        log(f"Final 3-Pillar Report cleanly compiled to: '{os.path.abspath(final_report)}'", "SUCCESS")
         
     except Exception as e:
         log(f"Error compiling final report: {e}", "ERROR")
@@ -206,7 +270,7 @@ def main():
     is_spoofing = False
     
     try:
-        # Prompt user for inputs
+        # Interactive Setup
         interface = input("\nEnter interface for Live Email Flow monitoring (e.g., eth0) [default: eth0]: ").strip()
         if not interface:
             interface = "eth0"
@@ -214,9 +278,11 @@ def main():
         duration_input = input("Enter Flow Capture duration (minutes) [default: 5]: ").strip()
         duration_mins = int(duration_input) if duration_input.isdigit() else 5
         
-        eml_file = input("Enter path to a raw email file (.eml) for static SpamAssassin assessment [leave blank to skip]: ").strip()
+        eml_file = input("Enter path to a raw email file (.eml) for Phase 1 static SpamAssassin assessment [leave blank to skip]: ").strip()
         
-        print("\n--- Phase 1: Network Setup ---")
+        target_domain = input("Enter Target Domain (e.g., company.com) to automatically assess its public DMARC/SPF Posture [leave blank to skip]: ").strip()
+        
+        print("\n--- Phase 0: Network Interception Setup ---")
         spoof_choice = input("Enable Active ARP Spoofing to intercept WHOLE network email traffic? (y/N): ").strip().lower()
         if spoof_choice == 'y':
             gateway_ip = input("  Enter Router/Gateway IP (e.g., 192.168.1.1): ").strip()
@@ -231,16 +297,18 @@ def main():
         
         out_dir = setup_output_dir()
         
-        print("\n--- Phase 2: Live Network Email Monitoring ---")
+        print("\n--- Pillar 1: Static Email Content Analysis ---")
+        run_spamassassin(out_dir, eml_file)
+
+        print("\n--- Pillar 2: Live Network Email Monitoring ---")
         run_tshark_email(out_dir, interface, duration_mins=duration_mins)
-        
-        if eml_file:
-            print("\n--- Phase 3: Static Email Content Analysis ---")
-            run_spamassassin(out_dir, eml_file)
+
+        print("\n--- Pillar 3: External Domain Asset Auditing ---")
+        run_external_posture_check(out_dir, target_domain)
         
         print("\n==========================================================")
         compile_results(out_dir)
-        log("Monitoring Phase mathematically complete!", "SUCCESS")
+        log("Log-less Assessment Suite mathematical analysis entirely completed!", "SUCCESS")
         
     except KeyboardInterrupt:
         print("\n")
