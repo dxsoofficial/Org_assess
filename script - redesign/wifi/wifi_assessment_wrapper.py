@@ -17,7 +17,7 @@ def log(msg, level="INFO"):
 
 def setup_output_dir(org_name):
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    base_out_dir = os.path.abspath(os.path.join(script_dir, "..", "output", org_name, "out_wifi"))
+    base_out_dir = os.path.abspath(os.path.join(script_dir, "output", org_name, "out_wifi"))
     os.makedirs(base_out_dir, exist_ok=True)
     
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
