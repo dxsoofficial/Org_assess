@@ -12,6 +12,10 @@ def setup_output_dir(scan_type="out_scan"):
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     out_dir = os.path.join(base_out_dir, f"results_{timestamp}")
     os.makedirs(out_dir, exist_ok=True)
+    try:
+        os.chmod(out_dir, 0o777)
+    except:
+        pass
     return out_dir
 
 ASSESSMENT_FOCUS = [

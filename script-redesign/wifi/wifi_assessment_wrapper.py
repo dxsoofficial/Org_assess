@@ -24,6 +24,7 @@ def setup_output_dir(org_name):
     out_dir = os.path.join(base_out_dir, f"assessment_results_{timestamp}")
     try:
         os.makedirs(out_dir, exist_ok=True)
+        os.chmod(out_dir, 0o777)
         log(f"Created output directory: {out_dir}", "SUCCESS")
         return out_dir
     except Exception as e:
