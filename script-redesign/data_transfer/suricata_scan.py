@@ -35,7 +35,7 @@ def log(msg, level="INFO"):
     print(f"{color}[{level}] {msg}{colors['RESET']}")
 
 def compile_results(out_dir):
-    log("Consolidating Suricata logs into a single report...", "INFO")
+    log("Consolidating Suricata logs and applying Vulnerability Mapping Layer...", "INFO")
     
     fast_log_path = os.path.join(out_dir, "fast.log")
     suricata_console = os.path.join(out_dir, "suricata_console_out.txt")
@@ -46,10 +46,18 @@ def compile_results(out_dir):
     final_report_path = os.path.join(out_dir, "data_transfer_report.txt")
     
     try:
+        # Run Vulnerability Mapping Layer
+        import data_transfer_parser
+        report_data = data_transfer_parser.parse_eve_json(eve_json_path)
+        formatted_vuln_report = data_transfer_parser.generate_report_text(report_data)
+        
         with open(final_report_path, "w") as report:
             report.write("==========================================================\n")
-            report.write("          DATA TRANSFER & PROTOCOL MONITORING REPORT      \n")
+            report.write("   DATA TRANSFER & PROTOCOL MONITORING RISK REPORT        \n")
             report.write("==========================================================\n\n")
+            
+            report.write(formatted_vuln_report)
+            report.write("\n----------------------------------------------------------\n")
             
             report.write("--- Suricata System Operations ---\n")
             if os.path.exists(suricata_console):
@@ -75,7 +83,7 @@ def compile_results(out_dir):
                 os.remove(file)
                 
         log("Cleaned up raw JSON and scattered log files.", "INFO")
-        log(f"Report successfully compiled into: {final_report_path}", "SUCCESS")
+        log(f"Risk Report successfully compiled into: {final_report_path}", "SUCCESS")
         
     except Exception as e:
         log(f"Error compiling final report: {e}", "ERROR")
@@ -120,10 +128,28 @@ def run_suricata(out_dir, interface, duration_mins):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run Suricata scan.")
     parser.add_argument("--out-dir", required=False, help="Output directory (auto-generated if not provided)")
-    parser.add_argument("--interface", required=True, help="Network interface")
-    parser.add_argument("--duration-mins", type=int, required=True, help="Duration in minutes")
+    parser.add_argument("--interface", required=False, help="Network interface")
+    parser.add_argument("--duration-mins", type=int, required=False, help="Duration in minutes")
     
     args = parser.parse_args()
+    
+    if len(sys.argv) == 1:
+        print("\n--- Suricata Scan (Interactive Mode) ---")
+        args.interface = input("Enter the network interface (e.g., eth0, wlan0): ").strip()
+        if not args.interface:
+            log("Interface is required.", "ERROR")
+            sys.exit(1)
+            
+        try:
+            val = input("Enter duration to monitor in minutes [default: 5]: ").strip()
+            args.duration_mins = int(val) if val else 5
+        except ValueError:
+            args.duration_mins = 5
+            log("Invalid input, defaulting to 5 minutes.", "WARN")
+    else:
+        if not args.interface or args.duration_mins is None:
+            parser.error("--interface and --duration-mins are required when using command-line arguments.")
+            
     if not args.out_dir:
         args.out_dir = setup_output_dir(scan_type="out_suricata")
     else:
