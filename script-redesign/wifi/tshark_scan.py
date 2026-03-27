@@ -147,7 +147,7 @@ def run_tshark(out_dir, interface, duration_hours):
     tshark_out = os.path.join(out_dir, "tshark_out.txt")
     
     try:
-        subprocess.run(["tshark", "-i", interface, "-a", f"duration:{duration_secs}", "-w", pcap_out], 
+        tshark_proc = subprocess.run(["tshark", "-i", interface, "-a", f"duration:{duration_secs}", "-w", pcap_out], 
                        capture_output=True, text=True)
         
         if os.path.exists(pcap_out):
@@ -162,6 +162,8 @@ def run_tshark(out_dir, interface, duration_hours):
             parse_tshark_pcap(out_dir, pcap_out)
         else:
             log("TShark did not successfully generate a PCAP file.", "WARN")
+            if tshark_proc.stderr:
+                log(f"TShark Error Data:\n{tshark_proc.stderr.strip()}", "ERROR")
     except FileNotFoundError:
         log("TShark is not installed. Skipping step.", "ERROR")
     except Exception as e:
