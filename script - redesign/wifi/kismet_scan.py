@@ -3,6 +3,17 @@ import sys
 import time
 import subprocess
 import argparse
+from datetime import datetime
+
+def setup_output_dir(scan_type="out_scan"):
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    base_out_dir = os.path.abspath(os.path.join(script_dir, "output", "Individual_Scan", scan_type))
+    os.makedirs(base_out_dir, exist_ok=True)
+    
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    out_dir = os.path.join(base_out_dir, f"results_{timestamp}")
+    os.makedirs(out_dir, exist_ok=True)
+    return out_dir
 
 ASSESSMENT_FOCUS = [
     "SSID Review", 
@@ -44,10 +55,14 @@ def run_kismet(out_dir, interface, duration_hours):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run Kismet scan.")
-    parser.add_argument("--out-dir", required=True, help="Output directory")
+    parser.add_argument("--out-dir", required=False, help="Output directory (auto-generated if not provided)")
     parser.add_argument("--interface", required=True, help="Monitor mode interface")
     parser.add_argument("--duration-hours", type=float, required=True, help="Duration in hours")
     
     args = parser.parse_args()
-    os.makedirs(args.out_dir, exist_ok=True)
+    if not args.out_dir:
+        args.out_dir = setup_output_dir(scan_type="out_wifi_kismet")
+    else:
+        os.makedirs(args.out_dir, exist_ok=True)
+        
     run_kismet(args.out_dir, args.interface, args.duration_hours)

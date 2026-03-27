@@ -3,6 +3,17 @@ import sys
 import subprocess
 import xml.etree.ElementTree as ET
 import argparse
+from datetime import datetime
+
+def setup_output_dir(scan_type="out_scan"):
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    base_out_dir = os.path.abspath(os.path.join(script_dir, "output", "Individual_Scan", scan_type))
+    os.makedirs(base_out_dir, exist_ok=True)
+    
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    out_dir = os.path.join(base_out_dir, f"results_{timestamp}")
+    os.makedirs(out_dir, exist_ok=True)
+    return out_dir
 
 ASSESSMENT_FOCUS = [
     "CVE Discovery", 
@@ -107,10 +118,14 @@ def run_nmap(out_dir, target, max_hours=1.0):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run Nmap vulnerability scan.")
-    parser.add_argument("--out-dir", required=True, help="Output directory")
+    parser.add_argument("--out-dir", required=False, help="Output directory (auto-generated if not provided)")
     parser.add_argument("--target", required=True, help="Target IP or CIDR")
     parser.add_argument("--max-hours", type=float, required=False, default=1.0, help="Max duration in hours per host timeout")
     
     args = parser.parse_args()
-    os.makedirs(args.out_dir, exist_ok=True)
+    if not args.out_dir:
+        args.out_dir = setup_output_dir(scan_type="out_wifi_nmap")
+    else:
+        os.makedirs(args.out_dir, exist_ok=True)
+        
     run_nmap(args.out_dir, args.target, args.max_hours)
