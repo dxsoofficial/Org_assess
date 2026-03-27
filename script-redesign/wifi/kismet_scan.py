@@ -157,10 +157,28 @@ def run_kismet(out_dir, interface, duration_hours):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run Kismet scan.")
     parser.add_argument("--out-dir", required=False, help="Output directory (auto-generated if not provided)")
-    parser.add_argument("--interface", required=True, help="Monitor mode interface")
-    parser.add_argument("--duration-hours", type=float, required=True, help="Duration in hours")
+    parser.add_argument("--interface", required=False, help="Monitor mode interface")
+    parser.add_argument("--duration-hours", type=float, required=False, help="Duration in hours")
     
     args = parser.parse_args()
+    
+    if len(sys.argv) == 1:
+        print("\n--- Kismet Scan (Interactive Mode) ---")
+        args.interface = input("Enter the monitor mode interface (e.g., wlan0mon): ").strip()
+        if not args.interface:
+            log("Interface is required.", "ERROR")
+            sys.exit(1)
+            
+        try:
+            val = input("Enter hours of monitoring for Kismet [default: 0.1]: ").strip()
+            args.duration_hours = float(val) if val else 0.1
+        except ValueError:
+            args.duration_hours = 0.1
+            log("Invalid input, defaulting to 0.1 hours.", "WARN")
+    else:
+        if not args.interface or args.duration_hours is None:
+            parser.error("--interface and --duration-hours are required when using command-line arguments.")
+            
     if not args.out_dir:
         args.out_dir = setup_output_dir(scan_type="out_wifi_kismet")
     else:

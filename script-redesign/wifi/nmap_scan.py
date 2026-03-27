@@ -180,10 +180,28 @@ def run_nmap(out_dir, target, max_hours=1.0):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run Nmap vulnerability scan.")
     parser.add_argument("--out-dir", required=False, help="Output directory (auto-generated if not provided)")
-    parser.add_argument("--target", required=True, help="Target IP or CIDR")
-    parser.add_argument("--max-hours", type=float, required=False, default=1.0, help="Max duration in hours per host timeout")
+    parser.add_argument("--target", required=False, help="Target IP or CIDR")
+    parser.add_argument("--max-hours", type=float, required=False, help="Max duration in hours per host timeout")
     
     args = parser.parse_args()
+    
+    if len(sys.argv) == 1:
+        print("\n--- Nmap Vulnerability Scan (Interactive Mode) ---")
+        val = input("Enter target IP or CIDR for Nmap (e.g., 192.168.1.0/24) [default: 192.168.1.0/24]: ").strip()
+        args.target = val if val else "192.168.1.0/24"
+        
+        try:
+            val2 = input("Enter maximum hours of monitoring for Nmap scan [default: 1.0]: ").strip()
+            args.max_hours = float(val2) if val2 else 1.0
+        except ValueError:
+            args.max_hours = 1.0
+            log("Invalid input, defaulting to 1.0 hours.", "WARN")
+    else:
+        if not args.target:
+            parser.error("--target is required when using command-line arguments.")
+        if args.max_hours is None:
+            args.max_hours = 1.0
+            
     if not args.out_dir:
         args.out_dir = setup_output_dir(scan_type="out_wifi_nmap")
     else:
