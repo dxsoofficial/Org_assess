@@ -34,7 +34,7 @@ def log(msg, level="INFO"):
     print(f"{color}[{level}] {msg}{colors['RESET']}")
 
 def parse_nmap_vulns(xml_file, out_dir):
-    vuln_report = os.path.join(out_dir, "vulnerability_report.txt")
+    vuln_report = os.path.join(out_dir, "nmap_vulnerability_report.txt")
     try:
         if not os.path.exists(xml_file):
             return
@@ -44,11 +44,28 @@ def parse_nmap_vulns(xml_file, out_dir):
         
         with open(vuln_report, "w") as f:
             f.write("==========================================================\n")
-            f.write("                 VULNERABILITY ASSESSMENT REPORT          \n")
+            f.write("             NMAP VULNERABILITY MAPPING REPORT          \n")
             f.write("==========================================================\n\n")
             
-            found_vulns = False
-            for host in root.findall('host'):
+            findings = []
+            
+            # Check for MAC Address Filtering / Network Segmentation issues
+            live_hosts = [host for host in root.findall('host') if host.find('status') is not None and host.find('status').attrib.get('state') == 'up']
+            
+            if len(live_hosts) == 0:
+                findings.append((
+                    "MAC Address Filtering / Strict Isolation", 
+                    "No live hosts discovered by Nmap. This often indicates the presence of strict MAC address filtering or client isolation on the Wi-Fi network.", 
+                    "Low"
+                ))
+            elif len(live_hosts) > 2: # Very low threshold for internal exposure on a targeted wireless interface
+                findings.append((
+                    "Network Segmentation Risk", 
+                    f"Discovered {len(live_hosts)} visible hosts on this subnet. Validate if guest/wireless should have access to these.", 
+                    "Critical"
+                ))
+            
+            for host in live_hosts:
                 address_elem = host.find('address')
                 if address_elem is None:
                     continue
@@ -56,39 +73,83 @@ def parse_nmap_vulns(xml_file, out_dir):
                 
                 hostnames = host.findall('hostnames/hostname')
                 hostname = hostnames[0].attrib.get('name') if hostnames else ""
+                target_id = f"{address} {f'({hostname})' if hostname else ''}"
                 
-                f.write(f"--- Target: {address} {f'({hostname})' if hostname else ''} ---\n")
+                # Check for Device type/firmware
+                osmatch = host.find('os/osmatch')
+                if osmatch is not None:
+                    os_name = osmatch.attrib.get('name', 'Unknown')
+                    if address.endswith('.1') or address.endswith('.254') or "router" in os_name.lower() or "gateway" in os_name.lower() or "ap" in os_name.lower():
+                        findings.append((
+                            "Router Firmware Update Audit",
+                            f"Gateway/Router {target_id} identified as: '{os_name}'. Verify that this firmware version is fully patched and updated.",
+                            "Medium"
+                        ))
+                    else:
+                        findings.append((
+                            "Device/Firmware Exposure",
+                            f"{target_id} identified as: {os_name}",
+                            "Low"
+                        ))
                 
                 ports = host.findall('ports/port')
+                has_filtered_ports = False
                 for port in ports:
                     portid = port.attrib.get('portid', 'unknown')
                     protocol = port.attrib.get('protocol', 'tcp')
+                    state_elem = port.find('state')
+                    state = state_elem.attrib.get('state', 'unknown') if state_elem is not None else 'unknown'
+                    
+                    if state == "filtered":
+                        has_filtered_ports = True
+                        continue
+                        
                     service = port.find('service')
                     service_name = service.attrib.get('name', 'unknown') if service is not None else 'unknown'
                     
+                    # Mapping insecure services
+                    target_port = f"Port {portid}/{protocol} ({service_name}) on {target_id}"
+                    if service_name in ['telnet', 'ftp', 'rsh', 'login']:
+                        findings.append((f"Insecure Cleartext Service: {service_name.upper()}", target_port, "High"))
+                    elif service_name in ['ms-wbt-server', 'rdp', 'smb', 'netbios-ssn', 'ssh']:
+                        findings.append((f"Exposed Internal Service: {service_name.upper()}", target_port, "Medium"))
+                    elif service_name == 'upnp':
+                        findings.append((f"Insecure Device Service: {service_name.upper()}", target_port, "High"))
+                    
+                    # Parse NSE scripts
                     scripts = port.findall('script')
-                    port_has_vuln = False
                     for script in scripts:
                         script_id = script.attrib.get('id', '')
                         script_output = script.attrib.get('output', '')
                         script_elements = script.findall('table') + script.findall('elem')
                         
-                        if "VULNERABLE:" in script_output or "CVE-" in script_output or "State: VULNERABLE" in script_output or "vuln" in script_id.lower() or len(script_elements) > 0:
-                            if not port_has_vuln:
-                                f.write(f"\n  [!] Port {portid}/{protocol} ({service_name}) has detected vulnerabilities/information:\n")
-                                port_has_vuln = True
-                                found_vulns = True
+                        is_vuln = "VULNERABLE:" in script_output or "CVE-" in script_output or "State: VULNERABLE" in script_output or "vuln" in script_id.lower() or len(script_elements) > 0
+                        
+                        if is_vuln and "cve-20" in script_output.lower():
+                            severity = "Critical"
+                        elif is_vuln and ("DOS" in script_output.upper() or "RCE" in script_output.upper()):
+                            severity = "Critical"
+                        elif is_vuln:
+                            severity = "High"
+                        else:
+                            continue
                             
-                            f.write(f"      - Script: {script_id}\n")
-                            if script_output:
-                                formatted_output = "\n".join([f"        {line}" for line in script_output.split("\n")])
-                                f.write(f"        Output:\n{formatted_output}\n\n")
-                            else:
-                                f.write("        (Structured output parsed. See XML for details)\n\n")
-                            
-            if not found_vulns:
-                f.write("No explicit vulnerabilities (CVEs or critical misconfigurations) were identified by Nmap's vulnerability engine.\n")
+                        findings.append((
+                            f"NSE Script Vulnerability: {script_id}", 
+                            f"{target_port}\n        Output: {script_output.split(chr(10))[0]}...", 
+                            severity
+                        ))
                 
+                if not has_filtered_ports and len(ports) > 0:
+                    findings.append(("Firewall Integration Risk (Missing Firewall)", f"Target {target_id} does not appear to filter ports (all observed ports were either open or closed, not dropped).", "Medium"))
+                            
+            if not findings:
+                f.write("No explicit vulnerabilities or critical misconfigurations identified by Nmap.\n")
+            else:
+                for issue, detail, severity in sorted(findings, key=lambda x: {"Critical": 1, "High": 2, "Medium": 3, "Low": 4}.get(x[2], 5)):
+                    f.write(f"[{severity.upper()}] {issue}\n")
+                    f.write(f"    Details: {detail}\n\n")
+                    
         log(f"Vulnerability report compiled and saved to: {vuln_report}", "SUCCESS")
     except Exception as e:
         log(f"Error parsing Nmap XML: {e}", "ERROR")

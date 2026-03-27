@@ -33,6 +33,111 @@ def log(msg, level="INFO"):
     color = colors.get(level, colors["INFO"])
     print(f"{color}[{level}] {msg}{colors['RESET']}")
 
+def parse_tshark_pcap(out_dir, pcap_out):
+    report_path = os.path.join(out_dir, "tshark_vulnerability_report.txt")
+    findings = []
+    
+    log("Analyzing PCAP for vulnerabilities...", "INFO")
+    
+    # 1. Detect cleartext protocols (Telnet, FTP, HTTP)
+    try:
+        cleartext_cmd = ["tshark", "-r", pcap_out, "-Y", "telnet or ftp or http", "-T", "fields", "-e", "ip.src", "-e", "ip.dst", "-e", "_ws.col.Protocol"]
+        result = subprocess.run(cleartext_cmd, capture_output=True, text=True)
+        lines = set([line.strip() for line in result.stdout.split('\n') if line.strip()])
+        if lines:
+            protocols_found = set([line.split()[-1] for line in lines if len(line.split()) > 0])
+            findings.append((
+                "Cleartext Protocol Used", 
+                f"Unencrypted traffic detected: {', '.join(protocols_found)}", 
+                "High"
+            ))
+    except Exception as e:
+        log(f"Error checking cleartext protocols: {e}", "ERROR")
+
+    # 2. Detect WEP Data Frames
+    try:
+        wep_cmd = ["tshark", "-r", pcap_out, "-Y", "wlan.wep.iv", "-T", "fields", "-e", "wlan.sa"]
+        result = subprocess.run(wep_cmd, capture_output=True, text=True)
+        lines = set([line.strip() for line in result.stdout.split('\n') if line.strip()])
+        if lines:
+            findings.append((
+                "WEP Traffic Detected", 
+                f"Active WEP encrypted traffic from MACs: {', '.join(list(lines)[:5])}", 
+                "High"
+            ))
+    except Exception as e:
+        pass
+
+    # 3. Detect Deauthentication / Disassociation Frames (Possible WIDS / Attack)
+    try:
+        deauth_cmd = ["tshark", "-r", pcap_out, "-Y", "wlan.fc.type_subtype == 12 or wlan.fc.type_subtype == 10", "-T", "fields", "-e", "wlan.sa"]
+        result = subprocess.run(deauth_cmd, capture_output=True, text=True)
+        lines = list([line.strip() for line in result.stdout.split('\n') if line.strip()])
+        if len(lines) > 50:
+            findings.append((
+                "Deauthentication Attack/Spike", 
+                "High volume of deauth/disassoc frames detected. Possible evil twin or DoS.", 
+                "Medium"
+            ))
+    except Exception as e:
+        pass
+
+    # 4. Authentication Mechanisms (Capture WPA Handshakes)
+    try:
+        eap_cmd = ["tshark", "-r", pcap_out, "-Y", "eapol", "-T", "fields", "-e", "wlan.bssid"]
+        result = subprocess.run(eap_cmd, capture_output=True, text=True)
+        lines = set([line.strip() for line in result.stdout.split('\n') if line.strip()])
+        if lines:
+            findings.append((
+                "WPA/WPA2 Authentication Handshakes", 
+                f"Captured EAPOL handshakes for {len(lines)} BSSIDs. These can be subjected to offline dictionary/brute-force attacks.", 
+                "Medium"
+            ))
+    except Exception as e:
+        pass
+
+    # 5. Firewall Integration (Detect ICMP Unreachable / Drops)
+    try:
+        fw_cmd = ["tshark", "-r", pcap_out, "-Y", "icmp.type == 3", "-T", "fields", "-e", "ip.src"]
+        result = subprocess.run(fw_cmd, capture_output=True, text=True)
+        lines = set([line.strip() for line in result.stdout.split('\n') if line.strip()])
+        if lines:
+            findings.append((
+                "Firewall / Filtering Behavior Detected", 
+                f"Captured ICMP Destination Unreachable packets from {len(lines)} hosts, indicating active firewall/filtering blocks.", 
+                "Low"
+            ))
+    except Exception as e:
+        pass
+
+    # 6. Guest Network Configuration (Detect L2/L3 Internal protocol bleed)
+    try:
+        bleed_cmd = ["tshark", "-r", pcap_out, "-Y", "udp.port == 5355 or udp.port == 1900 or stp", "-T", "fields", "-e", "wlan.sa"]
+        result = subprocess.run(bleed_cmd, capture_output=True, text=True)
+        lines = set([line.strip() for line in result.stdout.split('\n') if line.strip()])
+        if lines:
+            findings.append((
+                "Internal Protocol Bleed (Guest Isolation Risk)", 
+                "Captured internal discovery protocols (STP/LLMNR/SSDP). Validating guest/client isolation configurations is highly recommended.", 
+                "Medium"
+            ))
+    except Exception as e:
+        pass
+
+    with open(report_path, "w") as f:
+        f.write("==========================================================\n")
+        f.write("             TSHARK VULNERABILITY MAPPING REPORT          \n")
+        f.write("==========================================================\n\n")
+        
+        if not findings:
+            f.write("No specific traffic vulnerabilities (cleartext, WEP, attacks) identified in PCAP.\n")
+        else:
+            for issue, detail, severity in sorted(findings, key=lambda x: {"Critical": 1, "High": 2, "Medium": 3, "Low": 4}.get(x[2], 5)):
+                f.write(f"[{severity.upper()}] {issue}\n")
+                f.write(f"    Details: {detail}\n\n")
+                
+    log(f"TShark Vulnerability Report saved to: {report_path}", "SUCCESS")
+
 def run_tshark(out_dir, interface, duration_hours):
     duration_secs = int(duration_hours * 3600)
     log(f"Starting TShark capture on {interface} for {duration_hours} hour(s)...", "INFO")
@@ -51,8 +156,10 @@ def run_tshark(out_dir, interface, duration_hours):
             with open(tshark_out, "w") as f:
                 f.write("--- TSHARK PROTOCOL HIERARCHY ANALYSIS ---\n")
                 f.write(analysis.stdout)
-            log(f"TShark capture completed. Saved PCAP to: {pcap_out}", "SUCCESS")
             log(f"TShark protocol hierarchy analysis saved to: {tshark_out}", "SUCCESS")
+            
+            # Deep parse PCAP into vulnerability report
+            parse_tshark_pcap(out_dir, pcap_out)
         else:
             log("TShark did not successfully generate a PCAP file.", "WARN")
     except FileNotFoundError:

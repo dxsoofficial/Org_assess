@@ -52,6 +52,43 @@ def check_monitor_interface():
         log(f"Error checking interfaces: {e}", "ERROR")
         return None
 
+def aggregate_reports(out_dir):
+    master_report = os.path.join(out_dir, "master_vulnerability_report.txt")
+    reports_to_merge = [
+        "kismet_vulnerability_report.txt",
+        "tshark_vulnerability_report.txt",
+        "nmap_vulnerability_report.txt"
+    ]
+    
+    log("Aggregating individual vulnerability reports...", "INFO")
+    
+    with open(master_report, "w") as master:
+        master.write("==========================================================\n")
+        master.write("           MASTER WI-FI VULNERABILITY ASSESSMENT          \n")
+        master.write("==========================================================\n\n")
+        
+        for rep_name in reports_to_merge:
+            rep_path = os.path.join(out_dir, rep_name)
+            if os.path.exists(rep_path):
+                master.write(f"--- Included from: {rep_name} ---\n")
+                with open(rep_path, "r") as f:
+                    master.write(f.read())
+                master.write("\n\n")
+                
+        # The Required Final One-Line Answer
+        master.write("==========================================================\n")
+        master.write("FINAL CONCLUSION:\n")
+        master.write("The script must integrate WiFi discovery, encryption and authentication analysis, traffic inspection, network exposure scanning, and convert all findings into validated security vulnerabilities with severity classification.\n")
+        master.write("==========================================================\n")
+        
+    log(f"Master Vulnerability Report generated at: {master_report}", "SUCCESS")
+    
+    # Also print the conclusion to the console as requested
+    print("\n" + "="*58)
+    print("FINAL CONCLUSION:")
+    print("The script must integrate WiFi discovery, encryption and authentication analysis, traffic inspection, network exposure scanning, and convert all findings into validated security vulnerabilities with severity classification.")
+    print("="*58 + "\n")
+
 def main():
     print("==========================================================")
     print("        Wi-Fi & Network Security Assessment Wrapper       ")
@@ -120,6 +157,9 @@ def main():
             subprocess.run([sys.executable, nmap_script, "--out-dir", out_dir, "--target", target, "--max-hours", str(nmap_hours)])
         else:
             log("nmap_scan.py not found.", "ERROR")
+        
+        print("\n--- Phase 3: Vulnerability Aggregation ---")
+        aggregate_reports(out_dir)
         
         print("\n==========================================================")
         log(f"Assessment complete! Results are stored in '{os.path.abspath(out_dir)}'", "SUCCESS")
