@@ -2,6 +2,7 @@ import os
 import sys
 import subprocess
 import argparse
+import shutil
 from datetime import datetime
 
 def setup_output_dir(scan_type="out_scan"):
@@ -150,9 +151,15 @@ def run_tshark(out_dir, interface, duration_hours):
     pcap_out = os.path.join(out_dir, "capture.pcap")
     tshark_out = os.path.join(out_dir, "tshark_out.txt")
     
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    tmp_pcap = f"/tmp/tshark_capture_{timestamp}.pcap"
+    
     try:
-        tshark_proc = subprocess.run(["tshark", "-i", interface, "-a", f"duration:{duration_secs}", "-w", pcap_out], 
+        tshark_proc = subprocess.run(["tshark", "-i", interface, "-a", f"duration:{duration_secs}", "-w", tmp_pcap], 
                        capture_output=True, text=True)
+                       
+        if os.path.exists(tmp_pcap):
+            shutil.move(tmp_pcap, pcap_out)
         
         if os.path.exists(pcap_out):
             analysis = subprocess.run(["tshark", "-r", pcap_out, "-q", "-z", "io,phs"], 
