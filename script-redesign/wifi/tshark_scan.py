@@ -162,12 +162,20 @@ def run_tshark(out_dir, interface, duration_hours):
             shutil.move(tmp_pcap, pcap_out)
         
         if os.path.exists(pcap_out):
-            analysis = subprocess.run(["tshark", "-r", pcap_out, "-q", "-z", "io,phs"], 
+            # Protocol Hierarchy
+            analysis_phs = subprocess.run(["tshark", "-r", pcap_out, "-q", "-z", "io,phs"], 
                                       capture_output=True, text=True)
+            # Deep Bandwidth & Traffic Metrics (10-second intervals)
+            analysis_stat = subprocess.run(["tshark", "-r", pcap_out, "-q", "-z", "io,stat,10"], 
+                                      capture_output=True, text=True)
+            
             with open(tshark_out, "w") as f:
                 f.write("--- TSHARK PROTOCOL HIERARCHY ANALYSIS ---\n")
-                f.write(analysis.stdout)
-            log(f"TShark protocol hierarchy analysis saved to: {tshark_out}", "SUCCESS")
+                f.write(analysis_phs.stdout)
+                f.write("\n\n--- DEEP BANDWIDTH & TRAFFIC METRICS (10s INTERVALS) ---\n")
+                f.write(analysis_stat.stdout)
+                
+            log(f"TShark protocol hierarchy and bandwidth metrics saved to: {tshark_out}", "SUCCESS")
             
             # Deep parse PCAP into vulnerability report
             parse_tshark_pcap(out_dir, pcap_out)
