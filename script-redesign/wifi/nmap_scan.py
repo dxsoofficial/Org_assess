@@ -158,18 +158,24 @@ def parse_nmap_vulns(xml_file, out_dir):
     except Exception as e:
         log(f"Error parsing Nmap XML: {e}", "ERROR")
 
-def run_nmap(out_dir, target, max_hours=1.0):
-    log(f"Starting Active Vulnerability scan with Nmap on target {target} for up to {max_hours} hours...", "INFO")
-    log(f"Assessment Focus: {', '.join(ASSESSMENT_FOCUS)}", "WARN")
+def run_nmap(out_dir, target, max_hours, exclude_ips=None):
+    host_timeout = int(max_hours * 60)
+    log(f"Starting Nmap vulnerability scan targeting: {target} (Max timeout: {host_timeout}m per host)...", "INFO")
+    if exclude_ips:
+        log(f"Excluding IPs: {exclude_ips}", "WARN")
+    log(f"Assessment Focus: {', '.join(ASSESSMENT_FOCUS)}", "INFO")
     
     nmap_xml = os.path.join(out_dir, "nmap_vuln_scan.xml")
     nmap_txt = os.path.join(out_dir, "nmap_vuln_scan_full.txt")
-    host_timeout = f"{int(max_hours * 60)}m" # Host timeout in minutes
+    
+    cmd = ["nmap", "-T4", "-A", "--script", "vuln", "-Pn", f"--host-timeout={host_timeout}m", "-oX", nmap_xml, target]
+    if exclude_ips:
+        cmd.extend(["--exclude", exclude_ips])
     
     try:
         log("Running deep vulnerability scan. This may take longer than standard scans...", "INFO")
         with open(nmap_txt, "w") as f:
-            subprocess.run(["nmap", "-T4", "-A", "--script", "vuln", "-Pn", f"--host-timeout={host_timeout}", "-oX", nmap_xml, target], stdout=f, stderr=subprocess.STDOUT)
+            subprocess.run(cmd, stdout=f, stderr=subprocess.STDOUT)
             
         log(f"Full Nmap scan completed. Text Output saved to: {nmap_txt}", "SUCCESS")
         
@@ -185,6 +191,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run Nmap vulnerability scan.")
     parser.add_argument("--out-dir", required=False, help="Output directory (auto-generated if not provided)")
     parser.add_argument("--target", required=False, help="Target IP or CIDR")
+    parser.add_argument("--exclude", required=False, help="IPs to exclude (comma separated)")
     parser.add_argument("--max-hours", type=float, required=False, help="Max duration in hours per host timeout")
     
     args = parser.parse_args()
@@ -193,6 +200,9 @@ if __name__ == "__main__":
         print("\n--- Nmap Vulnerability Scan (Interactive Mode) ---")
         val = input("Enter target IP or CIDR for Nmap (e.g., 192.168.1.0/24) [default: 192.168.1.0/24]: ").strip()
         args.target = val if val else "192.168.1.0/24"
+        
+        excl = input("Enter any IPs to exclude (e.g., 192.168.1.112) or leave blank: ").strip()
+        args.exclude = excl if excl else None
         
         try:
             val2 = input("Enter maximum hours of monitoring for Nmap scan [default: 1.0]: ").strip()
@@ -211,4 +221,4 @@ if __name__ == "__main__":
     else:
         os.makedirs(args.out_dir, exist_ok=True)
         
-    run_nmap(args.out_dir, args.target, args.max_hours)
+    run_nmap(args.out_dir, args.target, args.max_hours, args.exclude)

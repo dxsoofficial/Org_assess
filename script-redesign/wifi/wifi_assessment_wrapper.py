@@ -108,6 +108,8 @@ def main():
         if not target:
             target = "192.168.1.0/24"
             log(f"No target provided, defaulting to {target}", "INFO")
+            
+        exclude_ips = input("\nEnter any IPs to exclude from Nmap (e.g., 192.168.1.112) [Leave blank for none]: ").strip()
 
         # Get monitoring hours
         try:
@@ -155,7 +157,10 @@ def main():
         print("\n--- Phase 2: Network Assessment ---")
         nmap_script = os.path.join(script_dir, "nmap_scan.py")
         if os.path.exists(nmap_script):
-            subprocess.run([sys.executable, nmap_script, "--out-dir", out_dir, "--target", target, "--max-hours", str(nmap_hours)])
+            nmap_cmd = [sys.executable, nmap_script, "--out-dir", out_dir, "--target", target, "--max-hours", str(nmap_hours)]
+            if exclude_ips:
+                nmap_cmd.extend(["--exclude", exclude_ips])
+            subprocess.run(nmap_cmd)
         else:
             log("nmap_scan.py not found.", "ERROR")
         
