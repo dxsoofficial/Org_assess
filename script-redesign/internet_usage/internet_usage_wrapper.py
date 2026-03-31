@@ -48,7 +48,7 @@ def run_capture(interface, duration, log_dir):
     cmd = ["tshark", "-i", interface, "-a", f"duration:{duration}", "-w", pcap_file, "-q"]
     try:
         start_time = time.time()
-        process = subprocess.Popen(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        process = subprocess.Popen(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, text=True)
         
         while process.poll() is None:
             elapsed = int(time.time() - start_time)
@@ -60,11 +60,16 @@ def run_capture(interface, duration, log_dir):
             
         sys.stdout.write("\n")
         
+        if process.returncode != 0:
+            err_out = process.stderr.read().strip()
+            log(f"TShark encountered an error: {err_out}", "ERROR")
+            return ""
+            
         if os.path.exists(pcap_file) and os.path.getsize(pcap_file) > 0:
             log(f"Capture complete. Saved to {pcap_file}", "SUCCESS")
             return pcap_file
         else:
-            log("Capture completed but PCAP file is empty or missing. Try running as root (sudo).", "ERROR")
+            log("Capture completed but PCAP file is empty. There may have been no traffic on interface.", "ERROR")
             return ""
             
     except Exception as e:
