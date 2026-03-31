@@ -162,6 +162,12 @@ def run_tshark(out_dir, interface, duration_hours):
             shutil.move(tmp_pcap, pcap_out)
         
         if os.path.exists(pcap_out):
+            file_size = os.path.getsize(pcap_out)
+            if file_size < 100: # Standard empty pcap global header is usually 24 bytes
+                log(f"\n[CRITICAL WARNING] TShark captured exactly 0 packets (File size: {file_size} bytes).", "ERROR")
+                log("[CRITICAL WARNING] Your interface is either down, disconnected, or tuned to a completely empty channel!", "ERROR")
+                log("[CRITICAL WARNING] Please verify your network interface and retry.\n", "ERROR")
+                
             # Protocol Hierarchy
             analysis_phs = subprocess.run(["tshark", "-r", pcap_out, "-q", "-z", "io,phs"], 
                                       capture_output=True, text=True)

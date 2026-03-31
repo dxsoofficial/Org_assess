@@ -168,8 +168,8 @@ def run_nmap(out_dir, target, max_hours=1.0):
     
     try:
         log("Running deep vulnerability scan. This may take longer than standard scans...", "INFO")
-        with open(nmap_txt, "w") as f, open(os.devnull, "w") as devnull:
-            subprocess.run(["nmap", "-T4", "-A", "--script", "vuln", "-Pn", f"--host-timeout={host_timeout}", "-oX", nmap_xml, target], stdout=f, stderr=devnull)
+        with open(nmap_txt, "w") as f:
+            subprocess.run(["nmap", "-T4", "-A", "--script", "vuln", "-Pn", f"--host-timeout={host_timeout}", "-oX", nmap_xml, target], stdout=f, stderr=subprocess.STDOUT)
             
         log(f"Full Nmap scan completed. Text Output saved to: {nmap_txt}", "SUCCESS")
         
