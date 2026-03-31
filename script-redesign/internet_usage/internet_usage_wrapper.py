@@ -42,10 +42,15 @@ def check_tshark():
         return False
 
 def run_capture(interface, duration, log_dir):
+    # TShark often drops privileges after starting. To avoid permission denied errors
+    # when writing to root or home directories, we write to /tmp first.
+    import shutil
+    temp_pcap = f"/tmp/capture_temp_{int(time.time())}.pcap"
     pcap_file = os.path.join(log_dir, "capture.pcap")
+    
     log(f"Starting TShark capture on interface '{interface}' for {duration} seconds...", "WARN")
     
-    cmd = ["tshark", "-i", interface, "-a", f"duration:{duration}", "-w", pcap_file, "-q"]
+    cmd = ["tshark", "-i", interface, "-a", f"duration:{duration}", "-w", temp_pcap, "-q"]
     try:
         start_time = time.time()
         process = subprocess.Popen(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, text=True)
@@ -63,13 +68,19 @@ def run_capture(interface, duration, log_dir):
         if process.returncode != 0:
             err_out = process.stderr.read().strip()
             log(f"TShark encountered an error: {err_out}", "ERROR")
+            if os.path.exists(temp_pcap):
+                os.remove(temp_pcap)
             return ""
             
-        if os.path.exists(pcap_file) and os.path.getsize(pcap_file) > 0:
+        if os.path.exists(temp_pcap) and os.path.getsize(temp_pcap) > 0:
+            shutil.move(temp_pcap, pcap_file)
+            os.chmod(pcap_file, 0o666) # Ensure readable for parsing
             log(f"Capture complete. Saved to {pcap_file}", "SUCCESS")
             return pcap_file
         else:
             log("Capture completed but PCAP file is empty. There may have been no traffic on interface.", "ERROR")
+            if os.path.exists(temp_pcap):
+                os.remove(temp_pcap)
             return ""
             
     except Exception as e:
