@@ -1,0 +1,6 @@
+=== COLLATED LIVE HOSTS ===
+Target Subnet: 192.168.1.0/24
+Total Unique IPs Discovered: 0
+Tools Used: nmap, arp-scan, netdiscover, arping
+===========================
+

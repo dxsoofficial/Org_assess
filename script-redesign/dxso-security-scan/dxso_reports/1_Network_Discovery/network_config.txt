@@ -1,0 +1,2 @@
+GATEWAY=unknown
+INTERFACE=en0
