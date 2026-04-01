@@ -37,155 +37,76 @@ def log(msg, level="INFO"):
     color = colors.get(level, colors["INFO"])
     print(f"{color}[{level}] {msg}{colors['RESET']}")
 
-def parse_nmap_vulns(xml_file, out_dir):
-    vuln_report = os.path.join(out_dir, "nmap_vulnerability_report.txt")
-    try:
-        if not os.path.exists(xml_file):
-            return
-            
-        tree = ET.parse(xml_file)
-        root = tree.getroot()
-        
-        with open(vuln_report, "w") as f:
-            f.write("==========================================================\n")
-            f.write("             NMAP VULNERABILITY MAPPING REPORT          \n")
-            f.write("==========================================================\n\n")
-            
-            findings = []
-            
-            # Check for MAC Address Filtering / Network Segmentation issues
-            live_hosts = [host for host in root.findall('host') if host.find('status') is not None and host.find('status').attrib.get('state') == 'up']
-            
-            if len(live_hosts) == 0:
-                findings.append((
-                    "MAC Address Filtering / Strict Isolation", 
-                    "No live hosts discovered by Nmap. This often indicates the presence of strict MAC address filtering or client isolation on the Wi-Fi network.", 
-                    "Low"
-                ))
-            elif len(live_hosts) > 2: # Very low threshold for internal exposure on a targeted wireless interface
-                findings.append((
-                    "Network Segmentation Risk", 
-                    f"Discovered {len(live_hosts)} visible hosts on this subnet. Validate if guest/wireless should have access to these.", 
-                    "Critical"
-                ))
-            
-            for host in live_hosts:
-                address_elem = host.find('address')
-                if address_elem is None:
-                    continue
-                address = address_elem.attrib.get('addr', 'Unknown IP')
-                
-                hostnames = host.findall('hostnames/hostname')
-                hostname = hostnames[0].attrib.get('name') if hostnames else ""
-                target_id = f"{address} {f'({hostname})' if hostname else ''}"
-                
-                # Check for Device type/firmware
-                osmatch = host.find('os/osmatch')
-                if osmatch is not None:
-                    os_name = osmatch.attrib.get('name', 'Unknown')
-                    if address.endswith('.1') or address.endswith('.254') or "router" in os_name.lower() or "gateway" in os_name.lower() or "ap" in os_name.lower():
-                        findings.append((
-                            "Router Firmware Update Audit",
-                            f"Gateway/Router {target_id} identified as: '{os_name}'. Verify that this firmware version is fully patched and updated.",
-                            "Medium"
-                        ))
-                    else:
-                        findings.append((
-                            "Device/Firmware Exposure",
-                            f"{target_id} identified as: {os_name}",
-                            "Low"
-                        ))
-                
-                ports = host.findall('ports/port')
-                has_filtered_ports = False
-                for port in ports:
-                    portid = port.attrib.get('portid', 'unknown')
-                    protocol = port.attrib.get('protocol', 'tcp')
-                    state_elem = port.find('state')
-                    state = state_elem.attrib.get('state', 'unknown') if state_elem is not None else 'unknown'
-                    
-                    if state == "filtered":
-                        has_filtered_ports = True
-                        continue
-                        
-                    service = port.find('service')
-                    service_name = service.attrib.get('name', 'unknown') if service is not None else 'unknown'
-                    
-                    # Mapping insecure services
-                    target_port = f"Port {portid}/{protocol} ({service_name}) on {target_id}"
-                    if service_name in ['telnet', 'ftp', 'rsh', 'login']:
-                        findings.append((f"Insecure Cleartext Service: {service_name.upper()}", target_port, "High"))
-                    elif service_name in ['ms-wbt-server', 'rdp', 'smb', 'netbios-ssn', 'ssh']:
-                        findings.append((f"Exposed Internal Service: {service_name.upper()}", target_port, "Medium"))
-                    elif service_name == 'upnp':
-                        findings.append((f"Insecure Device Service: {service_name.upper()}", target_port, "High"))
-                    
-                    # Parse NSE scripts
-                    scripts = port.findall('script')
-                    for script in scripts:
-                        script_id = script.attrib.get('id', '')
-                        script_output = script.attrib.get('output', '')
-                        script_elements = script.findall('table') + script.findall('elem')
-                        
-                        is_vuln = "VULNERABLE:" in script_output or "CVE-" in script_output or "State: VULNERABLE" in script_output or "vuln" in script_id.lower() or len(script_elements) > 0
-                        
-                        if is_vuln and "cve-20" in script_output.lower():
-                            severity = "Critical"
-                        elif is_vuln and ("DOS" in script_output.upper() or "RCE" in script_output.upper()):
-                            severity = "Critical"
-                        elif is_vuln:
-                            severity = "High"
-                        else:
-                            continue
-                            
-                        findings.append((
-                            f"NSE Script Vulnerability: {script_id}", 
-                            f"{target_port}\n        Output: {script_output.split(chr(10))[0]}...", 
-                            severity
-                        ))
-                
-                if not has_filtered_ports and len(ports) > 0:
-                    findings.append(("Firewall Integration Risk (Missing Firewall)", f"Target {target_id} does not appear to filter ports (all observed ports were either open or closed, not dropped).", "Medium"))
-                            
-            if not findings:
-                f.write("No explicit vulnerabilities or critical misconfigurations identified by Nmap.\n")
-            else:
-                for issue, detail, severity in sorted(findings, key=lambda x: {"Critical": 1, "High": 2, "Medium": 3, "Low": 4}.get(x[2], 5)):
-                    f.write(f"[{severity.upper()}] {issue}\n")
-                    f.write(f"    Details: {detail}\n\n")
-                    
-        log(f"Vulnerability report compiled and saved to: {vuln_report}", "SUCCESS")
-    except Exception as e:
-        log(f"Error parsing Nmap XML: {e}", "ERROR")
-
 def run_nmap(out_dir, target, max_hours, exclude_ips=None):
     host_timeout = int(max_hours * 60)
-    log(f"Starting Nmap vulnerability scan targeting: {target} (Max timeout: {host_timeout}m per host)...", "INFO")
+    log(f"Starting Phased Controlled Nmap Loop against: {target} (Max timeout: {host_timeout}m per host)...", "INFO")
     if exclude_ips:
         log(f"Excluding IPs: {exclude_ips}", "WARN")
-    log(f"Assessment Focus: {', '.join(ASSESSMENT_FOCUS)}", "INFO")
     
-    nmap_xml = os.path.join(out_dir, "nmap_vuln_scan.xml")
-    nmap_txt = os.path.join(out_dir, "nmap_vuln_scan_full.txt")
-    
-    cmd = ["nmap", "-T4", "-A", "--script", "vuln", "-Pn", f"--host-timeout={host_timeout}m", "-oX", nmap_xml, target]
-    if exclude_ips:
-        cmd.extend(["--exclude", exclude_ips])
+    vuln_report = os.path.join(out_dir, "nmap_vulnerability_report.txt")
     
     try:
-        log("Running deep vulnerability scan. This may take longer than standard scans...", "INFO")
-        with open(nmap_txt, "w") as f:
-            subprocess.run(cmd, stdout=f, stderr=subprocess.STDOUT)
+        with open(vuln_report, "w") as f_out:
+            f_out.write("==========================================================\n")
+            f_out.write("             NMAP CONTROLLED LOOP RAW OUTPUT              \n")
+            f_out.write("==========================================================\n\n")
+            f_out.flush()
             
-        log(f"Full Nmap scan completed. Text Output saved to: {nmap_txt}", "SUCCESS")
-        
-        if os.path.exists(nmap_xml):
-            parse_nmap_vulns(nmap_xml, out_dir)
+            # PHASE 1: Host Discovery
+            log("Phase 1/3: Running Ping Sweep Discovery...", "INFO")
+            discover_cmd = ["nmap", "-sn", "-T4", "-oG", "-", target]
+            if exclude_ips:
+                discover_cmd.extend(["--exclude", exclude_ips])
+                
+            proc_discover = subprocess.run(discover_cmd, capture_output=True, text=True)
+            live_hosts = []
+            for line in proc_discover.stdout.split('\n'):
+                if "Status: Up" in line:
+                    parts = line.split()
+                    if len(parts) > 1 and parts[0] == "Host:":
+                        live_hosts.append(parts[1])
+                        
+            f_out.write(f"--- PHASE 1: HOST DISCOVERY ---\nDiscovered {len(live_hosts)} live hosts on the network.\n\n")
+            f_out.flush()
+            
+            if not live_hosts:
+                log("No live hosts discovered! Scan aborted.", "ERROR")
+                f_out.write("No live external/internal hosts visibly discovered. Aborting.\n")
+                return
+                
+            log(f"Discovered {len(live_hosts)} live target(s). Proceeding to safe scan.", "SUCCESS")
+            
+            # PHASE 2: Service & Safe Scan
+            log("Phase 2/3: Running Targeted Service & Safe Scan...", "INFO")
+            f_out.write("--- PHASE 2: SERVICE & SAFE SCAN ---\n")
+            f_out.flush()
+            
+            safe_cmd = ["nmap", "-T3", "-sV", "-sC", "-Pn", f"--host-timeout={host_timeout}m"] + live_hosts
+            subprocess.run(safe_cmd, stdout=f_out, stderr=subprocess.STDOUT)
+            
+            # PHASE 3: Isolated Vulnerability Loop
+            log(f"Phase 3/3: Running Isolated Vulnerability Loop on {len(live_hosts)} hosts...", "INFO")
+            f_out.write("\n\n--- PHASE 3: ISOLATED VULNERABILITY LOOP ---\n")
+            f_out.flush()
+            
+            for ip in live_hosts:
+                log(f"Scanning deep vulnerabilities exclusively on {ip}...", "INFO")
+                f_out.write(f"\n>>>> VULN SCAN: {ip} <<<<\n")
+                f_out.flush()
+                
+                vuln_cmd = ["nmap", "-T3", "--script", "vuln", "-Pn", f"--host-timeout={host_timeout}m", ip]
+                try:
+                    subprocess.run(vuln_cmd, stdout=f_out, stderr=subprocess.STDOUT)
+                except Exception as e:
+                    f_out.write(f"CRITICAL ERROR looping {ip}: {e}\n")
+                    f_out.flush()
+                    
+        log(f"Controlled Loop Completed! Raw output successfully appended to: {vuln_report}", "SUCCESS")
             
     except FileNotFoundError:
         log("Nmap is not installed. Skipping step.", "ERROR")
     except Exception as e:
-        log(f"Error executing Nmap: {e}", "ERROR")
+        log(f"Error executing Nmap loop: {e}", "ERROR")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run Nmap vulnerability scan.")
