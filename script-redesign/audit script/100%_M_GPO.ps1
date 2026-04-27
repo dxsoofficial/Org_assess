@@ -2,96 +2,94 @@
 
 $hostname = $env:COMPUTERNAME
 
-# ✅ Always-writable local path (works for user + SYSTEM)
+# Get script execution directory
 
-$outputDir = "C:\ProgramData\VA_Audit"
+$scriptPath = Split-Path -Parent $MyInvocation.MyCommand.Path
+if (-not $scriptPath) { $scriptPath = Get-Location }
+
+# Output folder (same location as script)
+
+$outputDir = Join-Path $scriptPath "output"
+
+# Create output folder if not exists
 
 if (!(Test-Path $outputDir)) {
 New-Item -ItemType Directory -Path $outputDir -Force | Out-Null
 }
 
-$txtFile = Join-Path $outputDir "$hostname.txt"
-$csvFile = Join-Path $outputDir "$hostname-software.csv"
+# Output file
 
-# Optional: central share (comment if not needed)
-
-$centralShare = "\SERVER\AuditLogs"
+$outputFile = Join-Path $outputDir "$hostname.txt"
 
 # ================= START =================
 
-"==== VA AUDIT START ====" | Out-File $txtFile
-"Hostname: $hostname" | Out-File $txtFile -Append
-"Date: $(Get-Date)" | Out-File $txtFile -Append
+"==== VULNERABILITY AUDIT START ====" | Out-File $outputFile -Encoding UTF8
+"Hostname: $hostname" | Out-File $outputFile -Append
+"Date: $(Get-Date)" | Out-File $outputFile -Append
 
 # ================= SYSTEM =================
 
-"==== SYSTEM INFO ====" | Out-File $txtFile -Append
-Get-CimInstance Win32_OperatingSystem |
-Select Caption, Version, OSArchitecture |
-Out-File $txtFile -Append
+"==== SYSTEM INFO ====" | Out-File $outputFile -Append
+Get-ComputerInfo | Out-File $outputFile -Append
 
 # ================= PATCHES =================
 
-"==== PATCHES ====" | Out-File $txtFile -Append
-Get-HotFix | Select HotFixID, InstalledOn | Out-File $txtFile -Append
+"==== PATCHES ====" | Out-File $outputFile -Append
+Get-HotFix | Out-File $outputFile -Append
 
 # ================= USERS =================
 
-"==== LOCAL ADMINS ====" | Out-File $txtFile -Append
-Get-LocalGroupMember -Group "Administrators" |
-Select Name | Out-File $txtFile -Append
+"==== USERS ====" | Out-File $outputFile -Append
+Get-LocalUser | Out-File $outputFile -Append
+
+"==== ADMINISTRATORS ====" | Out-File $outputFile -Append
+Get-LocalGroupMember -Group "Administrators" | Out-File $outputFile -Append
 
 # ================= FIREWALL =================
 
-"==== FIREWALL STATUS ====" | Out-File $txtFile -Append
-$fw = Get-NetFirewallProfile
-$fw | Select Name, Enabled | Out-File $txtFile -Append
-
-if ($fw.Enabled -contains $false) {
-"WARNING: Firewall Disabled" | Out-File $txtFile -Append
-}
+"==== FIREWALL ====" | Out-File $outputFile -Append
+Get-NetFirewallProfile | Out-File $outputFile -Append
 
 # ================= DEFENDER =================
 
-"==== DEFENDER STATUS ====" | Out-File $txtFile -Append
-$def = Get-MpComputerStatus
-$def | Select AntivirusEnabled, RealTimeProtectionEnabled | Out-File $txtFile -Append
+"==== DEFENDER ====" | Out-File $outputFile -Append
+Get-MpComputerStatus | Out-File $outputFile -Append
 
-if ($def.AntivirusEnabled -eq $false) {
-"WARNING: Antivirus Disabled" | Out-File $txtFile -Append
-}
+# ================= SOFTWARE (FIXED) =================
 
-# ================= SOFTWARE =================
-
-"==== INSTALLED SOFTWARE ====" | Out-File $txtFile -Append
+"==== INSTALLED PROGRAMS ====" | Out-File $outputFile -Append
 
 function Get-InstalledPrograms {
-param($regPath)
+param([string]$regPath)
 
 ```
-$list = @()
+$results = @()
 
 try {
     $baseKey = [Microsoft.Win32.Registry]::LocalMachine.OpenSubKey($regPath)
-    if ($baseKey) {
-        foreach ($sub in $baseKey.GetSubKeyNames()) {
-            $subKey = $baseKey.OpenSubKey($sub)
-            if ($subKey) {
-                $name = $subKey.GetValue("DisplayName")
 
-                if ($name -and $name -notmatch "Update|Hotfix|Visual C\+\+") {
-                    $list += [PSCustomObject]@{
-                        Name      = $name
-                        Version   = $subKey.GetValue("DisplayVersion")
-                        Publisher = $subKey.GetValue("Publisher")
+    if ($baseKey) {
+        foreach ($subKeyName in $baseKey.GetSubKeyNames()) {
+            try {
+                $subKey = $baseKey.OpenSubKey($subKeyName)
+
+                if ($subKey) {
+                    $name = $subKey.GetValue("DisplayName")
+
+                    if ($name -and $name.Trim() -ne "") {
+                        $results += [PSCustomObject]@{
+                            Name      = $name
+                            Version   = $subKey.GetValue("DisplayVersion")
+                            Publisher = $subKey.GetValue("Publisher")
+                        }
                     }
                 }
-            }
+            } catch {}
         }
     }
 } catch {}
 
-return $list
+return $results
 ```
 
 }
@@ -100,60 +98,56 @@ $apps = @()
 $apps += Get-InstalledPrograms "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall"
 $apps += Get-InstalledPrograms "SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall"
 
-# Save CSV
+# Remove duplicates
 
-$apps | Sort-Object Name -Unique | Export-Csv $csvFile -NoTypeInformation
+$apps = $apps | Sort-Object Name -Unique
 
-# Save TXT
+# Output clean format
 
-$apps | Sort-Object Name -Unique |
-ForEach-Object {
-"$($*.Name) | $($*.Version) | $($_.Publisher)"
-} | Out-File $txtFile -Append
+foreach ($app in $apps) {
+"$($app.Name) | Version: $($app.Version) | Publisher: $($app.Publisher)" |
+Out-File $outputFile -Append
+}
 
 # ================= NETWORK =================
 
-"==== LISTENING PORTS ====" | Out-File $txtFile -Append
+"==== NETWORK CONFIG ====" | Out-File $outputFile -Append
+Get-NetIPConfiguration | Out-File $outputFile -Append
 
-$ports = Get-NetTCPConnection -State Listen |
-Select LocalAddress, LocalPort
-
-$ports | Out-File $txtFile -Append
-
-foreach ($p in $ports) {
-if ($p.LocalPort -in 21,22,3389,27017) {
-"WARNING: Sensitive port open -> $($p.LocalPort)" | Out-File $txtFile -Append
-}
-}
+"==== ACTIVE CONNECTIONS ====" | Out-File $outputFile -Append
+Get-NetTCPConnection | Out-File $outputFile -Append
 
 # ================= SERVICES =================
 
-"==== CRITICAL SERVICES ====" | Out-File $txtFile -Append
-
-Get-Service |
-Where-Object {
-$*.Status -eq "Running" -and
-$*.DisplayName -match "Mongo|SQL|Remote|SSH|Wazuh"
-} |
-Select Name, DisplayName |
-Out-File $txtFile -Append
+"==== SERVICES ====" | Out-File $outputFile -Append
+Get-Service | Out-File $outputFile -Append
 
 # ================= STARTUP =================
 
-"==== STARTUP PROGRAMS ====" | Out-File $txtFile -Append
-Get-CimInstance Win32_StartupCommand |
-Select Name, Command |
-Out-File $txtFile -Append
+"==== STARTUP PROGRAMS ====" | Out-File $outputFile -Append
+Get-CimInstance Win32_StartupCommand | Out-File $outputFile -Append
+
+# ================= TASKS =================
+
+"==== SCHEDULED TASKS ====" | Out-File $outputFile -Append
+Get-ScheduledTask | Out-File $outputFile -Append
+
+# ================= SHARES =================
+
+"==== SHARED FOLDERS ====" | Out-File $outputFile -Append
+Get-SmbShare | Out-File $outputFile -Append
+
+# ================= RDP =================
+
+"==== RDP STATUS ====" | Out-File $outputFile -Append
+(Get-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server").fDenyTSConnections |
+Out-File $outputFile -Append
+
+# ================= AUDIT POLICY =================
+
+"==== AUDIT POLICY ====" | Out-File $outputFile -Append
+auditpol /get /category:* | Out-File $outputFile -Append
 
 # ================= END =================
 
-"==== VA AUDIT END ====" | Out-File $txtFile -Append
-
-# ================= OPTIONAL CENTRAL COPY =================
-
-try {
-if (Test-Path $centralShare) {
-Copy-Item $txtFile -Destination "$centralShare$hostname.txt" -Force
-Copy-Item $csvFile -Destination "$centralShare$hostname-software.csv" -Force
-}
-} catch {}
+"==== VULNERABILITY AUDIT END ====" | Out-File $outputFile -Append
