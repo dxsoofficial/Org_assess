@@ -1,52 +1,52 @@
 ﻿==== VULNERABILITY AUDIT START ====
-Hostname: YOKESHRAJ
-Date: 04/27/2026 13:34:29
+Hostname: SYSTEM3-DXSO
+Date: 04/27/2026 13:36:14
 ==== SYSTEM INFO ====
 
 
 WindowsBuildLabEx                                       : 26100.1.amd64fre.ge_release.240331-1435
 WindowsCurrentVersion                                   : 6.3
-WindowsEditionId                                        : Core
+WindowsEditionId                                        : Professional
 WindowsInstallationType                                 : Client
-WindowsInstallDateFromRegistry                          : 03-08-2024 01:11:21
-WindowsProductId                                        : 00342-22365-46287-AAOEM
-WindowsProductName                                      : Windows 10 Home
+WindowsInstallDateFromRegistry                          : 18-08-2025 05:57:05
+WindowsProductId                                        : 00330-52033-08544-AAOEM
+WindowsProductName                                      : Windows 10 Pro
 WindowsRegisteredOrganization                           : 
-WindowsRegisteredOwner                                  : sayokesh@outlook.com
-WindowsSystemRoot                                       : C:\Windows
+WindowsRegisteredOwner                                  : Admin
+WindowsSystemRoot                                       : C:\WINDOWS
 WindowsVersion                                          : 2009
-OSDisplayVersion                                        : 25H2
-BiosCharacteristics                                     : {0, 1, 7, 8...}
-BiosBIOSVersion                                         : {LENOVO - 3, KYCN40WW, Phoenix Technologies Ltd. - 12345678}
+OSDisplayVersion                                        : 24H2
+BiosCharacteristics                                     : {7, 9, 11, 12...}
+BiosBIOSVersion                                         : {LENOVO - 1530, N22ET76W (1.53 ), Lenovo - 1530}
 BiosBuildNumber                                         : 
-BiosCaption                                             : KYCN40WW
+BiosCaption                                             : N22ET76W (1.53 )
 BiosCodeSet                                             : 
 BiosCurrentLanguage                                     : en-US
-BiosDescription                                         : KYCN40WW
+BiosDescription                                         : N22ET76W (1.53 )
 BiosEmbeddedControllerMajorVersion                      : 1
-BiosEmbeddedControllerMinorVersion                      : 32
+BiosEmbeddedControllerMinorVersion                      : 23
 BiosFirmwareType                                        : Uefi
 BiosIdentificationCode                                  : 
-BiosInstallableLanguages                                : 6
+BiosInstallableLanguages                                : 1
 BiosInstallDate                                         : 
 BiosLanguageEdition                                     : 
-BiosListOfLanguages                                     : {en-US, fr-FR, ja-JP, ko-KR...}
+BiosListOfLanguages                                     : {en-US}
 BiosManufacturer                                        : LENOVO
-BiosName                                                : KYCN40WW
+BiosName                                                : N22ET76W (1.53 )
 BiosOtherTargetOS                                       : 
 BiosPrimaryBIOS                                         : True
-BiosReleaseDate                                         : 02-09-2025 05:30:00
-BiosSeralNumber                                         : PF55513Y
-BiosSMBIOSBIOSVersion                                   : KYCN40WW
+BiosReleaseDate                                         : 04-01-2023 05:30:00
+BiosSeralNumber                                         : PC15X2AA
+BiosSMBIOSBIOSVersion                                   : N22ET76W (1.53 )
 BiosSMBIOSMajorVersion                                  : 3
-BiosSMBIOSMinorVersion                                  : 3
+BiosSMBIOSMinorVersion                                  : 0
 BiosSMBIOSPresent                                       : True
 BiosSoftwareElementState                                : Running
 BiosStatus                                              : OK
 BiosSystemBiosMajorVersion                              : 1
-BiosSystemBiosMinorVersion                              : 40
+BiosSystemBiosMinorVersion                              : 53
 BiosTargetOperatingSystem                               : 0
-BiosVersion                                             : LENOVO - 3
+BiosVersion                                             : LENOVO - 1530
 CsAdminPasswordStatus                                   : Disabled
 CsAutomaticManagedPagefile                              : True
 CsAutomaticResetBootOption                              : True
@@ -54,34 +54,34 @@ CsAutomaticResetCapability                              : True
 CsBootOptionOnLimit                                     : 
 CsBootOptionOnWatchDog                                  : 
 CsBootROMSupported                                      : True
-CsBootStatus                                            : {0, 0, 0, 222...}
+CsBootStatus                                            : 
 CsBootupState                                           : Normal boot
-CsCaption                                               : YOKESHRAJ
-CsChassisBootupState                                    : Safe
+CsCaption                                               : SYSTEM3-DXSO
+CsChassisBootupState                                    : Unknown
 CsChassisSKUNumber                                      : 
 CsCurrentTimeZone                                       : 330
 CsDaylightInEffect                                      : 
 CsDescription                                           : AT/AT COMPATIBLE
-CsDNSHostName                                           : Yokeshraj
+CsDNSHostName                                           : SYSTEM3-DXSO
 CsDomain                                                : WORKGROUP
 CsDomainRole                                            : StandaloneWorkstation
 CsEnableDaylightSavingsTime                             : True
-CsFrontPanelResetStatus                                 : Disabled
+CsFrontPanelResetStatus                                 : NotImplemented
 CsHypervisorPresent                                     : True
 CsInfraredSupported                                     : False
 CsInitialLoadInfo                                       : 
 CsInstallDate                                           : 
-CsKeyboardPasswordStatus                                : Disabled
+CsKeyboardPasswordStatus                                : NotImplemented
 CsLastLoadInfo                                          : 
 CsManufacturer                                          : LENOVO
-CsModel                                                 : 82XL
-CsName                                                  : YOKESHRAJ
-CsNetworkAdapters                                       : {Wi-Fi, Bluetooth Network Connection, Ethernet 2, Tailscale}
+CsModel                                                 : 20L8S3EU00
+CsName                                                  : SYSTEM3-DXSO
+CsNetworkAdapters                                       : {Ethernet, Wi-Fi, Bluetooth Network Connection, Tailscale...}
 CsNetworkServerModeEnabled                              : True
-CsNumberOfLogicalProcessors                             : 16
+CsNumberOfLogicalProcessors                             : 8
 CsNumberOfProcessors                                    : 1
-CsProcessors                                            : {AMD Ryzen 7 7730U with Radeon Graphics         }
-CsOEMStringArray                                        : {Modern Preload}
+CsProcessors                                            : {Intel(R) Core(TM) i7-8650U CPU @ 1.90GHz}
+CsOEMStringArray                                        : 
 CsPartOfDomain                                          : False
 CsPauseAfterReset                                       : -1
 CsPCSystemType                                          : Mobile
@@ -90,43 +90,43 @@ CsPowerManagementCapabilities                           :
 CsPowerManagementSupported                              : 
 CsPowerOnPasswordStatus                                 : Disabled
 CsPowerState                                            : Unknown
-CsPowerSupplyState                                      : Safe
+CsPowerSupplyState                                      : Unknown
 CsPrimaryOwnerContact                                   : 
-CsPrimaryOwnerName                                      : sayokesh@outlook.com
+CsPrimaryOwnerName                                      : Admin
 CsResetCapability                                       : Other
 CsResetCount                                            : -1
 CsResetLimit                                            : -1
 CsRoles                                                 : {LM_Workstation, LM_Server, NT}
 CsStatus                                                : OK
 CsSupportContactDescription                             : 
-CsSystemFamily                                          : IdeaPad Slim 3 14ABR8
-CsSystemSKUNumber                                       : LENOVO_MT_82XL_BU_idea_FM_IdeaPad Slim 3 14ABR8
+CsSystemFamily                                          : ThinkPad T480s
+CsSystemSKUNumber                                       : LENOVO_MT_20L8_BU_Think_FM_ThinkPad T480s
 CsSystemType                                            : x64-based PC
-CsThermalState                                          : Other
-CsTotalPhysicalMemory                                   : 14861852672
+CsThermalState                                          : Unknown
+CsTotalPhysicalMemory                                   : 17005895680
 CsPhyicallyInstalledMemory                              : 16777216
-CsUserName                                              : YOKESHRAJ\sayok
+CsUserName                                              : 
 CsWakeUpType                                            : PowerSwitch
 CsWorkgroup                                             : WORKGROUP
-OsName                                                  : Microsoft Windows 11 Home
+OsName                                                  : Microsoft Windows 11 Pro
 OsType                                                  : WINNT
-OsOperatingSystemSKU                                    : WindowsHome
-OsVersion                                               : 10.0.26200
+OsOperatingSystemSKU                                    : 48
+OsVersion                                               : 10.0.26100
 OsCSDVersion                                            : 
-OsBuildNumber                                           : 26200
-OsHotFixes                                              : {KB5082417, KB5054156, KB5083769, KB5088467}
+OsBuildNumber                                           : 26100
+OsHotFixes                                              : {KB5066131, KB5072033, KB5071142}
 OsBootDevice                                            : \Device\HarddiskVolume1
 OsSystemDevice                                          : \Device\HarddiskVolume3
-OsSystemDirectory                                       : C:\Windows\system32
+OsSystemDirectory                                       : C:\WINDOWS\system32
 OsSystemDrive                                           : C:
-OsWindowsDirectory                                      : C:\Windows
+OsWindowsDirectory                                      : C:\WINDOWS
 OsCountryCode                                           : 1
 OsCurrentTimeZone                                       : 330
 OsLocaleID                                              : 0409
 OsLocale                                                : en-US
-OsLocalDateTime                                         : 27-04-2026 13:34:29
-OsLastBootUpTime                                        : 27-04-2026 09:48:07
-OsUptime                                                : 03:46:21.7702227
+OsLocalDateTime                                         : 27-04-2026 13:36:16
+OsLastBootUpTime                                        : 27-04-2026 10:19:54
+OsUptime                                                : 03:16:22.2838525
 OsBuildType                                             : Multiprocessor Free
 OsCodeSet                                               : 1252
 OsDataExecutionPreventionAvailable                      : True
@@ -137,44 +137,43 @@ OsDebug                                                 : False
 OsDistributed                                           : False
 OsEncryptionLevel                                       : 256
 OsForegroundApplicationBoost                            : Maximum
-OsTotalVisibleMemorySize                                : 14513528
-OsFreePhysicalMemory                                    : 3639484
-OsTotalVirtualMemorySize                                : 30242168
-OsFreeVirtualMemory                                     : 12971436
-OsInUseVirtualMemory                                    : 17270732
+OsTotalVisibleMemorySize                                : 16607320
+OsFreePhysicalMemory                                    : 8749532
+OsTotalVirtualMemorySize                                : 34433112
+OsFreeVirtualMemory                                     : 24908968
+OsInUseVirtualMemory                                    : 9524144
 OsTotalSwapSpaceSize                                    : 
-OsSizeStoredInPagingFiles                               : 15728640
-OsFreeSpaceInPagingFiles                                : 15587508
+OsSizeStoredInPagingFiles                               : 17825792
+OsFreeSpaceInPagingFiles                                : 17712016
 OsPagingFiles                                           : {C:\pagefile.sys}
 OsHardwareAbstractionLayer                              : 10.0.26100.1
-OsInstallDate                                           : 03-08-2024 06:41:21
+OsInstallDate                                           : 18-08-2025 11:27:05
 OsManufacturer                                          : Microsoft Corporation
 OsMaxNumberOfProcesses                                  : 4294967295
 OsMaxProcessMemorySize                                  : 137438953344
-OsMuiLanguages                                          : {en-US}
+OsMuiLanguages                                          : {en-US, en-GB}
 OsNumberOfLicensedUsers                                 : 
-OsNumberOfProcesses                                     : 306
+OsNumberOfProcesses                                     : 280
 OsNumberOfUsers                                         : 2
 OsOrganization                                          : 
 OsArchitecture                                          : 64-bit
 OsLanguage                                              : en-US
-OsProductSuites                                         : {TerminalServicesSingleSession, HomeEdition}
+OsProductSuites                                         : {TerminalServicesSingleSession}
 OsOtherTypeDescription                                  : 
 OsPAEEnabled                                            : 
 OsPortableOperatingSystem                               : False
 OsPrimary                                               : True
 OsProductType                                           : WorkStation
-OsRegisteredUser                                        : sayokesh@outlook.com
-OsSerialNumber                                          : 00342-22365-46287-AAOEM
+OsRegisteredUser                                        : Admin
+OsSerialNumber                                          : 00330-52033-08544-AAOEM
 OsServicePackMajorVersion                               : 0
 OsServicePackMinorVersion                               : 0
 OsStatus                                                : OK
-OsSuites                                                : {TerminalServices, TerminalServicesSingleSession, 
-                                                          HomeEdition}
+OsSuites                                                : {TerminalServices, TerminalServicesSingleSession}
 OsServerLevel                                           : 
 KeyboardLayout                                          : en-IN
 TimeZone                                                : (UTC+05:30) Chennai, Kolkata, Mumbai, New Delhi
-LogonServer                                             : \\YOKESHRAJ
+LogonServer                                             : \\SYSTEM3-DXSO
 PowerPlatformRole                                       : Mobile
 HyperVisorPresent                                       : True
 HyperVRequirementDataExecutionPreventionAvailable       : 
@@ -182,8 +181,8 @@ HyperVRequirementSecondLevelAddressTranslation          :
 HyperVRequirementVirtualizationFirmwareEnabled          : 
 HyperVRequirementVMMonitorModeExtensions                : 
 DeviceGuardSmartStatus                                  : Off
-DeviceGuardRequiredSecurityProperties                   : {BaseVirtualizationSupport}
-DeviceGuardAvailableSecurityProperties                  : {BaseVirtualizationSupport, SecureBoot, DMAProtection, 5...}
+DeviceGuardRequiredSecurityProperties                   : {0}
+DeviceGuardAvailableSecurityProperties                  : {BaseVirtualizationSupport, DMAProtection, 5, 6...}
 DeviceGuardSecurityServicesConfigured                   : {HypervisorEnforcedCodeIntegrity}
 DeviceGuardSecurityServicesRunning                      : {HypervisorEnforcedCodeIntegrity}
 DeviceGuardCodeIntegrityPolicyEnforcementStatus         : EnforcementMode
@@ -195,30 +194,31 @@ DeviceGuardUserModeCodeIntegrityPolicyEnforcementStatus : Off
 
 Source        Description      HotFixID      InstalledBy          InstalledOn               
 ------        -----------      --------      -----------          -----------               
-YOKESHRAJ     Update           KB5082417     NT AUTHORITY\SYSTEM  15-04-2026 00:00:00       
-YOKESHRAJ     Update           KB5054156     NT AUTHORITY\SYSTEM  26-02-2026 00:00:00       
-YOKESHRAJ     Security Update  KB5083769     NT AUTHORITY\SYSTEM  15-04-2026 00:00:00       
-YOKESHRAJ     Security Update  KB5088467     NT AUTHORITY\SYSTEM  15-04-2026 00:00:00       
+SYSTEM3-DXSO  Update           KB5066131     NT AUTHORITY\SYSTEM  27-12-2025 00:00:00       
+SYSTEM3-DXSO  Security Update  KB5072033     NT AUTHORITY\SYSTEM  27-12-2025 00:00:00       
+SYSTEM3-DXSO  Update           KB5071142     NT AUTHORITY\SYSTEM  27-12-2025 00:00:00       
 
 
 ==== USERS ====
 
 Name               Enabled Description                                                                                 
 ----               ------- -----------                                                                                 
+Admin              True                                                                                                
 Administrator      False   Built-in account for administering the computer/domain                                      
 DefaultAccount     False   A user account managed by the system.                                                       
+dxsoo              True                                                                                                
 Guest              False   Built-in account for guest access to the computer/domain                                    
-sayok              True                                                                                                
 WDAGUtilityAccount False   A user account managed and used by the system for Windows Defender Application Guard scen...
-WsiAccount         False   A user account managed and used by the system for Web Sign-in scenarios.                    
+WsiAccount         True    A user account managed and used by the system for Web Sign-in scenarios.                    
 
 
 ==== ADMINISTRATORS ====
 
-ObjectClass Name                    PrincipalSource 
------------ ----                    --------------- 
-User        YOKESHRAJ\Administrator Local           
-User        YOKESHRAJ\sayok         MicrosoftAccount
+ObjectClass Name                       PrincipalSource 
+----------- ----                       --------------- 
+User        SYSTEM3-DXSO\Admin         Local           
+User        SYSTEM3-DXSO\Administrator Local           
+User        SYSTEM3-DXSO\dxsoo         MicrosoftAccount
 
 
 ==== FIREWALL ====
@@ -293,14 +293,14 @@ AMServiceEnabled                 : True
 AMServiceVersion                 : 4.18.26030.3011
 AntispywareEnabled               : True
 AntispywareSignatureAge          : 0
-AntispywareSignatureLastUpdated  : 27-04-2026 02:51:07
-AntispywareSignatureVersion      : 1.449.317.0
+AntispywareSignatureLastUpdated  : 27-04-2026 05:34:02
+AntispywareSignatureVersion      : 1.449.319.0
 AntivirusEnabled                 : True
 AntivirusSignatureAge            : 0
-AntivirusSignatureLastUpdated    : 27-04-2026 02:51:07
-AntivirusSignatureVersion        : 1.449.317.0
+AntivirusSignatureLastUpdated    : 27-04-2026 05:34:02
+AntivirusSignatureVersion        : 1.449.319.0
 BehaviorMonitorEnabled           : True
-ComputerID                       : E01AB593-3053-4A02-A12B-86303B5A82A7
+ComputerID                       : FA7E5BE0-97B0-485C-B9CC-2AB06DA6E220
 ComputerState                    : 0
 ControlledConfigurationState     : 0
 DefenderSignaturesOutOfDate      : False
@@ -322,15 +322,15 @@ LastQuickScanSource              : 2
 NISEnabled                       : True
 NISEngineVersion                 : 1.1.26030.3008
 NISSignatureAge                  : 0
-NISSignatureLastUpdated          : 27-04-2026 02:51:07
-NISSignatureVersion              : 1.449.317.0
+NISSignatureLastUpdated          : 27-04-2026 05:34:02
+NISSignatureVersion              : 1.449.319.0
 OnAccessProtectionEnabled        : True
 ProductStatus                    : 524288
-QuickScanAge                     : 3
-QuickScanEndTime                 : 24-04-2026 11:57:39
+QuickScanAge                     : 0
+QuickScanEndTime                 : 27-04-2026 11:29:14
 QuickScanOverdue                 : False
-QuickScanSignatureVersion        : 1.449.236.0
-QuickScanStartTime               : 24-04-2026 11:55:44
+QuickScanSignatureVersion        : 1.449.319.0
+QuickScanStartTime               : 27-04-2026 11:27:44
 RealTimeProtectionEnabled        : True
 RealTimeScanDirection            : 0
 RebootRequired                   : False
@@ -350,98 +350,82 @@ PSComputerName                   :
 
 
 ==== INSTALLED PROGRAMS ====
-Android Studio | Version: 2024.3 | Publisher: Google LLC
-Antigravity (User) | Version: 1.23.2 | Publisher: Google
-AWS Command Line Interface v2 | Version: 2.23.7.0 | Publisher: Amazon Web Services
-Brave | Version: 147.1.89.143 | Publisher: Brave Software Inc
-Canva | Version: 1.122.0 | Publisher: Canva Pty Ltd
+Adobe Reader XI  MUI | Version: 11.0.00 | Publisher: Adobe Systems Incorporated
+Antigravity (User) | Version: 1.20.6 | Publisher: Google
+Brave | Version: 146.1.88.138 | Publisher: Brave Software Inc
 ChatGPT | Version: 1.0 | Publisher: Google\Chrome
-Claude | Version: 1.0 | Publisher: Google\Chrome
-Comet | Version: 143.2.7499.37654 | Publisher: The Comet Authors
-DeepSeek - Into the Unknown | Version: 1.0 | Publisher: Google\Chrome
-Discord | Version: 1.0.9003 | Publisher: Discord Inc.
-Euro Truck Simulator 2 | Version:  | Publisher: 
-Farming Simulator 22 | Version:  | Publisher: 
-Figma | Version: 126.0.4 | Publisher: Figma, Inc.
-Figma Agent | Version: 126.0.4 | Publisher: Figma, Inc.
-Gemini | Version: 1.0 | Publisher: Google\Chrome
-Git | Version: 2.46.0 | Publisher: The Git Development Community
-GitHub | Version: 1.0 | Publisher: Google\Chrome
-Google Chrome | Version: 147.0.7727.116 | Publisher: Google LLC
-Inno Setup version 6.7.1 | Version: 6.7.1 | Publisher: jrsoftware.org
-Java(TM) SE Development Kit 22.0.2 (64-bit) | Version: 22.0.2.0 | Publisher: Oracle Corporation
-Lenovo Now | Version: 4.6.0.44 | Publisher: Lenovo
-Lenovo Vantage Service | Version: 4.2601.21.0 | Publisher: Lenovo Group Ltd.
-Microsoft .NET Core Host - 3.1.16 (x86) | Version: 24.64.30112 | Publisher: Microsoft Corporation
-Microsoft .NET Core Host FX Resolver - 3.1.16 (x86) | Version: 24.64.30112 | Publisher: Microsoft Corporation
-Microsoft .NET Core Runtime - 3.1.16 (x86) | Version: 24.64.30112 | Publisher: Microsoft Corporation
+Copilot | Version: 147.0.3912.84 | Publisher: Microsoft Corporation
+Cylerian Agent | Version: 2.1.0.6 | Publisher: Cylerian
+Docker Desktop | Version: 4.63.0 | Publisher: Docker Inc.
+Dolby Audio X2 Windows API SDK | Version: 0.8.8.90 | Publisher: Dolby Laboratories, Inc.
+Enterprise Scanner Appliance version 1.0.0 | Version: 1.0.0 | Publisher: SecurScanner Solutions
+Git | Version: 2.53.0 | Publisher: The Git Development Community
+Google Chrome | Version: 146.0.7680.178 | Publisher: Google LLC
+Intel® PROSet/Wireless Software | Version: 21.40.1.0u | Publisher: Intel Corporation
+Intel® PROSet/Wireless WiFi Software | Version: 21.40.1.3406 | Publisher: Intel Corporation
 Microsoft Edge | Version: 147.0.3912.86 | Publisher: Microsoft Corporation
 Microsoft Edge WebView2 Runtime | Version: 147.0.3912.86 | Publisher: Microsoft Corporation
-Microsoft GameInput | Version: 3.3.163.0 | Publisher: Microsoft Corporation
-Microsoft Office LTSC Professional Plus 2024 - en-us | Version: 16.0.17932.20742 | Publisher: Microsoft Corporation
-Microsoft OneDrive | Version: 26.055.0323.0004 | Publisher: Microsoft Corporation
-Microsoft Teams Meeting Add-in for Microsoft Office | Version: 1.24.13006 | Publisher: Microsoft
-Microsoft Visual C++ 2008 Redistributable - x64 9.0.30729.17 | Version: 9.0.30729 | Publisher: Microsoft Corporation
-Microsoft Visual C++ 2010  x64 Redistributable - 10.0.40219 | Version: 10.0.40219 | Publisher: Microsoft Corporation
-Microsoft Visual C++ 2010  x86 Redistributable - 10.0.40219 | Version: 10.0.40219 | Publisher: Microsoft Corporation
-Microsoft Visual C++ 2012 Redistributable (x64) - 11.0.61030 | Version: 11.0.61030.0 | Publisher: Microsoft Corporation
-Microsoft Visual C++ 2012 Redistributable (x86) - 11.0.61030 | Version: 11.0.61030.0 | Publisher: Microsoft Corporation
-Microsoft Visual C++ 2012 x64 Additional Runtime - 11.0.61030 | Version: 11.0.61030 | Publisher: Microsoft Corporation
-Microsoft Visual C++ 2012 x64 Minimum Runtime - 11.0.61030 | Version: 11.0.61030 | Publisher: Microsoft Corporation
-Microsoft Visual C++ 2012 x86 Additional Runtime - 11.0.61030 | Version: 11.0.61030 | Publisher: Microsoft Corporation
-Microsoft Visual C++ 2012 x86 Minimum Runtime - 11.0.61030 | Version: 11.0.61030 | Publisher: Microsoft Corporation
-Microsoft Visual C++ 2013 Redistributable (x64) - 12.0.40664 | Version: 12.0.40664.0 | Publisher: Microsoft Corporation
-Microsoft Visual C++ 2013 Redistributable (x86) - 12.0.40664 | Version: 12.0.40664.0 | Publisher: Microsoft Corporation
-Microsoft Visual C++ 2013 x64 Additional Runtime - 12.0.40664 | Version: 12.0.40664 | Publisher: Microsoft Corporation
-Microsoft Visual C++ 2013 x64 Minimum Runtime - 12.0.40664 | Version: 12.0.40664 | Publisher: Microsoft Corporation
-Microsoft Visual C++ 2013 x86 Additional Runtime - 12.0.40664 | Version: 12.0.40664 | Publisher: Microsoft Corporation
-Microsoft Visual C++ 2013 x86 Minimum Runtime - 12.0.40664 | Version: 12.0.40664 | Publisher: Microsoft Corporation
-Microsoft Visual C++ 2015-2022 Redistributable (x64) - 14.40.33810 | Version: 14.40.33810.0 | Publisher: Microsoft Corporation
-Microsoft Visual C++ 2015-2022 Redistributable (x86) - 14.36.32532 | Version: 14.36.32532.0 | Publisher: Microsoft Corporation
-Microsoft Visual C++ 2022 X64 Additional Runtime - 14.40.33810 | Version: 14.40.33810 | Publisher: Microsoft Corporation
-Microsoft Visual C++ 2022 X64 Minimum Runtime - 14.40.33810 | Version: 14.40.33810 | Publisher: Microsoft Corporation
-Microsoft Visual C++ 2022 X86 Additional Runtime - 14.36.32532 | Version: 14.36.32532 | Publisher: Microsoft Corporation
-Microsoft Visual C++ 2022 X86 Minimum Runtime - 14.36.32532 | Version: 14.36.32532 | Publisher: Microsoft Corporation
-Microsoft Visual Studio Code (User) | Version: 1.112.0 | Publisher: Microsoft Corporation
-Microsoft Windows Desktop Runtime - 3.1.16 (x86) | Version: 24.64.30112 | Publisher: Microsoft Corporation
-MobaXterm | Version: 26.1.0.5456 | Publisher: Mobatek
-MongoDB 7.0.14 2008R2Plus SSL (64 bit) | Version: 7.0.14 | Publisher: MongoDB Inc.
-MongoDB Compass | Version: 1.45.4 | Publisher: MongoDB Inc
-Node.js | Version: 22.12.0 | Publisher: Node.js Foundation
-Notepad++ (64-bit x64) | Version: 8.9 | Publisher: Notepad++ Team
-Office 16 Click-to-Run Extensibility Component | Version: 16.0.17932.20130 | Publisher: Microsoft Corporation
-Office 16 Click-to-Run Licensing Component | Version: 16.0.17932.20742 | Publisher: Microsoft Corporation
-Oracle VirtualBox 7.1.10 | Version: 7.1.10 | Publisher: Oracle and/or its affiliates
-Perplexity | Version: 1.0 | Publisher: Google\Chrome
-Python 3.12.6 (64-bit) | Version: 3.12.6150.0 | Publisher: Python Software Foundation
-Python 3.12.6 Add to Path (64-bit) | Version: 3.12.6150.0 | Publisher: Python Software Foundation
-Python 3.12.6 Core Interpreter (64-bit) | Version: 3.12.6150.0 | Publisher: Python Software Foundation
-Python 3.12.6 Development Libraries (64-bit) | Version: 3.12.6150.0 | Publisher: Python Software Foundation
-Python 3.12.6 Documentation (64-bit) | Version: 3.12.6150.0 | Publisher: Python Software Foundation
-Python 3.12.6 Executables (64-bit) | Version: 3.12.6150.0 | Publisher: Python Software Foundation
-Python 3.12.6 pip Bootstrap (64-bit) | Version: 3.12.6150.0 | Publisher: Python Software Foundation
-Python 3.12.6 Standard Library (64-bit) | Version: 3.12.6150.0 | Publisher: Python Software Foundation
-Python 3.12.6 Tcl/Tk Support (64-bit) | Version: 3.12.6150.0 | Publisher: Python Software Foundation
-Python 3.12.6 Test Suite (64-bit) | Version: 3.12.6150.0 | Publisher: Python Software Foundation
-Python Launcher | Version: 3.12.6150.0 | Publisher: Python Software Foundation
-qBittorrent | Version: 5.0.4 | Publisher: The qBittorrent project
-Quick Share | Version: 1.0.2555.1 | Publisher: Google LLC
+Microsoft Office Standard 2019 - en-us | Version: 16.0.10417.20117 | Publisher: Microsoft Corporation
+Microsoft OneDrive | Version: 26.062.0402.0002 | Publisher: Microsoft Corporation
+Microsoft Update Health Tools | Version: 5.72.0.0 | Publisher: Microsoft Corporation
+Microsoft Visual C++ 2015-2022 Redistributable (x64) - 14.44.35211 | Version: 14.44.35211.0 | Publisher: Microsoft Corporation
+Microsoft Visual C++ 2022 X64 Additional Runtime - 14.44.35211 | Version: 14.44.35211 | Publisher: Microsoft Corporation
+Microsoft Visual C++ 2022 X64 Minimum Runtime - 14.44.35211 | Version: 14.44.35211 | Publisher: Microsoft Corporation
+Npcap OEM | Version: 1.72 | Publisher: Nmap Project
+Office 16 Click-to-Run Extensibility Component | Version: 16.0.10417.20117 | Publisher: Microsoft Corporation
+Office 16 Click-to-Run Licensing Component | Version: 16.0.10417.20117 | Publisher: Microsoft Corporation
+Office 16 Click-to-Run Localization Component | Version: 16.0.10417.20117 | Publisher: Microsoft Corporation
+Oracle VirtualBox 7.2.2 | Version: 7.2.2 | Publisher: Oracle and/or its affiliates
+Python 3.13.7 (64-bit) | Version: 3.13.7150.0 | Publisher: Python Software Foundation
+Python 3.13.7 Add to Path (64-bit) | Version: 3.13.7150.0 | Publisher: Python Software Foundation
+Python 3.13.7 Core Interpreter (64-bit debug) | Version: 3.13.7150.0 | Publisher: Python Software Foundation
+Python 3.13.7 Core Interpreter (64-bit symbols) | Version: 3.13.7150.0 | Publisher: Python Software Foundation
+Python 3.13.7 Core Interpreter (64-bit) | Version: 3.13.7150.0 | Publisher: Python Software Foundation
+Python 3.13.7 Development Libraries (64-bit debug) | Version: 3.13.7150.0 | Publisher: Python Software Foundation
+Python 3.13.7 Development Libraries (64-bit) | Version: 3.13.7150.0 | Publisher: Python Software Foundation
+Python 3.13.7 Documentation (64-bit) | Version: 3.13.7150.0 | Publisher: Python Software Foundation
+Python 3.13.7 Executables (64-bit debug) | Version: 3.13.7150.0 | Publisher: Python Software Foundation
+Python 3.13.7 Executables (64-bit symbols) | Version: 3.13.7150.0 | Publisher: Python Software Foundation
+Python 3.13.7 Executables (64-bit) | Version: 3.13.7150.0 | Publisher: Python Software Foundation
+Python 3.13.7 Freethreaded Interpreter (64-bit debug) | Version: 3.13.7150.0 | Publisher: Python Software Foundation
+Python 3.13.7 Freethreaded Interpreter (64-bit symbols) | Version: 3.13.7150.0 | Publisher: Python Software Foundation
+Python 3.13.7 Freethreaded Interpreter (64-bit) | Version: 3.13.7150.0 | Publisher: Python Software Foundation
+Python 3.13.7 pip Bootstrap (64-bit) | Version: 3.13.7150.0 | Publisher: Python Software Foundation
+Python 3.13.7 Standard Library (64-bit debug) | Version: 3.13.7150.0 | Publisher: Python Software Foundation
+Python 3.13.7 Standard Library (64-bit symbols) | Version: 3.13.7150.0 | Publisher: Python Software Foundation
+Python 3.13.7 Standard Library (64-bit) | Version: 3.13.7150.0 | Publisher: Python Software Foundation
+Python 3.13.7 Tcl/Tk Support (64-bit debug) | Version: 3.13.7150.0 | Publisher: Python Software Foundation
+Python 3.13.7 Tcl/Tk Support (64-bit symbols) | Version: 3.13.7150.0 | Publisher: Python Software Foundation
+Python 3.13.7 Tcl/Tk Support (64-bit) | Version: 3.13.7150.0 | Publisher: Python Software Foundation
+Python 3.13.7 Test Suite (64-bit debug) | Version: 3.13.7150.0 | Publisher: Python Software Foundation
+Python 3.13.7 Test Suite (64-bit symbols) | Version: 3.13.7150.0 | Publisher: Python Software Foundation
+Python 3.13.7 Test Suite (64-bit) | Version: 3.13.7150.0 | Publisher: Python Software Foundation
+Python Launcher | Version: 3.13.7150.0 | Publisher: Python Software Foundation
 Tailscale | Version: 1.96.3 | Publisher: Tailscale Inc.
-Udemy | Version: 1.0 | Publisher: Google\Chrome
+Tenable Nessus (x64) | Version: 10.11.2.20042 | Publisher: Tenable, Inc.
+Thunderbolt™ Software | Version: 17.4.80.550 | Publisher: Intel Corporation
 UltraViewer version 6.6.124 | Version: 6.6.124 | Publisher: DucFabulous
 Wazuh Agent | Version: 4.12.0 | Publisher: Wazuh, Inc.
-WebAdvisor by McAfee | Version: 4.1.1.1109 | Publisher: McAfee, LLC
-Windows Subsystem for Linux | Version: 2.4.11.0 | Publisher: Microsoft Corporation
-WinRAR 7.01 (64-bit) | Version: 7.01.0 | Publisher: win.rar GmbH
-Wispr Flow | Version: 1.5.67 | Publisher: Wispr Flow
-World War Z: Aftermath | Version:  | Publisher: 
-Zoho Mail - Desktop 1.9.1 | Version: 1.9.1 | Publisher: Zoho Mail
-Zoom Workplace | Version: 6.7.8 (32670) | Publisher: Zoom Communications, Inc.
+Windows Subsystem for Linux | Version: 2.6.3.0 | Publisher: Microsoft Corporation
+WinRAR 7.13 (64-bit) | Version: 7.13.0 | Publisher: win.rar GmbH
 ==== NETWORK CONFIG ====
 
 
+InterfaceAlias       : Ethernet
+InterfaceIndex       : 14
+InterfaceDescription : Intel(R) Ethernet Connection (4) I219-LM
+NetProfile.Name      : Network 2
+IPv6Address          : 2404:8ec0:4:1c46:32bd:c5f9:6ac0:606e
+IPv4Address          : 192.168.0.4
+IPv6DefaultGateway   : {fe80::f2b4:d2ff:fe8e:2403, fe80::1}
+IPv4DefaultGateway   : 192.168.0.1
+DNSServer            : fe80::1
+                       fe80::1
+                       8.8.8.8
+                       4.4.4.4
+
 InterfaceAlias       : Ethernet 2
-InterfaceIndex       : 22
+InterfaceIndex       : 4
 InterfaceDescription : VirtualBox Host-Only Ethernet Adapter
 IPv4Address          : 192.168.56.1
 IPv6DefaultGateway   : 
@@ -450,12 +434,22 @@ DNSServer            : fec0:0:0:ffff::1
                        fec0:0:0:ffff::2
                        fec0:0:0:ffff::3
 
+InterfaceAlias       : vEthernet (WSL (Hyper-V firewall))
+InterfaceIndex       : 63
+InterfaceDescription : Hyper-V Virtual Ethernet Adapter
+IPv4Address          : 172.17.48.1
+IPv6DefaultGateway   : 
+IPv4DefaultGateway   : 
+DNSServer            : fec0:0:0:ffff::1
+                       fec0:0:0:ffff::2
+                       fec0:0:0:ffff::3
+
 InterfaceAlias       : Tailscale
-InterfaceIndex       : 9
+InterfaceIndex       : 8
 InterfaceDescription : Tailscale Tunnel
 NetProfile.Name      : Tailscale
-IPv6Address          : fd7a:115c:a1e0::b237:6f61
-IPv4Address          : 100.72.111.97
+IPv6Address          : fd7a:115c:a1e0::b134:9109
+IPv4Address          : 100.117.145.9
 IPv6DefaultGateway   : 
 IPv4DefaultGateway   : 
 DNSServer            : fec0:0:0:ffff::1
@@ -463,20 +457,12 @@ DNSServer            : fec0:0:0:ffff::1
                        fec0:0:0:ffff::3
 
 InterfaceAlias       : Wi-Fi
-InterfaceIndex       : 11
-InterfaceDescription : MediaTek Wi-Fi 6 MT7921 Wireless LAN Card
-NetProfile.Name      : Shopforoffice.5G
-IPv6Address          : 2404:8ec0:4:84c:c73b:8b4a:c501:3e8
-IPv4Address          : 192.168.1.50
-IPv6DefaultGateway   : fe80::1
-IPv4DefaultGateway   : 192.168.1.1
-DNSServer            : 2404:8ec0:3::11
-                       2001:4860:4860::8888
-                       2606:4700:4700::1111
-                       192.168.1.1
+InterfaceIndex       : 16
+InterfaceDescription : Intel(R) Dual Band Wireless-AC 8265
+NetAdapter.Status    : Disconnected
 
 InterfaceAlias       : Bluetooth Network Connection
-InterfaceIndex       : 3
+InterfaceIndex       : 11
 InterfaceDescription : Bluetooth Device (Personal Area Network)
 NetAdapter.Status    : Disconnected
 
@@ -486,83 +472,88 @@ NetAdapter.Status    : Disconnected
 
 LocalAddress                        LocalPort RemoteAddress                       RemotePort State       AppliedSetting
 ------------                        --------- -------------                       ---------- -----       --------------
-::                                  65489     ::                                  0          Bound                     
-::                                  65438     ::                                  0          Bound                     
-::                                  64495     ::                                  0          Bound                     
-::                                  62045     ::                                  0          Bound                     
-::                                  61770     ::                                  0          Bound                     
-::                                  61289     ::                                  0          Bound                     
-::                                  60249     ::                                  0          Bound                     
-::                                  58808     ::                                  0          Bound                     
-::                                  52548     ::                                  0          Bound                     
-::                                  52546     ::                                  0          Bound                     
-::                                  51968     ::                                  0          Bound                     
-::                                  50100     ::                                  0          Bound                     
-::                                  50099     ::                                  0          Bound                     
-::                                  49809     ::                                  0          Bound                     
-::                                  49408     ::                                  0          Bound                     
-2404:8ec0:4:84c:43f:f5b7:8192:9f56  65438     2606:b740:49::102                   80         Established Internet      
-2404:8ec0:4:84c:43f:f5b7:8192:9f56  64495     2404:6800:4003:c02::bc              5228       Established Internet      
-2404:8ec0:4:84c:43f:f5b7:8192:9f56  61770     2a03:2880:f354:120:face:b00c:0:167  443        Established Internet      
-2404:8ec0:4:84c:43f:f5b7:8192:9f56  61738     2600:1901:0:5e8a::                  443        TimeWait                  
-2404:8ec0:4:84c:43f:f5b7:8192:9f56  61289     2600:1901:0:5e8a::                  443        Established Internet      
-2404:8ec0:4:84c:43f:f5b7:8192:9f56  60249     2404:6800:4003:c02::bc              5228       Established Internet      
-2404:8ec0:4:84c:43f:f5b7:8192:9f56  60124     2620:1ec:50::12                     443        TimeWait                  
-2404:8ec0:4:84c:43f:f5b7:8192:9f56  58808     2400:6180:100:d0::982:d001          443        Established Internet      
-2404:8ec0:4:84c:43f:f5b7:8192:9f56  52548     2600:1901:0:5e8a::                  443        Established Internet      
-2404:8ec0:4:84c:43f:f5b7:8192:9f56  52546     2a06:98c1:3107::6812:2715           443        Established Internet      
-2404:8ec0:4:84c:43f:f5b7:8192:9f56  51968     2405:200:1630:1a3::ae0              443        CloseWait   Internet      
-2404:8ec0:4:84c:43f:f5b7:8192:9f56  50100     2603:1063:2001:1d2c::365:ff1        443        Established Internet      
-2404:8ec0:4:84c:43f:f5b7:8192:9f56  50099     2603:1063:2001:1d2c::365:ff1        443        Established Internet      
-2404:8ec0:4:84c:43f:f5b7:8192:9f56  49809     2603:1063:2001:1d2c::365:ff1        443        Established Internet      
-::                                  49672     ::                                  0          Listen                    
+::                                  65442     ::                                  0          Bound                     
+::                                  65441     ::                                  0          Bound                     
+::                                  64507     ::                                  0          Bound                     
+::                                  64506     ::                                  0          Bound                     
+::                                  64505     ::                                  0          Bound                     
+::                                  64502     ::                                  0          Bound                     
+::                                  64499     ::                                  0          Bound                     
+::                                  64498     ::                                  0          Bound                     
+::                                  64483     ::                                  0          Bound                     
+::                                  61331     ::                                  0          Bound                     
+::                                  60413     ::                                  0          Bound                     
+::                                  57401     ::                                  0          Bound                     
+::                                  57385     ::                                  0          Bound                     
+::                                  49676     ::                                  0          Bound                     
+2404:8ec0:4:1c46:3153:ba56:efb7:... 65442     2406:da1a:f2a:7c00:ada6:f544:a2e... 443        Established Internet      
+2404:8ec0:4:1c46:3153:ba56:efb7:... 65441     2406:da1a:f2a:7c00:ada6:f544:a2e... 443        Established Internet      
+2404:8ec0:4:1c46:3153:ba56:efb7:... 64507     2406:da1a:f2a:7c00:2fe2:8a96:9bc... 443        Established Internet      
+2404:8ec0:4:1c46:3153:ba56:efb7:... 64506     2406:da1a:f2a:7c00:2fe2:8a96:9bc... 443        Established Internet      
+2404:8ec0:4:1c46:3153:ba56:efb7:... 64505     2406:da1a:f2a:7c00:2fe2:8a96:9bc... 443        Established Internet      
+2404:8ec0:4:1c46:3153:ba56:efb7:... 64502     2406:da1a:f2a:7c00:2fe2:8a96:9bc... 443        Established Internet      
+2404:8ec0:4:1c46:3153:ba56:efb7:... 64499     2406:da1a:f2a:7c00:2fe2:8a96:9bc... 443        Established Internet      
+2404:8ec0:4:1c46:3153:ba56:efb7:... 64498     2406:da1a:f2a:7c00:2fe2:8a96:9bc... 443        Established Internet      
+2404:8ec0:4:1c46:3153:ba56:efb7:... 64483     2406:da1a:f2a:7c00:2fe2:8a96:9bc... 443        Established Internet      
+2404:8ec0:4:1c46:3153:ba56:efb7:... 61331     2400:6180:100:d0::982:d001          443        Established Internet      
+2404:8ec0:4:1c46:3153:ba56:efb7:... 57401     2603:1040:a06:6::                   443        Established Internet      
+2404:8ec0:4:1c46:3153:ba56:efb7:... 57385     2606:b740:49::101                   443        Established Internet      
+::                                  49697     ::                                  0          Listen                    
+2404:8ec0:4:1c46:3153:ba56:efb7:... 49676     2606:b740:1:20::102                 443        Established Internet      
+::                                  49670     ::                                  0          Listen                    
 ::                                  49668     ::                                  0          Listen                    
 ::                                  49667     ::                                  0          Listen                    
 ::                                  49666     ::                                  0          Listen                    
 ::                                  49665     ::                                  0          Listen                    
 ::                                  49664     ::                                  0          Listen                    
-2404:8ec0:4:84c:43f:f5b7:8192:9f56  49408     2603:1040:a06:6::2                  443        Established Internet      
 ::1                                 42050     ::                                  0          Listen                    
-fd7a:115c:a1e0::b237:6f61           36001     ::                                  0          Listen                    
+fd7a:115c:a1e0::b134:9109           38817     ::                                  0          Listen                    
+::                                  8834      ::                                  0          Listen                    
 ::                                  7680      ::                                  0          Listen                    
 ::                                  5357      ::                                  0          Listen                    
+::                                  3389      ::                                  0          Listen                    
 ::                                  445       ::                                  0          Listen                    
 ::                                  135       ::                                  0          Listen                    
-0.0.0.0                             64801     0.0.0.0                             0          Bound                     
-0.0.0.0                             61749     0.0.0.0                             0          Bound                     
-0.0.0.0                             60789     0.0.0.0                             0          Bound                     
-0.0.0.0                             59884     0.0.0.0                             0          Bound                     
-0.0.0.0                             59834     0.0.0.0                             0          Bound                     
-0.0.0.0                             57765     0.0.0.0                             0          Bound                     
-0.0.0.0                             55462     0.0.0.0                             0          Bound                     
-0.0.0.0                             54848     0.0.0.0                             0          Bound                     
-0.0.0.0                             54751     0.0.0.0                             0          Bound                     
-0.0.0.0                             52553     0.0.0.0                             0          Bound                     
-0.0.0.0                             52551     0.0.0.0                             0          Bound                     
-0.0.0.0                             52550     0.0.0.0                             0          Bound                     
-0.0.0.0                             51076     0.0.0.0                             0          Bound                     
-192.168.1.50                        64801     54.241.92.222                       443        Established Internet      
-192.168.1.50                        61749     52.147.65.166                       443        Established Internet      
-192.168.1.50                        60789     4.195.15.137                        443        CloseWait   Internet      
-192.168.1.50                        59834     199.165.136.100                     443        Established Internet      
-192.168.1.50                        57765     4.224.92.204                        443        Established Internet      
-100.72.111.97                       55462     100.117.145.9                       3389       Established Internet      
-192.168.1.50                        54848     54.241.92.222                       443        Established Internet      
-192.168.1.50                        54751     150.171.22.12                       443        Established Internet      
-192.168.1.50                        52553     100.84.76.3                         1514       SynSent     Internet      
-192.168.1.50                        52551     192.168.1.35                        80         Established Internet      
-192.168.1.50                        52550     192.168.1.35                        80         Established Internet      
-0.0.0.0                             49672     0.0.0.0                             0          Listen                    
+0.0.0.0                             65451     0.0.0.0                             0          Bound                     
+0.0.0.0                             65411     0.0.0.0                             0          Bound                     
+192.168.0.4                         57543     0.0.0.0                             0          Bound                     
+0.0.0.0                             57543     0.0.0.0                             0          Bound                     
+0.0.0.0                             55124     0.0.0.0                             0          Bound                     
+0.0.0.0                             51757     0.0.0.0                             0          Bound                     
+0.0.0.0                             51756     0.0.0.0                             0          Bound                     
+0.0.0.0                             51137     0.0.0.0                             0          Bound                     
+0.0.0.0                             51122     0.0.0.0                             0          Bound                     
+0.0.0.0                             51073     0.0.0.0                             0          Bound                     
+0.0.0.0                             49695     0.0.0.0                             0          Bound                     
+192.168.0.4                         65451     100.104.63.127                      1514       SynSent     Internet      
+192.168.0.4                         65449     192.168.0.13                        38400      FinWait2    Internet      
+192.168.0.4                         65411     13.69.116.108                       443        Established Internet      
+100.117.145.9                       61526     0.0.0.0                             0          Listen                    
+192.168.0.4                         55124     103.74.123.129                      443        Established Internet      
+127.0.0.1                           51137     127.0.0.1                           51136      Established Internet      
+127.0.0.1                           51136     127.0.0.1                           51137      Established Internet      
+127.0.0.1                           51122     127.0.0.1                           51121      Established Internet      
+127.0.0.1                           51121     127.0.0.1                           51122      Established Internet      
+127.0.0.1                           51073     127.0.0.1                           51072      Established Internet      
+127.0.0.1                           51072     127.0.0.1                           51073      Established Internet      
+0.0.0.0                             49697     0.0.0.0                             0          Listen                    
+192.168.0.4                         49695     103.74.123.129                      443        Established Internet      
+0.0.0.0                             49670     0.0.0.0                             0          Listen                    
 0.0.0.0                             49668     0.0.0.0                             0          Listen                    
 0.0.0.0                             49667     0.0.0.0                             0          Listen                    
 0.0.0.0                             49666     0.0.0.0                             0          Listen                    
 0.0.0.0                             49665     0.0.0.0                             0          Listen                    
 0.0.0.0                             49664     0.0.0.0                             0          Listen                    
-100.72.111.97                       41932     0.0.0.0                             0          Listen                    
-127.0.0.1                           27017     0.0.0.0                             0          Listen                    
+127.0.0.1                           20372     0.0.0.0                             0          Listen                    
+127.0.0.1                           20371     0.0.0.0                             0          Listen                    
+0.0.0.0                             8834      0.0.0.0                             0          Listen                    
+0.0.0.0                             8000      0.0.0.0                             0          Listen                    
 0.0.0.0                             5040      0.0.0.0                             0          Listen                    
+100.117.145.9                       3389      100.72.111.97                       55462      Established Internet      
+0.0.0.0                             3389      0.0.0.0                             0          Listen                    
 192.168.56.1                        139       0.0.0.0                             0          Listen                    
-192.168.1.50                        139       0.0.0.0                             0          Listen                    
+192.168.0.4                         139       0.0.0.0                             0          Listen                    
+172.17.48.1                         139       0.0.0.0                             0          Listen                    
 0.0.0.0                             135       0.0.0.0                             0          Listen                    
 
 
@@ -570,25 +561,27 @@ fd7a:115c:a1e0::b237:6f61           36001     ::                                
 
 Status   Name               DisplayName                           
 ------   ----               -----------                           
-Stopped  AarSvc_1309b5      Agent Activation Runtime_1309b5       
+Stopped  AarSvc_102094      Agent Activation Runtime_102094       
+Running  AdobeARMservice    Adobe Acrobat Update Service          
 Stopped  ADPSvc             Aggregated Data Platform Service      
+Running  AESMService        Intel® SGX AESM                       
 Stopped  ALG                Application Layer Gateway Service     
-Running  AMD Crash Defen... AMD Crash Defender Service            
-Running  AMD External Ev... AMD External Events Utility           
 Stopped  AppIDSvc           Application Identity                  
 Running  Appinfo            Application Information               
+Stopped  AppMgmt            Application Management                
 Stopped  AppReadiness       App Readiness                         
+Stopped  AppVClient         Microsoft App-V Client                
 Running  AppXSvc            AppX Deployment Service (AppXSVC)     
 Stopped  ApxSvc             Windows Virtual Audio Device Proxy ...
+Stopped  AssignedAccessM... AssignedAccessManager Service         
 Running  AudioEndpointBu... Windows Audio Endpoint Builder        
 Running  Audiosrv           Windows Audio                         
 Stopped  autotimesvc        Cellular Time                         
 Stopped  AxInstSV           ActiveX Installer (AxInstSV)          
 Stopped  BcastDVRUserSer... GameDVR and Broadcast User Service_...
-Running  BDESVC             BitLocker Drive Encryption Service    
-Running  BFE                Base Filtering Engine                 
+Stopped  BDESVC             BitLocker Drive Encryption Service    
 Running  BITS               Background Intelligent Transfer Ser...
-Running  BluetoothUserSe... Bluetooth User Support Service_1309b5 
+Running  BluetoothUserSe... Bluetooth User Support Service_102094 
 Stopped  brave              Brave Update Service (brave)          
 Stopped  BraveElevationS... Brave Elevation Service (BraveEleva...
 Stopped  bravem             Brave Update Service (bravem)         
@@ -596,65 +589,70 @@ Running  BrokerInfrastru... Background Tasks Infrastructure Ser...
 Running  BTAGService        Bluetooth Audio Gateway Service       
 Running  BthAvctpSvc        AVCTP service                         
 Running  bthserv            Bluetooth Support Service             
+Running  cagent             Cylerian Endpoint Agent               
 Running  camsvc             Capability Access Manager Service     
-Stopped  CaptureService_... CaptureService_1309b5                 
-Running  cbdhsvc_1309b5     Clipboard User Service_1309b5         
+Stopped  CaptureService_... CaptureService_102094                 
+Running  cbdhsvc_102094     Clipboard User Service_102094         
 Running  CDPSvc             Connected Devices Platform Service    
-Running  CDPUserSvc_1309b5  Connected Devices Platform User Ser...
-Stopped  CertPropSvc        Certificate Propagation               
+Running  CDPUserSvc_102094  Connected Devices Platform User Ser...
+Running  CertPropSvc        Certificate Propagation               
 Running  ClickToRunSvc      Microsoft Office Click-to-Run Service 
-Running  ClipSVC            Client License Service (ClipSVC)      
-Stopped  CloudBackupRest... Cloud Backup and Restore Service_13...
+Stopped  ClipSVC            Client License Service (ClipSVC)      
+Stopped  CloudBackupRest... Cloud Backup and Restore Service_10...
+Stopped  cloudidsvc         Microsoft Cloud Identity Service      
+Stopped  com.docker.service Docker Desktop Service                
 Stopped  COMSysApp          COM+ System Application               
-Stopped  ConsentUxUserSv... ConsentUX User Service_1309b5         
+Stopped  ConsentUxUserSv... ConsentUX User Service_102094         
 Running  CoreMessagingRe... CoreMessaging                         
+Running  cphs               Intel(R) Content Protection HECI Se...
+Running  cplspcon           Intel(R) Content Protection HDCP Se...
 Stopped  CredentialEnrol... CredentialEnrollmentManagerUserSvc_...
 Running  CryptSvc           Cryptographic Services                
+Stopped  CscService         Offline Files                         
 Running  DcomLaunch         DCOM Server Process Launcher          
 Stopped  dcsvc              Declared Configuration(DC) service    
 Stopped  defragsvc          Optimize drives                       
-Stopped  DeviceAssociati... DeviceAssociationBroker_1309b5        
+Stopped  DeviceAssociati... DeviceAssociationBroker_102094        
 Running  DeviceAssociati... Device Association Service            
-Running  DeviceInstall      Device Install Service                
-Stopped  DevicePickerUse... DevicePicker_1309b5                   
-Running  DevicesFlowUser... DevicesFlow_1309b5                    
+Stopped  DeviceInstall      Device Install Service                
+Stopped  DevicePickerUse... DevicePicker_102094                   
+Running  DevicesFlowUser... DevicesFlow_102094                    
 Running  DevQueryBroker     DevQuery Background Discovery Broker  
 Running  Dhcp               DHCP Client                           
 Stopped  diagsvc            Diagnostic Execution Service          
 Running  DiagTrack          Connected User Experiences and Tele...
+Stopped  DialogBlockingS... DialogBlockingService                 
 Running  DispBrokerDeskt... Display Policy Service                
 Running  DisplayEnhancem... Display Enhancement Service           
 Stopped  DmEnrollmentSvc    Device Management Enrollment Service  
 Stopped  dmwappushservice   Device Management Wireless Applicat...
 Running  Dnscache           DNS Client                            
-Running  DolbyDAXAPI        Dolby DAX API Service                 
+Running  Dolby DAX2 API ... Dolby DAX2 API Service                
 Running  DoSvc              Delivery Optimization                 
 Stopped  dot3svc            Wired AutoConfig                      
 Running  DPS                Diagnostic Policy Service             
 Stopped  DsmSvc             Device Setup Manager                  
-Stopped  DsSvc              Data Sharing Service                  
+Running  DsSvc              Data Sharing Service                  
 Running  DusmSvc            Data Usage                            
 Stopped  EapHost            Extensible Authentication Protocol    
 Stopped  edgeupdate         Microsoft Edge Update Service (edge...
 Stopped  edgeupdatem        Microsoft Edge Update Service (edge...
 Stopped  EFS                Encrypting File System (EFS)          
-Running  ElevocService      Elevoc Control Service                
 Stopped  embeddedmode       Embedded Mode                         
 Stopped  EntAppSvc          Enterprise App Management Service     
+Running  esifsvc            Intel(R) Dynamic Platform and Therm...
+Running  ETDService         Elan Service                          
 Running  EventLog           Windows Event Log                     
 Running  EventSystem        COM+ Event System                     
+Running  EvtEng             Intel(R) PROSet/Wireless Event Log    
+Stopped  Fax                Fax                                   
 Running  fdPHost            Function Discovery Provider Host      
 Running  FDResPub           Function Discovery Resource Publica...
 Stopped  fhsvc              File History Service                  
-Stopped  FileSyncHelper     FileSyncHelper                        
 Running  FontCache          Windows Font Cache Service            
-Stopped  FontCache3.0.0.0   Windows Presentation Foundation Fon...
-Running  FrameServer        Windows Camera Frame Server           
+Stopped  FrameServer        Windows Camera Frame Server           
 Stopped  FrameServerMonitor Windows Camera Frame Server Monitor   
-Running  GameInputRedist... GameInput Redist Service              
 Stopped  GameInputSvc       GameInput Service                     
-Running  GamingServices     Gaming Services                       
-Running  GamingServicesNet  Gaming Services                       
 Stopped  GoogleChromeEle... Google Chrome Elevation Service (Go...
 Stopped  GoogleUpdaterIn... Google Updater Internal Service (Go...
 Stopped  GoogleUpdaterSe... Google Updater Service (GoogleUpdat...
@@ -664,7 +662,10 @@ Stopped  hidserv            Human Interface Device Service
 Running  hns                Host Network Service                  
 Stopped  hpatchmon          Hotpatch Monitoring Service           
 Running  HvHost             HV Host Service                       
+Running  IBMPMSVC           Lenovo PM Service                     
 Stopped  icssvc             Windows Mobile Hotspot Service        
+Running  igccservice        Intel(R) Graphics Command Center Se...
+Running  igfxCUIService2... Intel(R) HD Graphics Control Panel ...
 Running  IKEEXT             IKE and AuthIP IPsec Keying Modules   
 Running  ImControllerSer... System Interface Foundation Service   
 Running  InstallService     Microsoft Store Install Service       
@@ -675,53 +676,55 @@ Running  KeyIso             CNG Key Isolation
 Stopped  KtmRm              KtmRm for Distributed Transaction C...
 Running  LanmanServer       Server                                
 Running  LanmanWorkstation  Workstation                           
-Running  LenovoFnAndFunc... Lenovo Fn and function keys service   
-Running  LenovoVantageSe... Critical Service for Lenovo Vantage   
+Running  Lenovo Instant On  Lenovo EasyResume Service             
+Stopped  LenovoBrightCtrl   Lenovo Display Brightness Control S...
 Running  lfsvc              Geolocation Service                   
 Running  LicenseManager     Windows License Manager Service       
-Running  LITSSVC            Lenovo Notebook ITS Service           
+Running  LITSSVC            Lenovo Intelligent Thermal Solution...
 Stopped  lltdsvc            Link-Layer Topology Discovery Mapper  
 Running  lmhosts            TCP/IP NetBIOS Helper                 
 Stopped  LocalKdc           Kerberos Local Key Distribution Center
+Stopped  LPlatSvc           Lenovo Platform Service               
 Running  LSM                Local Session Manager                 
 Stopped  LxpSvc             Language Experience Service           
 Stopped  MapsBroker         Downloaded Maps Manager               
-Running  McAfee WebAdvisor  McAfee WebAdvisor                     
 Stopped  McmSvc             Mobile Connectivity Management Service
 Stopped  McpManagementSe... McpManagementService                  
 Running  MDCoreSvc          Microsoft Defender Core Service       
-Stopped  MessagingServic... MessagingService_1309b5               
+Stopped  MessagingServic... MessagingService_102094               
+Stopped  MicrosoftCopilo... Microsoft Copilot Elevation Service...
 Stopped  MicrosoftEdgeEl... Microsoft Edge Elevation Service (M...
 Stopped  midisrv            Windows MIDI Service                  
-Running  MongoDB            MongoDB Server (MongoDB)              
 Running  mpssvc             Windows Defender Firewall             
 Stopped  MSDTC              Distributed Transaction Coordinator   
 Stopped  MSiSCSI            Microsoft iSCSI Initiator Service     
 Stopped  msiserver          Windows Installer                     
+Stopped  MsKeyboardFilter   Microsoft Keyboard Filter             
 Stopped  NaturalAuthenti... Natural Authentication                
 Stopped  NcaSvc             Network Connectivity Assistant        
 Running  NcbService         Network Connection Broker             
 Running  NcdAutoSetup       Network Connected Devices Auto-Setup  
 Stopped  Netlogon           Netlogon                              
-Running  Netman             Network Connections                   
+Stopped  Netman             Network Connections                   
 Running  netprofm           Network List Service                  
 Running  NetSetupSvc        Network Setup Service                 
 Stopped  NetTcpPortSharing  Net.Tcp Port Sharing Service          
 Running  NgcCtnrSvc         Microsoft Passport Container          
 Running  NgcSvc             Microsoft Passport                    
 Stopped  NlaSvc             Network Location Awareness            
-Stopped  NPSMSvc_1309b5     Now Playing Session Manager Service...
+Running  NPSMSvc_102094     Now Playing Session Manager Service...
 Running  nsi                Network Store Interface Service       
 Running  nvagent            Network Virtualization Service        
-Stopped  OneDrive Update... OneDrive Updater Service              
-Running  OneSyncSvc_1309b5  Sync Host_1309b5                      
-Stopped  P9RdrService_13... P9RdrService_1309b5                   
+Running  OneSyncSvc_102094  Sync Host_102094                      
+Stopped  ose64              Office 64 Source Engine               
+Stopped  P9RdrService_10... P9RdrService_102094                   
 Running  PcaSvc             Program Compatibility Assistant Ser...
-Stopped  PenService_1309b5  PenService_1309b5                     
+Stopped  PeerDistSvc        BranchCache                           
+Stopped  PenService_102094  PenService_102094                     
 Stopped  perceptionsimul... Windows Perception Simulation Service 
 Stopped  PerfHost           Performance Counter DLL Host          
 Running  PhoneSvc           Phone Service                         
-Running  PimIndexMainten... Contact Data_1309b5                   
+Stopped  PimIndexMainten... Contact Data_102094                   
 Stopped  pla                Performance Logs & Alerts             
 Running  PlugPlay           Plug and Play                         
 Running  PolicyAgent        IPsec Policy Agent                    
@@ -729,7 +732,7 @@ Running  Power              Power
 Stopped  PrintDeviceConf... Print Device Configuration Service    
 Stopped  PrintNotify        Printer Extensions and Notifications  
 Stopped  PrintScanBroker... PrintScanBrokerService                
-Stopped  PrintWorkflowUs... PrintWorkflow_1309b5                  
+Stopped  PrintWorkflowUs... PrintWorkflow_102094                  
 Running  ProfSvc            User Profile Service                  
 Stopped  PushToInstall      Windows PushToInstall Service         
 Stopped  QWAVE              Quality Windows Audio Video Experience
@@ -741,12 +744,12 @@ Stopped  RemoteRegistry     Remote Registry
 Stopped  RetailDemo         Retail Demo Service                   
 Running  RmSvc              Radio Management Service              
 Running  RpcEptMapper       RPC Endpoint Mapper                   
-Running  RpcLocator         Remote Procedure Call (RPC) Locator   
+Stopped  RpcLocator         Remote Procedure Call (RPC) Locator   
 Running  RpcSs              Remote Procedure Call (RPC)           
-Running  RtkAudioUnivers... Realtek Audio Universal Service       
+Running  RtkAudioService    Realtek Audio Service                 
 Running  SamSs              Security Accounts Manager             
 Stopped  SCardSvr           Smart Card                            
-Stopped  ScDeviceEnum       Smart Card Device Enumeration Service 
+Running  ScDeviceEnum       Smart Card Device Enumeration Service 
 Running  Schedule           Task Scheduler                        
 Stopped  SCPolicySvc        Smart Card Removal Policy             
 Stopped  SDRSVC             Windows Backup                        
@@ -754,10 +757,11 @@ Stopped  seclogon           Secondary Logon
 Running  SecurityHealthS... Windows Security Service              
 Stopped  SEMgrSvc           Payments and NFC/SE Manager           
 Running  SENS               System Event Notification Service     
+Stopped  Sense              Windows Defender Advanced Threat Pr...
 Stopped  SensorDataService  Sensor Data Service                   
-Stopped  SensorService      Sensor Service                        
+Running  SensorService      Sensor Service                        
 Stopped  SensrSvc           Sensor Monitoring Service             
-Stopped  SessionEnv         Remote Desktop Configuration          
+Running  SessionEnv         Remote Desktop Configuration          
 Running  SharedAccess       Internet Connection Sharing (ICS)     
 Running  ShellHWDetection   Shell Hardware Detection              
 Stopped  shpamsvc           Shared PC Account Manager             
@@ -770,7 +774,7 @@ Running  SSDPSRV            SSDP Discovery
 Stopped  ssh-agent          OpenSSH Authentication Agent          
 Running  SstpSvc            Secure Socket Tunneling Protocol Se...
 Running  StateRepository    State Repository Service              
-Running  StiSvc             Windows Image Acquisition (WIA)       
+Stopped  StiSvc             Windows Image Acquisition (WIA)       
 Running  StorSvc            Storage Service                       
 Stopped  svsvc              Spot Verifier                         
 Stopped  swprv              Microsoft Software Shadow Copy Prov...
@@ -778,30 +782,32 @@ Running  SysMain            SysMain
 Running  Sysmon64           Sysmon64                              
 Running  SystemEventsBroker System Events Broker                  
 Running  Tailscale          Tailscale                             
-Running  TapiSrv            Telephony                             
-Stopped  TermService        Remote Desktop Services               
+Stopped  TapiSrv            Telephony                             
+Running  Tenable Nessus     Tenable Nessus                        
+Running  TermService        Remote Desktop Services               
 Running  TextInputManage... Text Input Management Service         
 Running  Themes             Themes                                
+Running  ThunderboltService Thunderbolt(TM) Service               
 Stopped  TieringEngineSe... Storage Tiers Management              
 Running  TimeBrokerSvc      Time Broker                           
 Running  TokenBroker        Web Account Manager                   
-Stopped  TrkWks             Distributed Link Tracking Client      
+Running  TrkWks             Distributed Link Tracking Client      
 Stopped  TroubleshootingSvc Recommended Troubleshooting Service   
 Running  TrustedInstaller   Windows Modules Installer             
 Stopped  tzautoupdate       Auto Time Zone Updater                
-Running  UDCService         Universal Device Client Service       
-Running  UdkUserSvc_1309b5  Udk User Service_1309b5               
+Running  UdkUserSvc_102094  Udk User Service_102094               
+Stopped  UevAgentService    User Experience Virtualization Service
 Running  UltraViewService   UltraViewer Service                   
-Stopped  UmRdpService       Remote Desktop Services UserMode Po...
-Running  UnistoreSvc_1309b5 User Data Storage_1309b5              
+Running  UmRdpService       Remote Desktop Services UserMode Po...
+Stopped  UnistoreSvc_102094 User Data Storage_102094              
 Stopped  upnphost           UPnP Device Host                      
-Running  UserDataSvc_1309b5 User Data Access_1309b5               
+Stopped  UserDataSvc_102094 User Data Access_102094               
 Running  UserManager        User Manager                          
 Running  UsoSvc             Update Orchestrator Service           
 Running  VaultSvc           Credential Manager                    
 Stopped  VBoxSDS            VirtualBox system service             
 Stopped  vds                Virtual Disk                          
-Stopped  vmcompute          Hyper-V Host Compute Service          
+Running  vmcompute          Hyper-V Host Compute Service          
 Stopped  vmicguestinterface Hyper-V Guest Service Interface       
 Stopped  vmicheartbeat      Hyper-V Heartbeat Service             
 Stopped  vmickvpexchange    Hyper-V Data Exchange Service         
@@ -811,13 +817,13 @@ Stopped  vmictimesync       Hyper-V Time Synchronization Service
 Stopped  vmicvmsession      Hyper-V PowerShell Direct Service     
 Stopped  vmicvss            Hyper-V Volume Shadow Copy Requestor  
 Stopped  VSS                Volume Shadow Copy                    
-Stopped  W32Time            Windows Time                          
+Running  W32Time            Windows Time                          
 Stopped  WaaSMedicSvc       WaaSMedicSvc                          
 Stopped  WalletService      WalletService                         
 Stopped  WarpJITSvc         Warp JIT Service                      
 Running  WazuhSvc           Wazuh                                 
 Stopped  wbengine           Block Level Backup Engine Service     
-Stopped  WbioSrvc           Windows Biometric Service             
+Running  WbioSrvc           Windows Biometric Service             
 Running  Wcmsvc             Windows Connection Manager            
 Stopped  wcncsvc            Windows Connect Now - Config Registrar
 Stopped  WdiServiceHost     Diagnostic Service Host               
@@ -825,7 +831,7 @@ Running  WdiSystemHost      Diagnostic System Host
 Running  WdNisSvc           Microsoft Defender Antivirus Networ...
 Stopped  WebClient          WebClient                             
 Running  webthreatdefsvc    Web Threat Defense Service            
-Running  webthreatdefuse... Web Threat Defense User Service_1309b5
+Running  webthreatdefuse... Web Threat Defense User Service_102094
 Stopped  Wecsvc             Windows Event Collector               
 Stopped  WEPHOSTSVC         Windows Encryption Provider Host Se...
 Stopped  wercplsupport      Problem Reports Control Panel Support 
@@ -835,7 +841,6 @@ Running  whesvc             Windows Health and Optimized Experi...
 Stopped  WiaRpc             Still Image Acquisition Events        
 Running  WinDefend          Microsoft Defender Antivirus Service  
 Running  WinHttpAutoProx... WinHTTP Web Proxy Auto-Discovery Se...
-Running  winlogbeat         winlogbeat                            
 Running  Winmgmt            Windows Management Instrumentation    
 Stopped  WinRM              Windows Remote Management (WS-Manag...
 Stopped  wisvc              Windows Insider Service               
@@ -843,7 +848,7 @@ Running  WlanSvc            WLAN AutoConfig
 Stopped  wlidsvc            Microsoft Account Sign-in Assistant   
 Stopped  wlpasvc            Local Profile Assistant Service       
 Stopped  WManSvc            Windows Management Service            
-Running  wmiApSrv           WMI Performance Adapter               
+Stopped  wmiApSrv           WMI Performance Adapter               
 Stopped  WMPNetworkSvc      Windows Media Player Network Sharin...
 Stopped  workfolderssvc     Work Folders                          
 Stopped  WpcMonSvc          Parental Controls                     
@@ -855,55 +860,46 @@ Running  wscsvc             Security Center
 Running  WSearch            Windows Search                        
 Running  WSLService         WSL Service                           
 Running  wuauserv           Windows Update                        
-Running  wuqisvc            Microsoft Usage and Quality Insights  
+Stopped  wuqisvc            Microsoft Usage and Quality Insights  
 Stopped  WwanSvc            WWAN AutoConfig                       
 Stopped  XblAuthManager     Xbox Live Auth Manager                
 Stopped  XblGameSave        Xbox Live Game Save                   
 Stopped  XboxGipSvc         Xbox Accessory Management Service     
 Stopped  XboxNetApiSvc      Xbox Live Networking Service          
+Stopped  ZeroConfigService  Intel(R) PROSet/Wireless Zero Confi...
 
 
 ==== STARTUP PROGRAMS ====
 
-Command                                                                                                                
--------                                                                                                                
-Comet.lnk                                                                                                              
-Rainmeter.lnk                                                                                                          
-Send to OneNote.lnk                                                                                                    
-Wispr Flow.lnk                                                                                                         
-"C:\Program Files\Microsoft OneDrive\OneDrive.exe" /background                                                         
-"C:\Users\sayok\AppData\Local\FigmaAgent\figma_agent.exe"                                                              
-"C:\Users\sayok\AppData\Local\Discord\Update.exe" --processStart Discord.exe                                           
-"D:\Program Files\Nox\bin\MultiPlayerManager.exe" -startSource:auto_start                                              
-"C:\Users\sayok\AppData\Local\Microsoft\WindowsApps\MSTeams_8wekyb3d8bbwe\ms-teams.exe" msteams:system-initiated       
-"C:\Program Files\Google\Chrome\Application\chrome.exe" --no-startup-window /prefetch:5                                
-"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --win-session-start                                     
-"C:\Users\sayok\AppData\Local\Programs\Canva\Canva.exe" --start-availability-check-agent                               
-C:\PROGRA~1\Tailscale\tailscale-ipn.exe                                                                                
-%windir%\system32\SecurityHealthSystray.exe                                                                            
-"C:\Windows\System32\DriverStore\FileRepository\realtekservice.inf_amd64_8af210933d36077d\RtkAudUService64.exe" -bac...
-"C:\Program Files\Google\NearbyShare\nearby_share_launcher.exe" --delayed_start                                        
+Command                                                                    User               Caption       
+-------                                                                    ----               -------       
+"C:\Users\Admin\AppData\Local\Microsoft\OneDrive\OneDrive.exe" /background SYSTEM3-DXSO\Admin OneDrive      
+C:\Program Files\Docker\Docker\Docker Desktop.exe                          SYSTEM3-DXSO\Admin Docker Desktop
+C:\PROGRA~1\TAILSC~1\TAILSC~1.EXE                                          Public             Tailscale     
+%windir%\system32\SecurityHealthSystray.exe                                Public             SecurityHealth
 
 
 ==== SCHEDULED TASKS ====
 
 TaskPath                                       TaskName                          State     
 --------                                       --------                          -----     
-\                                              Launch Adobe CCXProcess           Ready     
-\                                              OneDrive Per-Machine Standalon... Ready     
+\                                              multi_browse_script               Disabled  
 \                                              OneDrive Reporting Task-S-1-5-... Ready     
+\                                              OneDrive Standalone Update Tas... Ready     
 \                                              OneDrive Startup Task-S-1-5-21... Ready     
-\                                              ZoomUpdateTaskUser-S-1-5-21-23... Ready     
-\Google\                                       Quick Share Relaunch              Ready     
-\Lenovo\                                       LenovoNowLauncher                 Ready     
-\Lenovo\                                       LenovoNowQuarterlyLaunch          Ready     
-\Lenovo\                                       LenovoNowTask                     Running   
-\Lenovo\UDC\                                   Lenovo UDC Diagnostic Scan        Ready     
+\                                              RtHDVBg_Dolby                     Running   
+\                                              RtHDVBg_PushButton                Running   
+\                                              RTKCPL                            Ready     
+\Intel\Thunderbolt\                            Start Thunderbolt application ... Ready     
+\Intel\Thunderbolt\                            Start Thunderbolt application ... Ready     
+\Intel\Thunderbolt\                            Start Thunderbolt application ... Ready     
+\Lenovo\Power Manager\                         Background monitor                Running   
 \Microsoft\Office\                             Office Automatic Updates 2.0      Ready     
 \Microsoft\Office\                             Office ClickToRun Service Monitor Ready     
-\Microsoft\Office\                             Office Feature Updates            Ready     
-\Microsoft\Office\                             Office Feature Updates Logon      Ready     
-\Microsoft\Office\                             Office Performance Monitor        Ready     
+\Microsoft\Office\                             OfficeBackgroundTaskHandlerLogon  Ready     
+\Microsoft\Office\                             OfficeBackgroundTaskHandlerReg... Ready     
+\Microsoft\Office\                             OfficeTelemetryAgentFallBack2016  Ready     
+\Microsoft\Office\                             OfficeTelemetryAgentLogOn2016     Ready     
 \Microsoft\Windows\.NET Framework\             .NET Framework NGEN v4.0.30319    Ready     
 \Microsoft\Windows\.NET Framework\             .NET Framework NGEN v4.0.30319 64 Ready     
 \Microsoft\Windows\.NET Framework\             .NET Framework NGEN v4.0.30319... Disabled  
@@ -939,6 +935,7 @@ TaskPath                                       TaskName                         
 \Microsoft\Windows\CloudRestore\               Backup                            Ready     
 \Microsoft\Windows\CloudRestore\               Restore                           Ready     
 \Microsoft\Windows\ConsentUX\UnifiedConsent\   UnifiedConsentSyncTask            Ready     
+\Microsoft\Windows\Containers\                 CmCleanup                         Ready     
 \Microsoft\Windows\Customer Experience Impr... Consolidator                      Ready     
 \Microsoft\Windows\Customer Experience Impr... UsbCeip                           Ready     
 \Microsoft\Windows\Data Integrity Scan\        Data Integrity Check And Scan     Ready     
@@ -966,6 +963,7 @@ TaskPath                                       TaskName                         
 \Microsoft\Windows\ExploitGuard\               ExploitGuard MDM policy Refresh   Ready     
 \Microsoft\Windows\Feedback\Siuf\              DmClient                          Ready     
 \Microsoft\Windows\Feedback\Siuf\              DmClientOnScenarioDownload        Ready     
+\Microsoft\Windows\File Classification Infr... Property Definition Sync          Disabled  
 \Microsoft\Windows\FileHistory\                File History (maintenance mode)   Ready     
 \Microsoft\Windows\Flighting\FeatureConfig\    BootstrapUsageDataReporting       Disabled  
 \Microsoft\Windows\Flighting\FeatureConfig\    GovernedFeatureUsageProcessing    Ready     
@@ -994,6 +992,7 @@ TaskPath                                       TaskName                         
 \Microsoft\Windows\Kernel\                     La57Cleanup                       Ready     
 \Microsoft\Windows\LanguageComponentsInstal... Installation                      Ready     
 \Microsoft\Windows\LanguageComponentsInstal... ReconcileLanguageResources        Ready     
+\Microsoft\Windows\Location\                   Notifications                     Ready     
 \Microsoft\Windows\Location\                   WindowsActionDialog               Ready     
 \Microsoft\Windows\Maintenance\                WinSAT                            Ready     
 \Microsoft\Windows\Management\Autopilot\       DetectHardwareChange              Disabled  
@@ -1012,9 +1011,12 @@ TaskPath                                       TaskName                         
 \Microsoft\Windows\Multimedia\                 SystemSoundsService               Running   
 \Microsoft\Windows\Network Connectivity Sta... NcsiIdentifyUserProxies           Ready     
 \Microsoft\Windows\NlaSvc\                     WiFiTask                          Ready     
+\Microsoft\Windows\Offline Files\              Background Synchronization        Disabled  
+\Microsoft\Windows\Offline Files\              Logon Synchronization             Disabled  
 \Microsoft\Windows\PCRPF\                      PCR Prediction Framework Firmw... Ready     
 \Microsoft\Windows\PerformanceTrace\           RequestTrace                      Ready     
 \Microsoft\Windows\PerformanceTrace\           WhesvcToast                       Ready     
+\Microsoft\Windows\PI\                         SecureBootEncodeUEFI              Ready     
 \Microsoft\Windows\Plug and Play\              Device Install Group Policy       Ready     
 \Microsoft\Windows\Plug and Play\              Device Install Reboot Required    Ready     
 \Microsoft\Windows\Plug and Play\              Sysprep Generalize Drivers        Ready     
@@ -1025,10 +1027,10 @@ TaskPath                                       TaskName                         
 \Microsoft\Windows\RecoveryEnvironment\        VerifyWinRE                       Disabled  
 \Microsoft\Windows\ReFsDedupSvc\               Initialization                    Ready     
 \Microsoft\Windows\Registry\                   RegIdleBackup                     Ready     
+\Microsoft\Windows\Security\Pwdless\           IntelligentPwdlessTask            Ready     
 \Microsoft\Windows\Servicing\                  OOBEFodSetup                      Disabled  
 \Microsoft\Windows\Servicing\                  StartComponentCleanup             Ready     
 \Microsoft\Windows\Setup\                      PITRTask                          Ready     
-\Microsoft\Windows\Setup\                      SetupRecoveryDataTask             Ready     
 \Microsoft\Windows\SharedPC\                   Account Cleanup                   Disabled  
 \Microsoft\Windows\Shell\                      CreateObjectTask                  Ready     
 \Microsoft\Windows\Shell\                      FamilySafetyMonitor               Ready     
@@ -1057,10 +1059,12 @@ TaskPath                                       TaskName                         
 \Microsoft\Windows\Time Synchronization\       ForceSynchronizeTime              Ready     
 \Microsoft\Windows\Time Synchronization\       SynchronizeTime                   Ready     
 \Microsoft\Windows\Time Zone\                  SynchronizeTimeZone               Ready     
+\Microsoft\Windows\UNP\                        RunUpdateNotificationMgr          Disabled  
 \Microsoft\Windows\UPnP\                       UPnPHostConfig                    Ready     
 \Microsoft\Windows\USB\                        Usb-Notifications                 Ready     
+\Microsoft\Windows\WaaSMedic\                  DeferredWork                      Disabled  
 \Microsoft\Windows\WCM\                        WiFiTask                          Ready     
-\Microsoft\Windows\WDI\                        ResolutionHost                    Running   
+\Microsoft\Windows\WDI\                        ResolutionHost                    Ready     
 \Microsoft\Windows\Windows Defender\           Windows Defender Cache Mainten... Ready     
 \Microsoft\Windows\Windows Defender\           Windows Defender Cleanup          Ready     
 \Microsoft\Windows\Windows Defender\           Windows Defender Scheduled Scan   Ready     
@@ -1081,22 +1085,18 @@ TaskPath                                       TaskName                         
 \Microsoft\Windows\WwanSvc\                    NotificationTask                  Ready     
 \Microsoft\Windows\WwanSvc\                    OobeDiscovery                     Ready     
 \Microsoft\XblGameSave\                        XblGameSaveTask                   Ready     
-\SoftLanding\S-1-5-21-2321220143-3660816531... SoftLandingCreativeManagementTask Ready     
-\SoftLanding\S-1-5-21-2321220143-3660816531... SoftLandingDeferralTask-{9c7c1... Ready     
-\SoftLanding\S-1-5-21-2321220143-3660816531... SoftLandingTriggerTask-1280000... Disabled  
 
 
 ==== SHARED FOLDERS ====
 
 Name   ScopeName Path       Description  
 ----   --------- ----       -----------  
-ADMIN$ *         C:\Windows Remote Admin 
+ADMIN$ *         C:\WINDOWS Remote Admin 
 C$     *         C:\        Default share
-D$     *         D:\        Default share
 IPC$   *                    Remote IPC   
 
 
 ==== RDP STATUS ====
-1
+0
 ==== AUDIT POLICY ====
 ==== VULNERABILITY AUDIT END ====
