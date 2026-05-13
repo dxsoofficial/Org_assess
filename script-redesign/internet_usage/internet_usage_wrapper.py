@@ -16,8 +16,8 @@ def log(msg, level="INFO"):
     print(f"{color}[{level}] {msg}{colors['RESET']}")
 
 def setup_output_dir(org_name):
-    # Place it directly in the current directory under the organization name
-    base_out_dir = os.path.abspath(os.path.join(os.getcwd(), org_name))
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    base_out_dir = os.path.abspath(os.path.join(script_dir, "output", org_name))
     os.makedirs(base_out_dir, exist_ok=True)
     
     log_dir = os.path.join(base_out_dir, "log")

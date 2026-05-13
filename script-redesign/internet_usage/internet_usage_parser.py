@@ -56,9 +56,9 @@ def parse_pcap(pcap_file, report_dir, org_name):
                 ip_addr = parts[0]
                     
                 try:
-                    total_bytes = int(parts[2])
-                    tx_bytes = int(parts[4])
-                    rx_bytes = int(parts[6])
+                    total_bytes = int(parts[-5].replace(',', ''))
+                    tx_bytes = int(parts[-3].replace(',', ''))
+                    rx_bytes = int(parts[-1].replace(',', ''))
                 except ValueError:
                     continue
                     
