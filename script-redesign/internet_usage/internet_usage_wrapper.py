@@ -16,13 +16,12 @@ def log(msg, level="INFO"):
     print(f"{color}[{level}] {msg}{colors['RESET']}")
 
 def setup_output_dir(org_name):
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    base_out_dir = os.path.abspath(os.path.join(script_dir, "output", org_name, "out_internet_usage"))
+    # Place it directly in the current directory under the organization name
+    base_out_dir = os.path.abspath(os.path.join(os.getcwd(), org_name))
     os.makedirs(base_out_dir, exist_ok=True)
     
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    log_dir = os.path.join(base_out_dir, f"logs_{timestamp}")
-    report_dir = os.path.join(base_out_dir, f"report_{timestamp}")
+    log_dir = os.path.join(base_out_dir, "log")
+    report_dir = os.path.join(base_out_dir, "report")
     
     os.makedirs(log_dir, exist_ok=True)
     os.makedirs(report_dir, exist_ok=True)
