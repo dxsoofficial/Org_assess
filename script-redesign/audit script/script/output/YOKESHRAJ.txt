@@ -1,6 +1,6 @@
 ﻿==== VULNERABILITY AUDIT START ====
 Hostname: YOKESHRAJ
-Date: 04/27/2026 15:27:29
+Date: 04/28/2026 14:25:27
 ==== SYSTEM INFO ====
 
 
@@ -124,9 +124,9 @@ OsCountryCode                                           : 1
 OsCurrentTimeZone                                       : 330
 OsLocaleID                                              : 0409
 OsLocale                                                : en-US
-OsLocalDateTime                                         : 27-04-2026 15:27:29
-OsLastBootUpTime                                        : 27-04-2026 09:48:07
-OsUptime                                                : 05:39:21.9251614
+OsLocalDateTime                                         : 28-04-2026 14:25:28
+OsLastBootUpTime                                        : 28-04-2026 13:41:46
+OsUptime                                                : 00:43:41.4283920
 OsBuildType                                             : Multiprocessor Free
 OsCodeSet                                               : 1252
 OsDataExecutionPreventionAvailable                      : True
@@ -138,13 +138,13 @@ OsDistributed                                           : False
 OsEncryptionLevel                                       : 256
 OsForegroundApplicationBoost                            : Maximum
 OsTotalVisibleMemorySize                                : 14513528
-OsFreePhysicalMemory                                    : 2823188
+OsFreePhysicalMemory                                    : 4688056
 OsTotalVirtualMemorySize                                : 30242168
-OsFreeVirtualMemory                                     : 9420640
-OsInUseVirtualMemory                                    : 20821528
+OsFreeVirtualMemory                                     : 16721740
+OsInUseVirtualMemory                                    : 13520428
 OsTotalSwapSpaceSize                                    : 
 OsSizeStoredInPagingFiles                               : 15728640
-OsFreeSpaceInPagingFiles                                : 14687612
+OsFreeSpaceInPagingFiles                                : 15686560
 OsPagingFiles                                           : {C:\pagefile.sys}
 OsHardwareAbstractionLayer                              : 10.0.26100.1
 OsInstallDate                                           : 03-08-2024 06:41:21
@@ -153,7 +153,7 @@ OsMaxNumberOfProcesses                                  : 4294967295
 OsMaxProcessMemorySize                                  : 137438953344
 OsMuiLanguages                                          : {en-US}
 OsNumberOfLicensedUsers                                 : 
-OsNumberOfProcesses                                     : 342
+OsNumberOfProcesses                                     : 297
 OsNumberOfUsers                                         : 2
 OsOrganization                                          : 
 OsArchitecture                                          : 64-bit
@@ -169,8 +169,7 @@ OsSerialNumber                                          : 00342-22365-46287-AAOE
 OsServicePackMajorVersion                               : 0
 OsServicePackMinorVersion                               : 0
 OsStatus                                                : OK
-OsSuites                                                : {TerminalServices, TerminalServicesSingleSession, 
-                                                          HomeEdition}
+OsSuites                                                : {TerminalServices, TerminalServicesSingleSession, HomeEdition}
 OsServerLevel                                           : 
 KeyboardLayout                                          : en-IN
 TimeZone                                                : (UTC+05:30) Chennai, Kolkata, Mumbai, New Delhi
@@ -203,14 +202,14 @@ YOKESHRAJ     Security Update  KB5088467     NT AUTHORITY\SYSTEM  15-04-2026 00:
 
 ==== USERS ====
 
-Name               Enabled Description                                                                                 
-----               ------- -----------                                                                                 
-Administrator      False   Built-in account for administering the computer/domain                                      
-DefaultAccount     False   A user account managed by the system.                                                       
-Guest              False   Built-in account for guest access to the computer/domain                                    
-sayok              True                                                                                                
-WDAGUtilityAccount False   A user account managed and used by the system for Windows Defender Application Guard scen...
-WsiAccount         False   A user account managed and used by the system for Web Sign-in scenarios.                    
+Name               Enabled Description                                                                                    
+----               ------- -----------                                                                                    
+Administrator      False   Built-in account for administering the computer/domain                                         
+DefaultAccount     False   A user account managed by the system.                                                          
+Guest              False   Built-in account for guest access to the computer/domain                                       
+sayok              True                                                                                                   
+WDAGUtilityAccount False   A user account managed and used by the system for Windows Defender Application Guard scenarios.
+WsiAccount         False   A user account managed and used by the system for Web Sign-in scenarios.                       
 
 
 ==== ADMINISTRATORS ====
@@ -293,12 +292,12 @@ AMServiceEnabled                 : True
 AMServiceVersion                 : 4.18.26030.3011
 AntispywareEnabled               : True
 AntispywareSignatureAge          : 0
-AntispywareSignatureLastUpdated  : 27-04-2026 02:51:07
-AntispywareSignatureVersion      : 1.449.317.0
+AntispywareSignatureLastUpdated  : 28-04-2026 04:21:02
+AntispywareSignatureVersion      : 1.449.337.0
 AntivirusEnabled                 : True
 AntivirusSignatureAge            : 0
-AntivirusSignatureLastUpdated    : 27-04-2026 02:51:07
-AntivirusSignatureVersion        : 1.449.317.0
+AntivirusSignatureLastUpdated    : 28-04-2026 04:21:02
+AntivirusSignatureVersion        : 1.449.337.0
 BehaviorMonitorEnabled           : True
 ComputerID                       : E01AB593-3053-4A02-A12B-86303B5A82A7
 ComputerState                    : 0
@@ -322,11 +321,11 @@ LastQuickScanSource              : 2
 NISEnabled                       : True
 NISEngineVersion                 : 1.1.26030.3008
 NISSignatureAge                  : 0
-NISSignatureLastUpdated          : 27-04-2026 02:51:07
-NISSignatureVersion              : 1.449.317.0
+NISSignatureLastUpdated          : 28-04-2026 04:21:02
+NISSignatureVersion              : 1.449.337.0
 OnAccessProtectionEnabled        : True
 ProductStatus                    : 524288
-QuickScanAge                     : 3
+QuickScanAge                     : 4
 QuickScanEndTime                 : 24-04-2026 11:57:39
 QuickScanOverdue                 : False
 QuickScanSignatureVersion        : 1.449.236.0
@@ -379,7 +378,7 @@ Microsoft Edge | Version: 147.0.3912.86 | Publisher: Microsoft Corporation
 Microsoft Edge WebView2 Runtime | Version: 147.0.3912.86 | Publisher: Microsoft Corporation
 Microsoft GameInput | Version: 3.3.163.0 | Publisher: Microsoft Corporation
 Microsoft Office LTSC Professional Plus 2024 - en-us | Version: 16.0.17932.20742 | Publisher: Microsoft Corporation
-Microsoft OneDrive | Version: 26.055.0323.0004 | Publisher: Microsoft Corporation
+Microsoft OneDrive | Version: 26.062.0402.0002 | Publisher: Microsoft Corporation
 Microsoft Teams Meeting Add-in for Microsoft Office | Version: 1.24.13006 | Publisher: Microsoft
 Microsoft Visual C++ 2008 Redistributable - x64 9.0.30729.17 | Version: 9.0.30729 | Publisher: Microsoft Corporation
 Microsoft Visual C++ 2010  x64 Redistributable - 10.0.40219 | Version: 10.0.40219 | Publisher: Microsoft Corporation
@@ -465,15 +464,15 @@ DNSServer            : fec0:0:0:ffff::1
 InterfaceAlias       : Wi-Fi
 InterfaceIndex       : 11
 InterfaceDescription : MediaTek Wi-Fi 6 MT7921 Wireless LAN Card
-NetProfile.Name      : Shopforoffice.5G
-IPv6Address          : 2404:8ec0:4:84c:c73b:8b4a:c501:3e8
-IPv4Address          : 192.168.1.50
-IPv6DefaultGateway   : fe80::1
-IPv4DefaultGateway   : 192.168.1.1
-DNSServer            : 2404:8ec0:3::11
-                       2001:4860:4860::8888
-                       2606:4700:4700::1111
-                       192.168.1.1
+NetProfile.Name      : AIRFIBER INNO
+IPv6Address          : 2404:8ec0:4:1c46:a950:78c8:71d8:a05c
+IPv4Address          : 192.168.0.76
+IPv6DefaultGateway   : {fe80::f2b4:d2ff:fe8e:2403, fe80::1}
+IPv4DefaultGateway   : 192.168.0.1
+DNSServer            : fe80::1
+                       fe80::1
+                       8.8.8.8
+                       4.4.4.4
 
 InterfaceAlias       : Bluetooth Network Connection
 InterfaceIndex       : 3
@@ -484,172 +483,98 @@ NetAdapter.Status    : Disconnected
 
 ==== ACTIVE CONNECTIONS ====
 
-LocalAddress                        LocalPort RemoteAddress                       RemotePort State       AppliedSetting
-------------                        --------- -------------                       ---------- -----       --------------
-::                                  65438     ::                                  0          Bound                     
-::                                  64495     ::                                  0          Bound                     
-::                                  61770     ::                                  0          Bound                     
-::                                  61184     ::                                  0          Bound                     
-::                                  60249     ::                                  0          Bound                     
-::                                  58808     ::                                  0          Bound                     
-::                                  56974     ::                                  0          Bound                     
-::                                  56221     ::                                  0          Bound                     
-::                                  56219     ::                                  0          Bound                     
-::                                  55533     ::                                  0          Bound                     
-::                                  55093     ::                                  0          Bound                     
-::                                  53702     ::                                  0          Bound                     
-::                                  51968     ::                                  0          Bound                     
-::                                  51218     ::                                  0          Bound                     
-::                                  51217     ::                                  0          Bound                     
-::                                  50100     ::                                  0          Bound                     
-::                                  50099     ::                                  0          Bound                     
-::                                  49809     ::                                  0          Bound                     
-::                                  49678     ::                                  0          Bound                     
-::                                  49669     ::                                  0          Bound                     
-::                                  49408     ::                                  0          Bound                     
-::                                  49390     ::                                  0          Bound                     
-::                                  49183     ::                                  0          Bound                     
-2404:8ec0:4:84c:43f:f5b7:8192:9f56  65438     2606:b740:49::102                   80         Established Internet      
-2404:8ec0:4:84c:43f:f5b7:8192:9f56  64495     2404:6800:4003:c02::bc              5228       Established Internet      
-2404:8ec0:4:84c:43f:f5b7:8192:9f56  61770     2a03:2880:f354:120:face:b00c:0:167  443        Established Internet      
-2404:8ec0:4:84c:43f:f5b7:8192:9f56  61184     2001:4860:4802:34::223              443        Established Internet      
-2404:8ec0:4:84c:43f:f5b7:8192:9f56  60249     2404:6800:4003:c02::bc              5228       Established Internet      
-2404:8ec0:4:84c:43f:f5b7:8192:9f56  58808     2400:6180:100:d0::982:d001          443        Established Internet      
-2404:8ec0:4:84c:43f:f5b7:8192:9f56  56221     2600:1901:0:5e8a::                  443        Established Internet      
-2404:8ec0:4:84c:43f:f5b7:8192:9f56  56220     2404:6800:4007:80c::2001            443        TimeWait                  
-2404:8ec0:4:84c:43f:f5b7:8192:9f56  56219     2001:4860:4802:36::223              443        Established Internet      
-2404:8ec0:4:84c:43f:f5b7:8192:9f56  56218     2001:4860:4802:38::223              443        TimeWait                  
-2404:8ec0:4:84c:43f:f5b7:8192:9f56  56216     2001:4860:4802:36::223              443        TimeWait                  
-2404:8ec0:4:84c:43f:f5b7:8192:9f56  56215     2001:4860:4802:36::223              443        TimeWait                  
-2404:8ec0:4:84c:43f:f5b7:8192:9f56  56214     2001:4860:4802:36::223              443        TimeWait                  
-2404:8ec0:4:84c:43f:f5b7:8192:9f56  56213     2001:4860:4802:36::223              443        TimeWait                  
-2404:8ec0:4:84c:43f:f5b7:8192:9f56  56210     2001:4860:4802:36::223              443        TimeWait                  
-2404:8ec0:4:84c:43f:f5b7:8192:9f56  56209     2a03:2880:f354:120:face:b00c:0:167  443        TimeWait                  
-2404:8ec0:4:84c:43f:f5b7:8192:9f56  55533     2620:1ec:50::12                     443        Established Internet      
-2404:8ec0:4:84c:43f:f5b7:8192:9f56  55093     2001:4860:4802:38::223              443        Established Internet      
-2404:8ec0:4:84c:43f:f5b7:8192:9f56  53702     2600:1901:0:5e8a::                  443        Established Internet      
-2404:8ec0:4:84c:43f:f5b7:8192:9f56  51968     2405:200:1630:1a3::ae0              443        CloseWait   Internet      
-2404:8ec0:4:84c:43f:f5b7:8192:9f56  51218     2603:1046:c06:c46::2                443        Established Internet      
-2404:8ec0:4:84c:43f:f5b7:8192:9f56  51217     2603:1046:c06:c46::2                443        Established Internet      
-2404:8ec0:4:84c:43f:f5b7:8192:9f56  50100     2603:1063:2001:1d2c::365:ff1        443        Established Internet      
-2404:8ec0:4:84c:43f:f5b7:8192:9f56  50099     2603:1063:2001:1d2c::365:ff1        443        Established Internet      
-2404:8ec0:4:84c:43f:f5b7:8192:9f56  49809     2603:1063:2001:1d2c::365:ff1        443        Established Internet      
-2404:8ec0:4:84c:43f:f5b7:8192:9f56  49678     2001:4860:4802:34::223              443        Established Internet      
-::                                  49672     ::                                  0          Listen                    
-::                                  49668     ::                                  0          Listen                    
-::                                  49667     ::                                  0          Listen                    
-::                                  49666     ::                                  0          Listen                    
-::                                  49665     ::                                  0          Listen                    
-::                                  49664     ::                                  0          Listen                    
-2404:8ec0:4:84c:43f:f5b7:8192:9f56  49408     2603:1040:a06:6::2                  443        Established Internet      
-2404:8ec0:4:84c:43f:f5b7:8192:9f56  49390     2600:1f18:4c12:9a01:4183:db1:ffd... 443        Established Internet      
-2404:8ec0:4:84c:43f:f5b7:8192:9f56  49183     2a06:98c1:3108::ac40:94eb           443        Established Internet      
-::1                                 42050     ::                                  0          Listen                    
-fd7a:115c:a1e0::b237:6f61           36001     ::                                  0          Listen                    
-::                                  7680      ::                                  0          Listen                    
-::                                  5357      ::                                  0          Listen                    
-::                                  445       ::                                  0          Listen                    
-::                                  135       ::                                  0          Listen                    
-0.0.0.0                             65251     0.0.0.0                             0          Bound                     
-0.0.0.0                             65248     0.0.0.0                             0          Bound                     
-0.0.0.0                             63918     0.0.0.0                             0          Bound                     
-0.0.0.0                             61749     0.0.0.0                             0          Bound                     
-0.0.0.0                             60788     0.0.0.0                             0          Bound                     
-0.0.0.0                             59884     0.0.0.0                             0          Bound                     
-0.0.0.0                             59834     0.0.0.0                             0          Bound                     
-0.0.0.0                             59663     0.0.0.0                             0          Bound                     
-0.0.0.0                             59565     0.0.0.0                             0          Bound                     
-0.0.0.0                             58505     0.0.0.0                             0          Bound                     
-0.0.0.0                             57765     0.0.0.0                             0          Bound                     
-0.0.0.0                             57701     0.0.0.0                             0          Bound                     
-0.0.0.0                             55462     0.0.0.0                             0          Bound                     
-0.0.0.0                             55109     0.0.0.0                             0          Bound                     
-0.0.0.0                             53247     0.0.0.0                             0          Bound                     
-0.0.0.0                             51429     0.0.0.0                             0          Bound                     
-0.0.0.0                             51344     0.0.0.0                             0          Bound                     
-0.0.0.0                             50548     0.0.0.0                             0          Bound                     
-0.0.0.0                             50393     0.0.0.0                             0          Bound                     
-0.0.0.0                             50380     0.0.0.0                             0          Bound                     
-0.0.0.0                             50379     0.0.0.0                             0          Bound                     
-0.0.0.0                             50376     0.0.0.0                             0          Bound                     
-0.0.0.0                             50375     0.0.0.0                             0          Bound                     
-0.0.0.0                             50371     0.0.0.0                             0          Bound                     
-0.0.0.0                             49685     0.0.0.0                             0          Bound                     
-0.0.0.0                             49683     0.0.0.0                             0          Bound                     
-0.0.0.0                             49680     0.0.0.0                             0          Bound                     
-192.168.1.50                        65251     100.84.76.3                         1514       SynSent     Internet      
-192.168.1.50                        65248     34.90.241.47                        443        Established Internet      
-127.0.0.1                           63918     127.0.0.1                           49676      Established Internet      
-192.168.1.50                        61749     52.147.65.166                       443        Established Internet      
-192.168.1.50                        60788     169.148.149.132                     443        Established Internet      
-192.168.1.50                        59834     199.165.136.100                     443        Established Internet      
-127.0.0.1                           59565     127.0.0.1                           49676      Established Internet      
-192.168.1.50                        57765     4.224.92.204                        443        Established Internet      
-192.168.1.50                        57701     169.148.149.218                     443        Established Internet      
-192.168.1.50                        56241     34.54.84.110                        443        TimeWait                  
-192.168.1.50                        56239     34.54.84.110                        443        TimeWait                  
-192.168.1.50                        56227     34.54.84.110                        443        TimeWait                  
-192.168.1.50                        56225     34.54.84.110                        443        TimeWait                  
-127.0.0.1                           55499     0.0.0.0                             0          Listen                    
-127.0.0.1                           55498     0.0.0.0                             0          Listen                    
-127.0.0.1                           55498     127.0.0.1                           56235      TimeWait                  
-127.0.0.1                           55498     127.0.0.1                           56222      TimeWait                  
-127.0.0.1                           55498     127.0.0.1                           49685      Established Internet      
-127.0.0.1                           55498     127.0.0.1                           49683      Established Internet      
-127.0.0.1                           55498     127.0.0.1                           49680      Established Internet      
-100.72.111.97                       55462     100.117.145.9                       3389       Established Internet      
-192.168.1.50                        55109     34.54.84.110                        443        Established Internet      
-127.0.0.1                           50548     127.0.0.1                           49676      Established Internet      
-127.0.0.1                           50393     127.0.0.1                           49676      Established Internet      
-127.0.0.1                           50380     127.0.0.1                           50367      Established Internet      
-127.0.0.1                           50379     127.0.0.1                           50374      Established Internet      
-127.0.0.1                           50376     127.0.0.1                           50362      Established Internet      
-127.0.0.1                           50375     127.0.0.1                           50362      Established Internet      
-127.0.0.1                           50374     0.0.0.0                             0          Listen                    
-127.0.0.1                           50374     127.0.0.1                           50379      Established Internet      
-127.0.0.1                           50371     127.0.0.1                           50362      Established Internet      
-127.0.0.1                           50368     0.0.0.0                             0          Listen                    
-127.0.0.1                           50368     127.0.0.1                           65250      TimeWait                  
-127.0.0.1                           50368     127.0.0.1                           56238      TimeWait                  
-127.0.0.1                           50368     127.0.0.1                           56231      TimeWait                  
-127.0.0.1                           50368     127.0.0.1                           56224      TimeWait                  
-127.0.0.1                           50367     0.0.0.0                             0          Listen                    
-127.0.0.1                           50367     127.0.0.1                           50380      Established Internet      
-127.0.0.1                           50362     0.0.0.0                             0          Listen                    
-127.0.0.1                           50362     127.0.0.1                           65249      TimeWait                  
-127.0.0.1                           50362     127.0.0.1                           56228      TimeWait                  
-127.0.0.1                           50362     127.0.0.1                           50376      Established Internet      
-127.0.0.1                           50362     127.0.0.1                           50375      Established Internet      
-127.0.0.1                           50362     127.0.0.1                           50371      Established Internet      
-127.0.0.1                           50359     0.0.0.0                             0          Listen                    
-127.0.0.1                           49685     127.0.0.1                           55498      Established Internet      
-127.0.0.1                           49683     127.0.0.1                           55498      Established Internet      
-127.0.0.1                           49680     127.0.0.1                           55498      Established Internet      
-127.0.0.1                           49677     0.0.0.0                             0          Listen                    
-127.0.0.1                           49676     0.0.0.0                             0          Listen                    
-127.0.0.1                           49676     127.0.0.1                           63918      Established Internet      
-127.0.0.1                           49676     127.0.0.1                           59565      Established Internet      
-127.0.0.1                           49676     127.0.0.1                           50548      Established Internet      
-127.0.0.1                           49676     127.0.0.1                           50393      Established Internet      
-0.0.0.0                             49672     0.0.0.0                             0          Listen                    
-0.0.0.0                             49668     0.0.0.0                             0          Listen                    
-0.0.0.0                             49667     0.0.0.0                             0          Listen                    
-0.0.0.0                             49666     0.0.0.0                             0          Listen                    
-0.0.0.0                             49665     0.0.0.0                             0          Listen                    
-0.0.0.0                             49664     0.0.0.0                             0          Listen                    
-100.72.111.97                       41932     0.0.0.0                             0          Listen                    
-127.0.0.1                           27017     0.0.0.0                             0          Listen                    
-0.0.0.0                             5040      0.0.0.0                             0          Listen                    
-192.168.56.1                        139       0.0.0.0                             0          Listen                    
-192.168.1.50                        139       0.0.0.0                             0          Listen                    
-0.0.0.0                             135       0.0.0.0                             0          Listen                    
+LocalAddress                        LocalPort RemoteAddress                       RemotePort State       AppliedSetting OwningPr
+                                                                                                                        ocess   
+------------                        --------- -------------                       ---------- -----       -------------- --------
+::                                  64652     ::                                  0          Bound                      20912   
+::                                  63222     ::                                  0          Bound                      16728   
+::                                  59922     ::                                  0          Bound                      10928   
+::                                  59146     ::                                  0          Bound                      11616   
+::                                  58590     ::                                  0          Bound                      13732   
+::                                  58370     ::                                  0          Bound                      17156   
+::                                  56052     ::                                  0          Bound                      20912   
+::                                  55656     ::                                  0          Bound                      20912   
+::                                  53042     ::                                  0          Bound                      20600   
+::                                  51332     ::                                  0          Bound                      20912   
+::                                  51216     ::                                  0          Bound                      20912   
+::                                  50089     ::                                  0          Bound                      5900    
+::                                  49975     ::                                  0          Bound                      6384    
+::                                  49413     ::                                  0          Bound                      5884    
+::                                  49412     ::                                  0          Bound                      5884    
+2404:8ec0:4:1c46:303d:91f6:a59f:... 64652     2404:6800:4000:1025::54             443        Established Internet       20912   
+2404:8ec0:4:1c46:303d:91f6:a59f:... 63222     2606:b740:49::103                   443        Established Internet       16728   
+2404:8ec0:4:1c46:303d:91f6:a59f:... 61705     2606:4700:4402::6812:25e4           443        TimeWait                   0       
+2404:8ec0:4:1c46:303d:91f6:a59f:... 59922     2600:1901:0:5e8a::                  443        Established Internet       10928   
+2404:8ec0:4:1c46:303d:91f6:a59f:... 59146     2603:1046:c06:c13::2                443        Established Internet       11616   
+2404:8ec0:4:1c46:303d:91f6:a59f:... 58590     2a03:2880:f354:120:face:b00c:0:167  443        Established Internet       13732   
+2404:8ec0:4:1c46:303d:91f6:a59f:... 58370     2603:1040:603:c::d5                 443        Established Internet       17156   
+2404:8ec0:4:1c46:303d:91f6:a59f:... 56386     2404:6800:4007:817::2003            443        TimeWait                   0       
+2404:8ec0:4:1c46:303d:91f6:a59f:... 56052     2404:6800:4003:c03::bc              5228       Established Internet       20912   
+2404:8ec0:4:1c46:303d:91f6:a59f:... 55656     2404:6800:4003:c03::bc              5228       Established Internet       20912   
+2404:8ec0:4:1c46:303d:91f6:a59f:... 55308     2a06:98c1:310b::ac40:9bd1           443        TimeWait                   0       
+2404:8ec0:4:1c46:303d:91f6:a59f:... 53042     2600:1901:0:5e8a::                  443        Established Internet       20600   
+2404:8ec0:4:1c46:303d:91f6:a59f:... 51332     2a06:98c1:3108::ac40:94eb           443        Established Internet       20912   
+2404:8ec0:4:1c46:303d:91f6:a59f:... 51320     2600:1901:0:47fc::                  443        TimeWait                   0       
+2404:8ec0:4:1c46:303d:91f6:a59f:... 50089     2603:1063:5:11b::365:7ea3           443        Established Internet       5900    
+2404:8ec0:4:1c46:303d:91f6:a59f:... 50075     2001:4860:4802:38::223              443        TimeWait                   0       
+2404:8ec0:4:1c46:303d:91f6:a59f:... 49975     2606:b740:1:20::103                 443        Established Internet       6384    
+2404:8ec0:4:1c46:303d:91f6:a59f:... 49713     2001:4860:4802:34::223              443        TimeWait                   0       
+::                                  49676     ::                                  0          Listen                     1552    
+::                                  49668     ::                                  0          Listen                     5308    
+::                                  49667     ::                                  0          Listen                     3832    
+::                                  49666     ::                                  0          Listen                     2588    
+::                                  49665     ::                                  0          Listen                     1428    
+::                                  49664     ::                                  0          Listen                     1608    
+2404:8ec0:4:1c46:303d:91f6:a59f:... 49413     2603:1040:a06:6::2                  443        Established Internet       5884    
+2404:8ec0:4:1c46:303d:91f6:a59f:... 49412     2603:1040:a06:6::                   443        Established Internet       5884    
+fd7a:115c:a1e0::b237:6f61           36001     ::                                  0          Listen                     8720    
+::                                  5357      ::                                  0          Listen                     4       
+::                                  445       ::                                  0          Listen                     4       
+::                                  135       ::                                  0          Listen                     1884    
+0.0.0.0                             64655     0.0.0.0                             0          Bound                      13776   
+0.0.0.0                             64654     0.0.0.0                             0          Bound                      5932    
+0.0.0.0                             64502     0.0.0.0                             0          Bound                      20912   
+0.0.0.0                             64040     0.0.0.0                             0          Bound                      20912   
+0.0.0.0                             62566     0.0.0.0                             0          Bound                      20912   
+0.0.0.0                             61771     0.0.0.0                             0          Bound                      5832    
+0.0.0.0                             61753     0.0.0.0                             0          Bound                      8720    
+0.0.0.0                             57322     0.0.0.0                             0          Bound                      19428   
+0.0.0.0                             56931     0.0.0.0                             0          Bound                      16728   
+0.0.0.0                             54525     0.0.0.0                             0          Bound                      20912   
+0.0.0.0                             51131     0.0.0.0                             0          Bound                      4732    
+0.0.0.0                             49971     0.0.0.0                             0          Bound                      8720    
+0.0.0.0                             49673     0.0.0.0                             0          Bound                      20524   
+192.168.0.76                        64655     20.190.145.142                      443        Established Internet       13776   
+192.168.0.76                        64654     100.84.76.3                         1514       SynSent     Internet       5932    
+100.72.111.97                       64502     100.126.48.39                       9392       Established Internet       20912   
+100.72.111.97                       64040     100.126.48.39                       9392       Established Internet       20912   
+100.72.111.97                       62566     100.126.48.39                       9392       Established Internet       20912   
+192.168.0.76                        61753     192.200.0.101                       443        Established Internet       8720    
+192.168.0.76                        57322     199.165.136.100                     443        Established Internet       19428   
+100.72.111.97                       57126     192.168.0.20                        445        Established Internet       4       
+192.168.0.76                        56931     34.126.229.178                      443        Established Internet       16728   
+100.72.111.97                       54525     100.126.48.39                       9392       Established Internet       20912   
+192.168.0.76                        51131     4.224.95.102                        443        Established Internet       4732    
+192.168.0.76                        49971     68.183.90.120                       443        Established Internet       8720    
+0.0.0.0                             49676     0.0.0.0                             0          Listen                     1552    
+0.0.0.0                             49668     0.0.0.0                             0          Listen                     5308    
+0.0.0.0                             49667     0.0.0.0                             0          Listen                     3832    
+0.0.0.0                             49666     0.0.0.0                             0          Listen                     2588    
+0.0.0.0                             49665     0.0.0.0                             0          Listen                     1428    
+0.0.0.0                             49664     0.0.0.0                             0          Listen                     1608    
+100.72.111.97                       41932     0.0.0.0                             0          Listen                     8720    
+127.0.0.1                           27017     0.0.0.0                             0          Listen                     5924    
+0.0.0.0                             5040      0.0.0.0                             0          Listen                     11700   
+192.168.56.1                        139       0.0.0.0                             0          Listen                     4       
+192.168.0.76                        139       0.0.0.0                             0          Listen                     4       
+0.0.0.0                             135       0.0.0.0                             0          Listen                     1884    
 
 
 ==== SERVICES ====
 
 Status   Name               DisplayName                           
 ------   ----               -----------                           
-Stopped  AarSvc_1309b5      Agent Activation Runtime_1309b5       
+Stopped  AarSvc_19a208      Agent Activation Runtime_19a208       
 Stopped  ADPSvc             Aggregated Data Platform Service      
 Stopped  ALG                Application Layer Gateway Service     
 Running  AMD Crash Defen... AMD Crash Defender Service            
@@ -667,7 +592,7 @@ Stopped  BcastDVRUserSer... GameDVR and Broadcast User Service_...
 Running  BDESVC             BitLocker Drive Encryption Service    
 Running  BFE                Base Filtering Engine                 
 Running  BITS               Background Intelligent Transfer Ser...
-Running  BluetoothUserSe... Bluetooth User Support Service_1309b5 
+Running  BluetoothUserSe... Bluetooth User Support Service_19a208 
 Stopped  brave              Brave Update Service (brave)          
 Stopped  BraveElevationS... Brave Elevation Service (BraveEleva...
 Stopped  bravem             Brave Update Service (bravem)         
@@ -676,27 +601,27 @@ Running  BTAGService        Bluetooth Audio Gateway Service
 Running  BthAvctpSvc        AVCTP service                         
 Running  bthserv            Bluetooth Support Service             
 Running  camsvc             Capability Access Manager Service     
-Stopped  CaptureService_... CaptureService_1309b5                 
-Running  cbdhsvc_1309b5     Clipboard User Service_1309b5         
+Stopped  CaptureService_... CaptureService_19a208                 
+Running  cbdhsvc_19a208     Clipboard User Service_19a208         
 Running  CDPSvc             Connected Devices Platform Service    
-Running  CDPUserSvc_1309b5  Connected Devices Platform User Ser...
+Running  CDPUserSvc_19a208  Connected Devices Platform User Ser...
 Stopped  CertPropSvc        Certificate Propagation               
 Running  ClickToRunSvc      Microsoft Office Click-to-Run Service 
 Stopped  ClipSVC            Client License Service (ClipSVC)      
-Stopped  CloudBackupRest... Cloud Backup and Restore Service_13...
+Stopped  CloudBackupRest... Cloud Backup and Restore Service_19...
 Stopped  COMSysApp          COM+ System Application               
-Stopped  ConsentUxUserSv... ConsentUX User Service_1309b5         
+Stopped  ConsentUxUserSv... ConsentUX User Service_19a208         
 Running  CoreMessagingRe... CoreMessaging                         
 Stopped  CredentialEnrol... CredentialEnrollmentManagerUserSvc_...
 Running  CryptSvc           Cryptographic Services                
 Running  DcomLaunch         DCOM Server Process Launcher          
 Stopped  dcsvc              Declared Configuration(DC) service    
 Stopped  defragsvc          Optimize drives                       
-Stopped  DeviceAssociati... DeviceAssociationBroker_1309b5        
+Stopped  DeviceAssociati... DeviceAssociationBroker_19a208        
 Running  DeviceAssociati... Device Association Service            
 Running  DeviceInstall      Device Install Service                
-Stopped  DevicePickerUse... DevicePicker_1309b5                   
-Running  DevicesFlowUser... DevicesFlow_1309b5                    
+Stopped  DevicePickerUse... DevicePicker_19a208                   
+Running  DevicesFlowUser... DevicesFlow_19a208                    
 Running  DevQueryBroker     DevQuery Background Discovery Broker  
 Running  Dhcp               DHCP Client                           
 Stopped  diagsvc            Diagnostic Execution Service          
@@ -711,7 +636,7 @@ Running  DoSvc              Delivery Optimization
 Stopped  dot3svc            Wired AutoConfig                      
 Running  DPS                Diagnostic Policy Service             
 Stopped  DsmSvc             Device Setup Manager                  
-Running  DsSvc              Data Sharing Service                  
+Stopped  DsSvc              Data Sharing Service                  
 Running  DusmSvc            Data Usage                            
 Stopped  EapHost            Extensible Authentication Protocol    
 Stopped  edgeupdate         Microsoft Edge Update Service (edge...
@@ -737,7 +662,7 @@ Running  GamingServicesNet  Gaming Services
 Stopped  GoogleChromeEle... Google Chrome Elevation Service (Go...
 Stopped  GoogleUpdaterIn... Google Updater Internal Service (Go...
 Stopped  GoogleUpdaterSe... Google Updater Service (GoogleUpdat...
-Running  gpsvc              Group Policy Client                   
+Stopped  gpsvc              Group Policy Client                   
 Stopped  GraphicsPerfSvc    GraphicsPerfSvc                       
 Stopped  hidserv            Human Interface Device Service        
 Running  hns                Host Network Service                  
@@ -769,7 +694,7 @@ Running  McAfee WebAdvisor  McAfee WebAdvisor
 Stopped  McmSvc             Mobile Connectivity Management Service
 Stopped  McpManagementSe... McpManagementService                  
 Running  MDCoreSvc          Microsoft Defender Core Service       
-Stopped  MessagingServic... MessagingService_1309b5               
+Stopped  MessagingServic... MessagingService_19a208               
 Stopped  MicrosoftEdgeEl... Microsoft Edge Elevation Service (M...
 Stopped  midisrv            Windows MIDI Service                  
 Running  MongoDB            MongoDB Server (MongoDB)              
@@ -789,18 +714,18 @@ Stopped  NetTcpPortSharing  Net.Tcp Port Sharing Service
 Running  NgcCtnrSvc         Microsoft Passport Container          
 Running  NgcSvc             Microsoft Passport                    
 Stopped  NlaSvc             Network Location Awareness            
-Running  NPSMSvc_1309b5     Now Playing Session Manager Service...
+Running  NPSMSvc_19a208     Now Playing Session Manager Service...
 Running  nsi                Network Store Interface Service       
 Running  nvagent            Network Virtualization Service        
 Stopped  OneDrive Update... OneDrive Updater Service              
-Running  OneSyncSvc_1309b5  Sync Host_1309b5                      
-Stopped  P9RdrService_13... P9RdrService_1309b5                   
+Running  OneSyncSvc_19a208  Sync Host_19a208                      
+Stopped  P9RdrService_19... P9RdrService_19a208                   
 Running  PcaSvc             Program Compatibility Assistant Ser...
-Stopped  PenService_1309b5  PenService_1309b5                     
+Stopped  PenService_19a208  PenService_19a208                     
 Stopped  perceptionsimul... Windows Perception Simulation Service 
 Stopped  PerfHost           Performance Counter DLL Host          
 Running  PhoneSvc           Phone Service                         
-Running  PimIndexMainten... Contact Data_1309b5                   
+Stopped  PimIndexMainten... Contact Data_19a208                   
 Stopped  pla                Performance Logs & Alerts             
 Running  PlugPlay           Plug and Play                         
 Running  PolicyAgent        IPsec Policy Agent                    
@@ -808,7 +733,7 @@ Running  Power              Power
 Stopped  PrintDeviceConf... Print Device Configuration Service    
 Stopped  PrintNotify        Printer Extensions and Notifications  
 Stopped  PrintScanBroker... PrintScanBrokerService                
-Stopped  PrintWorkflowUs... PrintWorkflow_1309b5                  
+Stopped  PrintWorkflowUs... PrintWorkflow_19a208                  
 Running  ProfSvc            User Profile Service                  
 Stopped  PushToInstall      Windows PushToInstall Service         
 Stopped  QWAVE              Quality Windows Audio Video Experience
@@ -834,7 +759,7 @@ Running  SecurityHealthS... Windows Security Service
 Stopped  SEMgrSvc           Payments and NFC/SE Manager           
 Running  SENS               System Event Notification Service     
 Stopped  SensorDataService  Sensor Data Service                   
-Running  SensorService      Sensor Service                        
+Stopped  SensorService      Sensor Service                        
 Stopped  SensrSvc           Sensor Monitoring Service             
 Stopped  SessionEnv         Remote Desktop Configuration          
 Running  SharedAccess       Internet Connection Sharing (ICS)     
@@ -869,12 +794,12 @@ Stopped  TroubleshootingSvc Recommended Troubleshooting Service
 Running  TrustedInstaller   Windows Modules Installer             
 Stopped  tzautoupdate       Auto Time Zone Updater                
 Running  UDCService         Universal Device Client Service       
-Running  UdkUserSvc_1309b5  Udk User Service_1309b5               
+Running  UdkUserSvc_19a208  Udk User Service_19a208               
 Running  UltraViewService   UltraViewer Service                   
 Stopped  UmRdpService       Remote Desktop Services UserMode Po...
-Running  UnistoreSvc_1309b5 User Data Storage_1309b5              
+Stopped  UnistoreSvc_19a208 User Data Storage_19a208              
 Stopped  upnphost           UPnP Device Host                      
-Running  UserDataSvc_1309b5 User Data Access_1309b5               
+Stopped  UserDataSvc_19a208 User Data Access_19a208               
 Running  UserManager        User Manager                          
 Running  UsoSvc             Update Orchestrator Service           
 Running  VaultSvc           Credential Manager                    
@@ -889,9 +814,9 @@ Stopped  vmicshutdown       Hyper-V Guest Shutdown Service
 Stopped  vmictimesync       Hyper-V Time Synchronization Service  
 Stopped  vmicvmsession      Hyper-V PowerShell Direct Service     
 Stopped  vmicvss            Hyper-V Volume Shadow Copy Requestor  
-Stopped  VSS                Volume Shadow Copy                    
-Running  W32Time            Windows Time                          
-Stopped  WaaSMedicSvc       WaaSMedicSvc                          
+Running  VSS                Volume Shadow Copy                    
+Stopped  W32Time            Windows Time                          
+Running  WaaSMedicSvc       WaaSMedicSvc                          
 Stopped  WalletService      WalletService                         
 Stopped  WarpJITSvc         Warp JIT Service                      
 Running  WazuhSvc           Wazuh                                 
@@ -902,9 +827,9 @@ Stopped  wcncsvc            Windows Connect Now - Config Registrar
 Stopped  WdiServiceHost     Diagnostic Service Host               
 Running  WdiSystemHost      Diagnostic System Host                
 Running  WdNisSvc           Microsoft Defender Antivirus Networ...
-Stopped  WebClient          WebClient                             
+Running  WebClient          WebClient                             
 Running  webthreatdefsvc    Web Threat Defense Service            
-Running  webthreatdefuse... Web Threat Defense User Service_1309b5
+Running  webthreatdefuse... Web Threat Defense User Service_19a208
 Stopped  Wecsvc             Windows Event Collector               
 Stopped  WEPHOSTSVC         Windows Encryption Provider Host Se...
 Stopped  wercplsupport      Problem Reports Control Panel Support 
@@ -926,17 +851,17 @@ Running  wmiApSrv           WMI Performance Adapter
 Stopped  WMPNetworkSvc      Windows Media Player Network Sharin...
 Stopped  workfolderssvc     Work Folders                          
 Stopped  WpcMonSvc          Parental Controls                     
-Stopped  WPDBusEnum         Portable Device Enumerator Service    
+Running  WPDBusEnum         Portable Device Enumerator Service    
 Running  WpnService         Windows Push Notifications System S...
 Running  WpnUserService_... Windows Push Notifications User Ser...
 Running  WSAIFabricSvc      WSAIFabricSvc                         
 Running  wscsvc             Security Center                       
 Running  WSearch            Windows Search                        
 Running  WSLService         WSL Service                           
-Stopped  wuauserv           Windows Update                        
-Running  wuqisvc            Microsoft Usage and Quality Insights  
+Running  wuauserv           Windows Update                        
+Stopped  wuqisvc            Microsoft Usage and Quality Insights  
 Stopped  WwanSvc            WWAN AutoConfig                       
-Running  XblAuthManager     Xbox Live Auth Manager                
+Stopped  XblAuthManager     Xbox Live Auth Manager                
 Stopped  XblGameSave        Xbox Live Game Save                   
 Stopped  XboxGipSvc         Xbox Accessory Management Service     
 Stopped  XboxNetApiSvc      Xbox Live Networking Service          
@@ -944,24 +869,24 @@ Stopped  XboxNetApiSvc      Xbox Live Networking Service
 
 ==== STARTUP PROGRAMS ====
 
-Command                                                                                                                
--------                                                                                                                
-Comet.lnk                                                                                                              
-Rainmeter.lnk                                                                                                          
-Send to OneNote.lnk                                                                                                    
-Wispr Flow.lnk                                                                                                         
-"C:\Program Files\Microsoft OneDrive\OneDrive.exe" /background                                                         
-"C:\Users\sayok\AppData\Local\FigmaAgent\figma_agent.exe"                                                              
-"C:\Users\sayok\AppData\Local\Discord\Update.exe" --processStart Discord.exe                                           
-"D:\Program Files\Nox\bin\MultiPlayerManager.exe" -startSource:auto_start                                              
-"C:\Users\sayok\AppData\Local\Microsoft\WindowsApps\MSTeams_8wekyb3d8bbwe\ms-teams.exe" msteams:system-initiated       
-"C:\Program Files\Google\Chrome\Application\chrome.exe" --no-startup-window /prefetch:5                                
-"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --win-session-start                                     
-"C:\Users\sayok\AppData\Local\Programs\Canva\Canva.exe" --start-availability-check-agent                               
-C:\PROGRA~1\Tailscale\tailscale-ipn.exe                                                                                
-%windir%\system32\SecurityHealthSystray.exe                                                                            
-"C:\Windows\System32\DriverStore\FileRepository\realtekservice.inf_amd64_8af210933d36077d\RtkAudUService64.exe" -bac...
-"C:\Program Files\Google\NearbyShare\nearby_share_launcher.exe" --delayed_start                                        
+Command                                                                                                                     User
+-------                                                                                                                     ----
+Comet.lnk                                                                                                                   Y...
+Rainmeter.lnk                                                                                                               Y...
+Send to OneNote.lnk                                                                                                         Y...
+Wispr Flow.lnk                                                                                                              Y...
+"C:\Program Files\Microsoft OneDrive\OneDrive.exe" /background                                                              Y...
+"C:\Users\sayok\AppData\Local\FigmaAgent\figma_agent.exe"                                                                   Y...
+"C:\Users\sayok\AppData\Local\Discord\Update.exe" --processStart Discord.exe                                                Y...
+"D:\Program Files\Nox\bin\MultiPlayerManager.exe" -startSource:auto_start                                                   Y...
+"C:\Users\sayok\AppData\Local\Microsoft\WindowsApps\MSTeams_8wekyb3d8bbwe\ms-teams.exe" msteams:system-initiated            Y...
+"C:\Program Files\Google\Chrome\Application\chrome.exe" --no-startup-window /prefetch:5                                     Y...
+"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --win-session-start                                          Y...
+"C:\Users\sayok\AppData\Local\Programs\Canva\Canva.exe" --start-availability-check-agent                                    Y...
+C:\PROGRA~1\Tailscale\tailscale-ipn.exe                                                                                     P...
+%windir%\system32\SecurityHealthSystray.exe                                                                                 P...
+"C:\Windows\System32\DriverStore\FileRepository\realtekservice.inf_amd64_8af210933d36077d\RtkAudUService64.exe" -background P...
+"C:\Program Files\Google\NearbyShare\nearby_share_launcher.exe" --delayed_start                                             P...
 
 
 ==== SCHEDULED TASKS ====
@@ -972,6 +897,7 @@ TaskPath                                       TaskName                         
 \                                              OneDrive Per-Machine Standalon... Ready     
 \                                              OneDrive Reporting Task-S-1-5-... Ready     
 \                                              OneDrive Startup Task-S-1-5-21... Ready     
+\                                              PostponeDeviceSetupToast_S-1-5... Ready     
 \                                              ZoomUpdateTaskUser-S-1-5-21-23... Ready     
 \Google\                                       Quick Share Relaunch              Ready     
 \Lenovo\                                       LenovoNowLauncher                 Ready     
@@ -1100,7 +1026,7 @@ TaskPath                                       TaskName                         
 \Microsoft\Windows\Power Efficiency Diagnos... AnalyzeSystem                     Ready     
 \Microsoft\Windows\Printing\                   EduPrintProv                      Ready     
 \Microsoft\Windows\Printing\                   PrinterCleanupTask                Ready     
-\Microsoft\Windows\Printing\                   PrintJobCleanupTask               Disabled  
+\Microsoft\Windows\Printing\                   PrintJobCleanupTask               Ready     
 \Microsoft\Windows\RecoveryEnvironment\        VerifyWinRE                       Disabled  
 \Microsoft\Windows\ReFsDedupSvc\               Initialization                    Ready     
 \Microsoft\Windows\Registry\                   RegIdleBackup                     Ready     
@@ -1139,7 +1065,7 @@ TaskPath                                       TaskName                         
 \Microsoft\Windows\UPnP\                       UPnPHostConfig                    Ready     
 \Microsoft\Windows\USB\                        Usb-Notifications                 Ready     
 \Microsoft\Windows\WCM\                        WiFiTask                          Ready     
-\Microsoft\Windows\WDI\                        ResolutionHost                    Running   
+\Microsoft\Windows\WDI\                        ResolutionHost                    Ready     
 \Microsoft\Windows\Windows Defender\           Windows Defender Cache Mainten... Ready     
 \Microsoft\Windows\Windows Defender\           Windows Defender Cleanup          Ready     
 \Microsoft\Windows\Windows Defender\           Windows Defender Scheduled Scan   Ready     
@@ -1150,7 +1076,7 @@ TaskPath                                       TaskName                         
 \Microsoft\Windows\WindowsColorSystem\         Calibration Loader                Ready     
 \Microsoft\Windows\WindowsUpdate\              Scheduled Start                   Ready     
 \Microsoft\Windows\Wininet\                    CacheTask                         Running   
-\Microsoft\Windows\WlanSvc\                    CDSSync                           Ready     
+\Microsoft\Windows\WlanSvc\                    CDSSync                           Running   
 \Microsoft\Windows\WlanSvc\                    MoProfileManagement               Ready     
 \Microsoft\Windows\Work Folders\               Work Folders Logon Synchroniza... Ready     
 \Microsoft\Windows\Work Folders\               Work Folders Maintenance Work     Ready     
@@ -1161,7 +1087,7 @@ TaskPath                                       TaskName                         
 \Microsoft\Windows\WwanSvc\                    OobeDiscovery                     Ready     
 \Microsoft\XblGameSave\                        XblGameSaveTask                   Ready     
 \SoftLanding\S-1-5-21-2321220143-3660816531... SoftLandingCreativeManagementTask Ready     
-\SoftLanding\S-1-5-21-2321220143-3660816531... SoftLandingDeferralTask-{9c7c1... Ready     
+\SoftLanding\S-1-5-21-2321220143-3660816531... SoftLandingDeferralTask-{2067d... Ready     
 \SoftLanding\S-1-5-21-2321220143-3660816531... SoftLandingTriggerTask-1280000... Disabled  
 
 
@@ -1178,18 +1104,4 @@ IPC$   *                    Remote IPC
 ==== RDP STATUS ====
 1
 ==== AUDIT POLICY ====
-==== MAIL USAGE ANALYSIS ====
-INFO: Scanning mail-related artifacts...
----- Mail Data Files (PST/OST) ----
-INFO: No PST/OST files found (low local email storage)
----- Mail Clients ----
-INFO: Mail Client â†’ Zoho Mail - Desktop 1.9.1
----- Outlook Configuration ----
-INFO: Outlook configured (modern identity detected)
----- Browser Mail Usage ----
-INFO: No browser-based mail usage detected
----- Mail Network Activity ----
-INFO: No active mail connections (system may be idle)
----- Mail Risk Summary ----
-INFO: Single or limited mail usage observed
 ==== VULNERABILITY AUDIT END ====
