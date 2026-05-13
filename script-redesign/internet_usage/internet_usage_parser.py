@@ -25,7 +25,7 @@ def format_bytes(b):
     else:
         return f"{b / (1024 * 1024):.1f} MB"
 
-def parse_pcap(pcap_file, report_dir):
+def parse_pcap(pcap_file, report_dir, org_name):
     print("\n[INFO] Starting Internet Usage Analysis...")
     own_ip = get_local_ip()
     if own_ip:
@@ -151,12 +151,27 @@ def parse_pcap(pcap_file, report_dir):
     # Create final output report
     report_file_path = os.path.join(report_dir, "internet_usage_report.txt")
     
-    header = f"{'IP':<16} {'BYTES (TX / RX)':<25} {'CONNECTIONS':<15} {'TOP DOMAIN'}\n"
-    header += "-" * 75 + "\n"
+    import datetime
+    now_str = datetime.datetime.now().strftime("%m/%d/%Y %I:%M:%S %p")
+    pcap_basename = os.path.basename(pcap_file)
     
-    lines = []
     # Sort by total bytes descending
     sorted_ips = sorted(ip_data.items(), key=lambda x: x[1]['total'], reverse=True)
+    total_devices = sum(1 for ip, _ in sorted_ips if ip != own_ip)
+    
+    lines = []
+    lines.append("=========================================\n")
+    lines.append("     INTERNET USAGE REPORT\n")
+    lines.append("=========================================\n")
+    lines.append(f"Organization : {org_name}\n")
+    lines.append(f"Date         : {now_str}\n")
+    lines.append(f"PCAP File    : {pcap_basename}\n\n")
+    lines.append(f"Total Devices Monitored : {total_devices}\n\n")
+    lines.append("========== DEVICE DETAILS ==========\n")
+    
+    header = f"{'IP Address':<16} {'BYTES (TX / RX)':<25} {'CONNECTIONS':<15} {'TOP DOMAIN'}\n"
+    lines.append(header)
+    lines.append("-" * 75 + "\n")
     
     for ip, data in sorted_ips:
         if ip == own_ip:
@@ -165,12 +180,9 @@ def parse_pcap(pcap_file, report_dir):
         row = f"{ip:<16} {tx_rx_str:<25} {data['conn']:<15} {data['top_domain']}\n"
         lines.append(row)
 
-    output_text = header + "".join(lines)
+    output_text = "".join(lines)
     
-    print("\n" + "="*75)
-    print("FINAL INTERNET USAGE OUTPUT")
-    print("="*75)
-    print(output_text)
+    print("\n" + output_text)
     
     try:
         with open(report_file_path, "w") as f:
@@ -180,12 +192,13 @@ def parse_pcap(pcap_file, report_dir):
         print(f"[ERROR] Could not write report to {report_file_path}: {e}")
 
 if __name__ == "__main__":
-    if len(sys.argv) < 3:
-        print("Usage: python internet_usage_parser.py <pcap_file> <report_dir>")
+    if len(sys.argv) < 4:
+        print("Usage: python internet_usage_parser.py <pcap_file> <report_dir> <org_name>")
         sys.exit(1)
         
     pcap_arg = sys.argv[1]
     report_arg = sys.argv[2]
+    org_arg = sys.argv[3]
     
     if not os.path.exists(pcap_arg):
         print(f"[ERROR] PCAP file not found: {pcap_arg}")
@@ -195,4 +208,4 @@ if __name__ == "__main__":
         print(f"[ERROR] Report directory not found: {report_arg}")
         sys.exit(1)
         
-    parse_pcap(pcap_arg, report_arg)
+    parse_pcap(pcap_arg, report_arg, org_arg)

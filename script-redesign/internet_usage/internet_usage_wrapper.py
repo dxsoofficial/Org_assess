@@ -42,10 +42,10 @@ def check_tshark():
         return False
 
 def run_capture(interface, duration, log_dir):
-    # TShark often drops privileges after starting. To avoid permission denied errors
-    # when writing to root or home directories, we write to /tmp first.
+    # TShark often drops privileges after starting. 
     import shutil
-    temp_pcap = f"/tmp/capture_temp_{int(time.time())}.pcap"
+    import tempfile
+    temp_pcap = os.path.join(tempfile.gettempdir(), f"capture_temp_{int(time.time())}.pcap")
     pcap_file = os.path.join(log_dir, "capture.pcap")
     
     log(f"Starting TShark capture on interface '{interface}' for {duration} seconds...", "WARN")
@@ -74,7 +74,6 @@ def run_capture(interface, duration, log_dir):
             
         if os.path.exists(temp_pcap) and os.path.getsize(temp_pcap) > 0:
             shutil.move(temp_pcap, pcap_file)
-            os.chmod(pcap_file, 0o666) # Ensure readable for parsing
             log(f"Capture complete. Saved to {pcap_file}", "SUCCESS")
             return pcap_file
         else:
@@ -93,23 +92,38 @@ def main():
     print("==========================================================")
     
     if not check_tshark():
-        log("TShark is not installed. Please install it first ('sudo apt install tshark').", "ERROR")
+        log("TShark is not installed or not in PATH. Please install Wireshark/TShark first.", "ERROR")
         sys.exit(1)
         
     org_name = input("\nEnter the organization name [default: Unknown_Org]: ").strip().replace(" ", "_")
     if not org_name:
         org_name = "Unknown_Org"
         
-    interface = input("Enter interface for Live Network Capture (e.g., eth0) [default: eth0]: ").strip()
-    if not interface:
-        interface = "eth0"
+    mode = input("Do you want to (1) Live Capture or (2) Analyze existing PCAP? [default: 2]: ").strip()
+    if not mode:
+        mode = "2"
         
-    duration_input = input("Enter Capture duration (seconds) [default: 60]: ").strip()
-    duration = int(duration_input) if duration_input.isdigit() else 60
-    
     log_dir, report_dir = setup_output_dir(org_name)
     
-    pcap_file = run_capture(interface, duration, log_dir)
+    pcap_file = ""
+    if mode == "1":
+        interface = input("Enter interface for Live Network Capture (e.g., 1 or eth0) [default: 1]: ").strip()
+        if not interface:
+            interface = "1"
+            
+        duration_input = input("Enter Capture duration (seconds) [default: 60]: ").strip()
+        duration = int(duration_input) if duration_input.isdigit() else 60
+        
+        pcap_file = run_capture(interface, duration, log_dir)
+    else:
+        pcap_path = input("Enter the full path to the existing PCAP file: ").strip()
+        # Remove quotes if dragged and dropped
+        pcap_path = pcap_path.strip('"').strip("'")
+        if os.path.exists(pcap_path):
+            pcap_file = pcap_path
+        else:
+            log(f"PCAP file not found: {pcap_path}", "ERROR")
+            sys.exit(1)
     
     if pcap_file and os.path.exists(pcap_file):
         print("\n==========================================================")
@@ -120,7 +134,7 @@ def main():
         
         if os.path.exists(parser_script):
             try:
-                subprocess.run([sys.executable, parser_script, pcap_file, report_dir], check=True)
+                subprocess.run([sys.executable, parser_script, pcap_file, report_dir, org_name], check=True)
             except subprocess.CalledProcessError as e:
                 log(f"Parsing script encountered an error: {e}", "ERROR")
         else:
