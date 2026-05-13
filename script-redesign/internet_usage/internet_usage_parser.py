@@ -54,8 +54,6 @@ def parse_pcap(pcap_file, report_dir, org_name):
             # We enforce length >= 7 to ensure it contains tx rx elements. Check if it's a valid IPv4
             if len(parts) >= 7 and parts[0].count('.') == 3:
                 ip_addr = parts[0]
-                if ip_addr == own_ip:
-                    continue
                     
                 try:
                     total_bytes = int(parts[2])
@@ -157,7 +155,7 @@ def parse_pcap(pcap_file, report_dir, org_name):
     
     # Sort by total bytes descending
     sorted_ips = sorted(ip_data.items(), key=lambda x: x[1]['total'], reverse=True)
-    total_devices = sum(1 for ip, _ in sorted_ips if ip != own_ip)
+    total_devices = len(sorted_ips)
     
     lines = []
     lines.append("=========================================\n")
@@ -174,10 +172,9 @@ def parse_pcap(pcap_file, report_dir, org_name):
     lines.append("-" * 75 + "\n")
     
     for ip, data in sorted_ips:
-        if ip == own_ip:
-            continue
+        display_ip = f"{ip} (*)" if ip == own_ip else ip
         tx_rx_str = f"{format_bytes(data['tx'])} / {format_bytes(data['rx'])}"
-        row = f"{ip:<16} {tx_rx_str:<25} {data['conn']:<15} {data['top_domain']}\n"
+        row = f"{display_ip:<16} {tx_rx_str:<25} {data['conn']:<15} {data['top_domain']}\n"
         lines.append(row)
 
     output_text = "".join(lines)
