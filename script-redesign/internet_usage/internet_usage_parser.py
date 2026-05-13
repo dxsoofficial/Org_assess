@@ -9,10 +9,12 @@ def log(msg, level="INFO"):
 
 def parse_size(val):
     val = val.replace(",", "")
-    if "MB" in val:
+    if "GB" in val:
+        return float(val.replace("GB", "").strip()) * 1024 * 1024 * 1024
+    elif "MB" in val:
         return float(val.replace("MB", "").strip()) * 1024 * 1024
-    elif "kB" in val:
-        return float(val.replace("kB", "").strip()) * 1024
+    elif "kB" in val or "KB" in val:
+        return float(val.replace("kB", "").replace("KB", "").strip()) * 1024
     elif "bytes" in val:
         return float(val.replace("bytes", "").strip())
     else:
@@ -34,6 +36,10 @@ def parse_pcap(pcap_file, report_dir, org_name):
             line = line.strip()
             if not re.match(r"^\d+\.\d+\.\d+\.\d+", line):
                 continue
+            
+            # Normalize spaces before unit sizes so re.split doesn't split the number from its unit
+            line = line.replace(" GB", "GB").replace(" MB", "MB").replace(" kB", "kB").replace(" KB", "KB").replace(" bytes", "bytes")
+            
             parts = re.split(r"\s+", line)
             try:
                 ip = parts[0]
