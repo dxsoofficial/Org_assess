@@ -48,7 +48,8 @@ def parse_pcap(pcap_file, report_dir, org_name):
                     "conn": 0,
                     "peers": set()
                 }
-            except Exception:
+            except Exception as e:
+                log(f"Row parse error on line '{line}': {e}", "WARN")
                 continue
     except Exception as e:
         log(f"Endpoints extraction failed: {e}", "ERROR")
@@ -81,6 +82,10 @@ def parse_pcap(pcap_file, report_dir, org_name):
     # ---------------------------
     # Findings
     # ---------------------------
+    if not ip_data:
+        log("DEBUG: ip_data is empty! Dumping raw tshark output:", "WARN")
+        log(endpoints, "WARN")
+        
     findings = []
     sorted_ips = sorted(ip_data.items(), key=lambda x: x[1]["total"], reverse=True)
 
