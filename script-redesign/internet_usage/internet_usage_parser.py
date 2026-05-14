@@ -176,7 +176,7 @@ def parse_pcap(pcap_file, report_dir, org_name):
         f.write(f"Date: {now}\n")
         f.write(f"PCAP File: {os.path.basename(pcap_file)}\n\n")
 
-        f.write(f"{'IP Address':<15} {'Device Name':<20} {'Vendor':<15} {'Upload':<10} {'Download':<10} {'Top Domains'}\n")
+        f.write(f"{'IP Address':<15} {'Device Name':<20} {'Device Type':<16} {'Upload':<10} {'Download':<10} {'Top Domains'}\n")
         f.write("-" * 90 + "\n")
 
         for ip, data in sorted_ips:
@@ -185,17 +185,17 @@ def parse_pcap(pcap_file, report_dir, org_name):
             
             h_info = host_info.get(ip, {})
             device_name = h_info.get("hostname", "") or "N/A"
-            vendor = h_info.get("vendor", "") or "N/A"
+            device_type = h_info.get("device_type", "") or "Unknown"
             
             # Truncate for clean table formatting
             device_name = (device_name[:17] + '..') if len(device_name) > 19 else device_name
-            vendor = (vendor[:12] + '..') if len(vendor) > 14 else vendor
+            device_type = (device_type[:13] + '..') if len(device_type) > 15 else device_type
             top_domain = (data['top_domain'][:25] + '..') if len(data['top_domain']) > 27 else data['top_domain']
             
             up_str = f"{up_mb:.1f} MB"
             down_str = f"{down_mb:.1f} MB"
 
-            f.write(f"{ip:<15} {device_name:<20} {vendor:<15} {up_str:<10} {down_str:<10} {top_domain}\n")
+            f.write(f"{ip:<15} {device_name:<20} {device_type:<16} {up_str:<10} {down_str:<10} {top_domain}\n")
 
         f.write("\nObservations:\n")
         if not observations:
