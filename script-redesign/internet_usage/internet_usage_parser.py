@@ -3,6 +3,7 @@ import os
 import subprocess
 import re
 import datetime
+import ipaddress
 
 def log(msg, level="INFO"):
     print(f"[{level}] {msg}")
@@ -49,11 +50,15 @@ def parse_pcap(pcap_file, report_dir, org_name):
                     continue
                 # Using negative indexing to avoid GeoIP shifting issues
                 ip_data[ip] = {
+                    "total_pkts": int(parts[-6].replace(",", "")),
                     "total": parse_size(parts[-5]),
+                    "tx_pkts": int(parts[-4].replace(",", "")),
                     "tx": parse_size(parts[-3]),
+                    "rx_pkts": int(parts[-2].replace(",", "")),
                     "rx": parse_size(parts[-1]),
                     "conn": 0,
-                    "peers": set()
+                    "peers": set(),
+                    "type": "unknown"
                 }
             except Exception as e:
                 log(f"Row parse error on line '{line}': {e}", "WARN")
@@ -94,6 +99,23 @@ def parse_pcap(pcap_file, report_dir, org_name):
         log(endpoints, "WARN")
         
     findings = []
+
+    # Classify each IP using behavior and ipaddress module
+    for ip, data in ip_data.items():
+        try:
+            ip_obj = ipaddress.ip_address(ip)
+            if ip_obj.is_private:
+                # IoT heuristic: > 50MB and <= 3 peers
+                if data["total"] > 50 * 1024 * 1024 and len(data["peers"]) <= 3:
+                    data["type"] = "iot_suspect"
+                    findings.append(f"[HIGH] IoT Device Detected: {ip}")
+                else:
+                    data["type"] = "internal"
+            else:
+                data["type"] = "external"
+        except ValueError:
+            data["type"] = "unknown"
+
     sorted_ips = sorted(ip_data.items(), key=lambda x: x[1]["total"], reverse=True)
 
     # Top talker
@@ -104,14 +126,14 @@ def parse_pcap(pcap_file, report_dir, org_name):
 
     # Lateral movement
     for ip, data in ip_data.items():
-        if len(data["peers"]) > 10:
-            findings.append(f"[HIGH] Possible Lateral Movement: {ip} → {len(data['peers'])} hosts")
+        if len(data["peers"]) > 10 and data["type"] in ["internal", "iot_suspect"]:
+            findings.append(f"[MEDIUM] High lateral communication: {ip} → {len(data['peers'])} hosts")
 
-    # Internal heavy
-    internal = sum(1 for ip in ip_data if ip.startswith("192.168") or ip.startswith("10.") or ip.startswith("172."))
-    external = len(ip_data) - internal
+    # Dynamic internal ratio
+    internal_count = sum(1 for data in ip_data.values() if data["type"] in ["internal", "iot_suspect"])
+    external_count = sum(1 for data in ip_data.values() if data["type"] == "external")
 
-    if internal > external * 3 and internal > 0:
+    if internal_count > external_count * 3 and internal_count > 0:
         findings.append("[MEDIUM] Traffic mostly internal")
 
     findings.append("[INFO] DNS visibility low (encrypted/internal traffic likely)")
@@ -135,12 +157,14 @@ def parse_pcap(pcap_file, report_dir, org_name):
             f.write(item + "\n")
 
         f.write("\n=== ALL SYSTEMS (Sorted by Volume) ===\n")
-        f.write(f"{'IP':<16} {'MB':<10} {'CONN':<10} {'PEERS'}\n")
-        f.write("-" * 50 + "\n")
+        f.write(f"{'IP':<16} {'TYPE':<13} {'TOTAL MB':<10} {'TX MB':<10} {'RX MB':<10} {'CONN':<6} {'PEERS'}\n")
+        f.write("-" * 75 + "\n")
 
         for ip, data in sorted_ips:
-            mb = data["total"] / (1024 * 1024)
-            f.write(f"{ip:<16} {mb:.1f} MB   {data['conn']:<10} {len(data['peers'])}\n")
+            tot_mb = data["total"] / (1024 * 1024)
+            tx_mb = data["tx"] / (1024 * 1024)
+            rx_mb = data["rx"] / (1024 * 1024)
+            f.write(f"{ip:<16} {data['type']:<13} {tot_mb:<10.1f} {tx_mb:<10.1f} {rx_mb:<10.1f} {data['conn']:<6} {len(data['peers'])}\n")
 
     log(f"Report saved: {report_file}", "SUCCESS")
 
