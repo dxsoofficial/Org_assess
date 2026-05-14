@@ -133,11 +133,11 @@ def parse_pcap(pcap_file, report_dir, org_name):
         for item in findings:
             f.write(item + "\n")
 
-        f.write("\n=== TOP SYSTEMS ===\n")
+        f.write("\n=== ALL SYSTEMS (Sorted by Volume) ===\n")
         f.write(f"{'IP':<16} {'MB':<10} {'CONN':<10} {'PEERS'}\n")
         f.write("-" * 50 + "\n")
 
-        for ip, data in sorted_ips[:15]:
+        for ip, data in sorted_ips:
             mb = data["total"] / (1024 * 1024)
             f.write(f"{ip:<16} {mb:.1f} MB   {data['conn']:<10} {len(data['peers'])}\n")
 
