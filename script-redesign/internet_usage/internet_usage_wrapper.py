@@ -134,6 +134,20 @@ def main():
     
     if pcap_file and os.path.exists(pcap_file):
         print("\n==========================================================")
+        run_discovery = input("Do you want to run Active Host Discovery to enrich the report? (y/n) [default: n]: ").strip().lower()
+        if run_discovery == 'y':
+            log("Triggering automated Host Discovery...", "INFO")
+            script_dir = os.path.dirname(os.path.abspath(__file__))
+            host_dis_sh = os.path.abspath(os.path.join(script_dir, "..", "Host-Discovery", "Host-Dis.sh"))
+            if os.path.exists(host_dis_sh):
+                try:
+                    subprocess.run(["bash", host_dis_sh], input=org_name + "\n", text=True, check=True)
+                    log("Host Discovery complete.", "SUCCESS")
+                except subprocess.CalledProcessError as e:
+                    log(f"Host Discovery encountered an error: {e}", "ERROR")
+            else:
+                log(f"Host Discovery script not found at {host_dis_sh}", "WARN")
+                
         log("Triggering parsing and analysis...", "INFO")
         
         script_dir = os.path.dirname(os.path.abspath(__file__))
