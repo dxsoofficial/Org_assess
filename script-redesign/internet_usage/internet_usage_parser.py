@@ -38,13 +38,13 @@ def parse_pcap(pcap_file, report_dir, org_name):
             with open(host_csv_path, "r", encoding="utf-8") as f:
                 reader = csv.DictReader(f)
                 for row in reader:
-                    ip = row.get("IPAddress", "").strip()
+                    ip = (row.get("IPAddress") or "").strip()
                     if ip:
                         host_info[ip] = {
-                            "hostname": row.get("HostName", "").strip(),
-                            "mac": row.get("MAC", "").strip(),
-                            "vendor": row.get("Vendor", "").strip(),
-                            "device_type": row.get("DeviceType", "").strip()
+                            "hostname": (row.get("HostName") or "").strip(),
+                            "mac": (row.get("MAC") or "").strip(),
+                            "vendor": (row.get("Vendor") or "").strip(),
+                            "device_type": (row.get("DeviceType") or "").strip()
                         }
         except Exception as e:
             log(f"Failed to read Host Discovery CSV: {e}", "WARN")
