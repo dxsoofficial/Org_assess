@@ -141,7 +141,8 @@ def main():
             host_dis_sh = os.path.abspath(os.path.join(script_dir, "..", "Host-Discovery", "Host-Dis.sh"))
             if os.path.exists(host_dis_sh):
                 try:
-                    subprocess.run(["bash", host_dis_sh], input=org_name + "\n", text=True, check=True)
+                    host_dis_dir = os.path.dirname(host_dis_sh)
+                    subprocess.run(["bash", host_dis_sh], input=org_name + "\n", text=True, check=True, cwd=host_dis_dir)
                     log("Host Discovery complete.", "SUCCESS")
                 except subprocess.CalledProcessError as e:
                     log(f"Host Discovery encountered an error: {e}", "ERROR")
