@@ -27,6 +27,7 @@ def parse_pcap(pcap_file, report_dir, org_name):
     # ---------------------------
     # Endpoints
     # ---------------------------
+    endpoints = ""
     try:
         endpoints = subprocess.check_output(
             ["tshark", "-n", "-r", pcap_file, "-q", "-z", "endpoints,ip"],

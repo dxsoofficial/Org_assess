@@ -118,7 +118,15 @@ def main():
         pcap_path = input("Enter the full path to the existing PCAP file: ").strip()
         # Remove quotes if dragged and dropped
         pcap_path = pcap_path.strip('"').strip("'")
-        if os.path.exists(pcap_path):
+        if os.path.isdir(pcap_path):
+            if os.path.isfile(os.path.join(pcap_path, "capture.pcap")):
+                pcap_file = os.path.join(pcap_path, "capture.pcap")
+            elif os.path.isfile(os.path.join(pcap_path, "capture.pcapng")):
+                pcap_file = os.path.join(pcap_path, "capture.pcapng")
+            else:
+                log(f"Provided path is a directory and no capture.pcap was found inside: {pcap_path}", "ERROR")
+                sys.exit(1)
+        elif os.path.isfile(pcap_path):
             pcap_file = pcap_path
         else:
             log(f"PCAP file not found: {pcap_path}", "ERROR")
