@@ -1,8 +1,10 @@
 import os
 import sys
-import time
 import subprocess
+import time
 from datetime import datetime
+import shutil
+import tempfile
 
 def log(msg, level="INFO"):
     colors = {
@@ -15,20 +17,30 @@ def log(msg, level="INFO"):
     color = colors.get(level, colors["INFO"])
     print(f"{color}[{level}] {msg}{colors['RESET']}")
 
+def check_tshark():
+    try:
+        subprocess.run(["tshark", "--version"], capture_output=True, check=True)
+        return True
+    except FileNotFoundError:
+        return False
+    except subprocess.CalledProcessError:
+        return False
+
 def setup_output_dir(org_name):
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    base_out_dir = os.path.abspath(os.path.join(script_dir, "output", org_name, "out_email_flow"))
+    base_out_dir = os.path.abspath(os.path.join(script_dir, "output", org_name))
     os.makedirs(base_out_dir, exist_ok=True)
     
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    out_dir = os.path.join(base_out_dir, f"email_flow_logs_{timestamp}")
-    try:
-        os.makedirs(out_dir, exist_ok=True)
-        log(f"Created output directory: {out_dir}", "SUCCESS")
-        return out_dir
-    except Exception as e:
-        log(f"Failed to create directory '{out_dir}': {e}", "ERROR")
-        sys.exit(1)
+    log_dir = os.path.join(base_out_dir, "log")
+    report_dir = os.path.join(base_out_dir, "report")
+    
+    os.makedirs(log_dir, exist_ok=True)
+    os.makedirs(report_dir, exist_ok=True)
+    
+    log(f"Created log directory: {log_dir}", "SUCCESS")
+    log(f"Created report directory: {report_dir}", "SUCCESS")
+    
+    return log_dir, report_dir
 
 def set_ip_forwarding(enable=True):
     val = "1" if enable else "0"
@@ -37,7 +49,7 @@ def set_ip_forwarding(enable=True):
     try:
         subprocess.run(["sysctl", "-w", f"net.ipv4.ip_forward={val}"], capture_output=True, check=True)
     except Exception as e:
-        log(f"Failed to set IP forwarding. Interception might drop victim's internet: {e}", "WARN")
+        log(f"Failed to set IP forwarding: {e}", "WARN")
 
 def start_arp_spoofing(interface, gateway_ip, target_ip=""):
     procs = []
@@ -55,7 +67,7 @@ def start_arp_spoofing(interface, gateway_ip, target_ip=""):
             p1 = subprocess.Popen(["arpspoof", "-i", interface, gateway_ip], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
             procs.append(p1)
             
-        log("ARP Spoofing is now active. Email flows routed to this machine.", "SUCCESS")
+        log("ARP Spoofing is now active.", "SUCCESS")
         return procs
         
     except FileNotFoundError:
@@ -70,129 +82,157 @@ def stop_arp_spoofing(procs):
             p.wait(timeout=5)
         log("Target traffic routing restored to normal.", "SUCCESS")
 
-
-def compile_results(out_dir):
-    log("Consolidating final 3-Pillar Email Security report...", "INFO")
+def run_capture(interface, duration, log_dir):
+    temp_pcap = os.path.join(tempfile.gettempdir(), f"email_capture_temp_{int(time.time())}.pcap")
+    pcap_file = os.path.join(log_dir, "email_capture.pcap")
     
-    final_report = os.path.join(out_dir, "email_flow_report.txt")
-    pcap_log = os.path.join(out_dir, "historical_email_flows.txt")
-    sa_log = os.path.join(out_dir, "spamassassin_report.txt")
-    dns_log = os.path.join(out_dir, "external_dns_posture.txt")
+    mail_ports = "tcp port 25 or tcp port 465 or tcp port 587 or tcp port 143 or tcp port 993 or tcp port 110 or tcp port 995"
+    log(f"Starting TShark Email Flow capture on interface '{interface}' for {duration} seconds...", "WARN")
     
+    cmd = ["tshark", "-i", interface, "-a", f"duration:{duration}", "-f", mail_ports, "-w", temp_pcap, "-q"]
     try:
-        with open(final_report, "w") as report:
-            report.write("==========================================================\n")
-            report.write("      FULL 3-PILLAR EMAIL SECURITY & POSTURE REPORT       \n")
-            report.write("==========================================================\n\n")
-            
-            report.write("--- Pillar 1: Static Endpoint Content Analysis (SpamAssassin) ---\n")
-            if os.path.exists(sa_log):
-                with open(sa_log, "r") as f:
-                    report.write(f.read() + "\n")
-            else:
-                report.write("No static .eml file processed for Endpoint analysis.\n\n")
-
-            report.write("\n\n--- Pillar 2: Live Network Email Flow Interception (TShark) ---\n")
-            if os.path.exists(pcap_log):
-                with open(pcap_log, "r") as f:
-                    report.write(f.read() + "\n")
-            else:
-                report.write("No live network email flows captured or analyzed.\n\n")
-                
-            report.write("\n\n--- Pillar 3: External Domain Security Posture (DNS Logs) ---\n")
-            if os.path.exists(dns_log):
-                with open(dns_log, "r") as f:
-                    report.write(f.read() + "\n")
-            else:
-                report.write("No external domain investigated.\n")
-                
-        for file in [pcap_log, sa_log, dns_log]:
-            if os.path.exists(file):
-                os.remove(file)
-                
-        log(f"Final 3-Pillar Report cleanly compiled to: '{os.path.abspath(final_report)}'", "SUCCESS")
+        start_time = time.time()
+        process = subprocess.Popen(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, text=True)
         
+        while process.poll() is None:
+            elapsed = int(time.time() - start_time)
+            display_elapsed = min(elapsed, duration) 
+            sys.stdout.write(f"\rCapturing Email Traffic... {display_elapsed}/{duration} seconds elapsed")
+            sys.stdout.flush()
+            time.sleep(1)
+            
+        sys.stdout.write("\n")
+        
+        if process.returncode != 0:
+            err_out = process.stderr.read().strip()
+            log(f"TShark encountered an error: {err_out}", "ERROR")
+            if os.path.exists(temp_pcap):
+                os.remove(temp_pcap)
+            return ""
+            
+        if os.path.exists(temp_pcap) and os.path.getsize(temp_pcap) > 0:
+            shutil.move(temp_pcap, pcap_file)
+            log(f"Capture complete. Saved to {pcap_file}", "SUCCESS")
+            return pcap_file
+        else:
+            log("Capture completed but PCAP file is empty. There may have been no email traffic on interface.", "ERROR")
+            if os.path.exists(temp_pcap):
+                os.remove(temp_pcap)
+            return ""
+            
     except Exception as e:
-        log(f"Error compiling final report: {e}", "ERROR")
+        log(f"Error launching TShark: {e}", "ERROR")
+        return ""
 
 def main():
     print("==========================================================")
-    print("  Email Flow Monitoring & Content Analysis - Wrapper      ")
+    print("      Email Flow Monitoring & Content Analysis            ")
     print("==========================================================")
     
-    if hasattr(os, 'geteuid') and os.geteuid() != 0:
-        log("WARNING: TShark (raw socket access) and ARP Spoofing require root (sudo).", "WARN")
-        time.sleep(2)
+    if not check_tshark():
+        log("TShark is not installed or not in PATH. Please install Wireshark/TShark first.", "ERROR")
+        sys.exit(1)
         
     arpspoof_procs = []
     is_spoofing = False
-    
+
     try:
-        org_name = input("\nEnter the organization name in which the assessment is performed: ").strip().replace(" ", "_")
+        org_name = input("\nEnter the organization name [default: Unknown_Org]: ").strip().replace(" ", "_")
         if not org_name:
             org_name = "Unknown_Org"
             
-        interface = input("\nEnter interface for Live Email Flow monitoring (e.g., eth0) [default: eth0]: ").strip()
-        if not interface:
-            interface = "eth0"
+        mode = input("Do you want to (1) Live Capture or (2) Analyze existing PCAP? [default: 2]: ").strip()
+        if not mode:
+            mode = "2"
             
-        duration_input = input("Enter Flow Capture duration (minutes) [default: 5]: ").strip()
-        duration_mins = int(duration_input) if duration_input.isdigit() else 5
+        log_dir, report_dir = setup_output_dir(org_name)
         
-        eml_file = input("Enter path to a raw email file (.eml) for Phase 1 static SpamAssassin assessment [leave blank to skip]: ").strip()
+        pcap_file = ""
+        if mode == "1":
+            if hasattr(os, 'geteuid') and os.geteuid() != 0:
+                log("WARNING: TShark (raw socket access) and ARP Spoofing require root (sudo).", "WARN")
+                time.sleep(2)
+                
+            interface = input("Enter interface for Live Network Capture (e.g., eth0) [default: eth0]: ").strip()
+            if not interface:
+                interface = "eth0"
+                
+            duration_input = input("Enter Capture duration (seconds) [default: 60]: ").strip()
+            duration = int(duration_input) if duration_input.isdigit() else 60
+            
+            spoof_choice = input("Enable Active ARP Spoofing to intercept network email traffic? (y/N): ").strip().lower()
+            if spoof_choice == 'y':
+                gateway_ip = input("  Enter Router/Gateway IP (e.g., 192.168.1.1): ").strip()
+                target_ip = input("  Enter Target IP (leave empty to intercept ALL subnet traffic): ").strip()
+                
+                if gateway_ip:
+                    is_spoofing = True
+                    set_ip_forwarding(enable=True)
+                    arpspoof_procs = start_arp_spoofing(interface, gateway_ip, target_ip)
+                else:
+                    log("Router/Gateway IP is required to arp spoof. Bypassing interception.", "WARN")
+                    
+            pcap_file = run_capture(interface, duration, log_dir)
+        else:
+            pcap_path = input("Enter the full path to the existing PCAP file: ").strip()
+            pcap_path = pcap_path.strip('"').strip("'")
+            if os.path.isdir(pcap_path):
+                if os.path.isfile(os.path.join(pcap_path, "email_capture.pcap")):
+                    pcap_file = os.path.join(pcap_path, "email_capture.pcap")
+                else:
+                    log(f"Provided path is a directory and no email_capture.pcap was found inside: {pcap_path}", "ERROR")
+                    sys.exit(1)
+            elif os.path.isfile(pcap_path):
+                pcap_file = pcap_path
+            else:
+                log(f"PCAP file not found: {pcap_path}", "ERROR")
+                sys.exit(1)
         
+        eml_file = input("\nEnter path to a raw email file (.eml) for Phase 1 static SpamAssassin assessment [leave blank to skip]: ").strip()
         target_domain = input("Enter Target Domain (e.g., company.com) to automatically assess its public DMARC/SPF Posture [leave blank to skip]: ").strip()
         
-        print("\n--- Phase 0: Network Interception Setup ---")
-        spoof_choice = input("Enable Active ARP Spoofing to intercept WHOLE network email traffic? (y/N): ").strip().lower()
-        if spoof_choice == 'y':
-            gateway_ip = input("  Enter Router/Gateway IP (e.g., 192.168.1.1): ").strip()
-            target_ip = input("  Enter Target IP (leave empty to intercept ALL subnet traffic): ").strip()
-            
-            if gateway_ip:
-                is_spoofing = True
-                set_ip_forwarding(enable=True)
-                arpspoof_procs = start_arp_spoofing(interface, gateway_ip, target_ip)
-            else:
-                log("Router/Gateway IP is absolutely required to arp spoof. Bypassing interception.", "WARN")
+        if pcap_file and os.path.exists(pcap_file):
+            print("\n==========================================================")
+            run_discovery = input("Do you want to run Active Host Discovery to enrich the report? (y/n) [default: n]: ").strip().lower()
+            if run_discovery == 'y':
+                log("Triggering automated Host Discovery...", "INFO")
+                script_dir = os.path.dirname(os.path.abspath(__file__))
+                host_dis_sh = os.path.abspath(os.path.join(script_dir, "..", "Host-Discovery", "Host-Dis.sh"))
+                if os.path.exists(host_dis_sh):
+                    try:
+                        host_dis_dir = os.path.dirname(host_dis_sh)
+                        subprocess.run(["bash", host_dis_sh], input=org_name + "\n", text=True, check=True, cwd=host_dis_dir)
+                        log("Host Discovery complete.", "SUCCESS")
+                    except subprocess.CalledProcessError as e:
+                        log(f"Host Discovery encountered an error: {e}", "ERROR")
+                else:
+                    log(f"Host Discovery script not found at {host_dis_sh}", "WARN")
+                    
+        log("Triggering parsing and analysis...", "INFO")
         
-        out_dir = setup_output_dir(org_name)
         script_dir = os.path.dirname(os.path.abspath(__file__))
+        parser_script = os.path.join(script_dir, "email_flow_parser.py")
         
-        print("\n--- Pillar 1: Static Email Content Analysis ---")
-        if eml_file:
-            sa_script = os.path.join(script_dir, "spamassassin_scan.py")
-            if os.path.exists(sa_script):
-                subprocess.run([sys.executable, sa_script, "--out-dir", out_dir, "--eml-file", eml_file])
-            else:
-                log("spamassassin_scan.py not found.", "ERROR")
+        if os.path.exists(parser_script):
+            try:
+                cmd = [sys.executable, parser_script, 
+                       "--pcap", pcap_file if pcap_file else "", 
+                       "--report-dir", report_dir, 
+                       "--org-name", org_name]
+                if eml_file:
+                    cmd.extend(["--eml", eml_file])
+                if target_domain:
+                    cmd.extend(["--domain", target_domain])
+                
+                subprocess.run(cmd, check=True)
+            except subprocess.CalledProcessError as e:
+                log(f"Parsing script encountered an error: {e}", "ERROR")
         else:
-            log("No .eml file provided.", "INFO")
-
-        print("\n--- Pillar 2: Live Network Email Monitoring ---")
-        tshark_script = os.path.join(script_dir, "tshark_email_scan.py")
-        if os.path.exists(tshark_script):
-            subprocess.run([sys.executable, tshark_script, "--out-dir", out_dir, "--interface", interface, "--duration-mins", str(duration_mins)])
-        else:
-            log("tshark_email_scan.py not found.", "ERROR")
-
-        print("\n--- Pillar 3: External Domain Asset Auditing ---")
-        if target_domain:
-            dns_script = os.path.join(script_dir, "dns_posture_scan.py")
-            if os.path.exists(dns_script):
-                subprocess.run([sys.executable, dns_script, "--out-dir", out_dir, "--domain", target_domain])
-            else:
-                log("dns_posture_scan.py not found.", "ERROR")
-        else:
-            log("No target domain provided.", "INFO")
-        
-        print("\n==========================================================")
-        compile_results(out_dir)
-        log("Log-less Assessment Suite mathematical analysis entirely completed!", "SUCCESS")
-        
+            log(f"Parser script not found at {parser_script}", "ERROR")
+            
     except KeyboardInterrupt:
         print("\n")
-        log("Email assessment purposefully interrupted by user. Exiting...", "WARN")
+        log("Email Flow monitoring interrupted by user.", "WARN")
     finally:
         if is_spoofing:
             print("\n--- Clean-up Phase ---")
